@@ -10,6 +10,17 @@ This folder contains the Toolboxed planning log and execution worklog.
 | `CODING_WORKLOG.md` | Records what the project has done: completed changes, files affected, implementation details, validation, limitations, blockers, status, next steps, and commits or pull requests. |
 | `README.md` | Defines the governance rules for both logs. |
 
+## Mandatory plan-first execution gate
+
+<!-- GATE RULE: No repository change may begin until the intended work is recorded or updated in PLAN_LOG.md. -->
+<!-- GATE RULE: The plan item must define scope, objective, dependencies, outputs, risks, and acceptance criteria before execution. -->
+<!-- GATE RULE: User approval is required where the change is consequential, state-changing, or otherwise requires confirmation. -->
+<!-- GATE RULE: Execution must stay within the approved plan scope; scope changes require a plan update before continuing. -->
+<!-- GATE RULE: Every execution entry must identify the authorising PL- identifier. -->
+<!-- GATE RULE: Every completed plan item must link to its WL- entry and resulting commit or pull request. -->
+<!-- GATE RULE: Failed, partial, blocked, cancelled, and reverted work must be recorded honestly and cannot be marked Completed. -->
+<!-- GATE RULE: Emergency work may use an exception path only when the worklog records the reason and the plan is updated retrospectively as soon as practical. -->
+
 ## Plan log rules
 
 <!-- PLAN RULE: Update PLAN_LOG.md when intended work, priorities, dependencies, decisions, or scope changes. -->
@@ -29,6 +40,7 @@ This folder contains the Toolboxed planning log and execution worklog.
 <!-- WORKLOG RULE: Put the newest entry first and mark it green. -->
 <!-- WORKLOG RULE: Do not delete or rewrite previous entries. Mark older entries grey so the project history remains visible. -->
 <!-- WORKLOG RULE: Record what actually changed, not only what was intended. -->
+<!-- WORKLOG RULE: Include the authorising Plan item: PL- identifier. -->
 <!-- WORKLOG RULE: Record objective, context, detailed work completed, decisions, files and folders affected, implementation details, validation, limitations, blockers, status, next steps, and commit or pull request. -->
 <!-- WORKLOG RULE: Use repository-relative paths and identify created, updated, deleted, or unchanged files where relevant. -->
 <!-- WORKLOG RULE: Record failed checks, partial results, assumptions, and unperformed validation honestly. -->
@@ -36,11 +48,16 @@ This folder contains the Toolboxed planning log and execution worklog.
 
 ## How the logs work together
 
-1. Add or update intended work in `PLAN_LOG.md`.
-2. Record actual repository or product changes in `CODING_WORKLOG.md` after execution.
-3. Link the plan item to the execution worklog entry and commit or pull request.
-4. Update the plan item's status only when its defined status transition is justified.
-5. Keep plan changes and execution history separate: the plan may change as priorities evolve, while the worklog remains an immutable chronological record.
+1. Identify the requested repository work.
+2. Add or update the intended work in `PLAN_LOG.md`.
+3. Review scope, dependencies, people, data, outputs, risks, and acceptance criteria.
+4. Obtain required approval before executing consequential work.
+5. Execute only the approved plan item.
+6. Record actual repository or product changes in `CODING_WORKLOG.md`.
+7. Add the `PL-` identifier to the worklog entry and add the `WL-` identifier to the plan item.
+8. Link the resulting commit or pull request in both records.
+9. Update the plan status only when the acceptance criteria and evidence justify the transition.
+10. Keep plan changes and execution history separate: the plan may change as priorities evolve, while the worklog remains an immutable chronological record.
 
 ## Required plan-item format
 
@@ -66,6 +83,7 @@ Related execution records:
 ```text
 WL-0001 — YYYY-MM-DD
 
+Plan item: PL-0001
 Change type:
 Objective:
 Context:
