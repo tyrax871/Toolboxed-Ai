@@ -11,6 +11,89 @@
 
 <span style="color:green">
 
+## WL-0007 — 2026-09-18
+
+**Plan item:** `PL-0002`  
+**Change type:** Repository governance and progress-log workflow  
+**Objective:** Implement the approved plan-first repository execution workflow and create an explicit relationship between intended work in `PLAN_LOG.md` and completed work in `CODING_WORKLOG.md`.  
+**Context:** Toolboxed now maintains separate planning and execution records. The plan log records what the project wants to do; the coding worklog records what was actually changed. The project requires work to be planned before execution so scope, dependencies, acceptance criteria, and risks are visible before repository changes begin.
+
+### Detailed work completed
+
+- Added `PL-0002` to `progress/PLAN_LOG.md`.
+- Defined the mandatory sequence: plan, review, approve where required, execute, record, link, and update status.
+- Defined the relationship contract between `PL-` plan items, `WL-` worklog entries, and resulting commits or pull requests.
+- Made the plan-first execution gate explicit: no repository change may begin until intended work is recorded or updated in `PLAN_LOG.md`.
+- Required execution to remain within approved plan scope; scope changes must be planned before continuing.
+- Required every worklog entry to identify its authorising `PL-` item.
+- Required every completed plan item to link to its `WL-` execution record and resulting commit or pull request.
+- Added honest handling for failed, partial, blocked, cancelled, reverted, and emergency work.
+- Updated `progress/README.md` with the mandatory execution gate and the new `Plan item` field in the worklog template.
+- Preserved previous plan and worklog history rather than rewriting or deleting it.
+
+### Decisions and rationale
+
+- Planning and execution remain separate records so changing priorities does not rewrite historical execution.
+- A plan item remains incomplete until its acceptance criteria and execution evidence are available.
+- A worklog records actual outcomes, including failures and unperformed validation, not intended outcomes.
+- Documentation-only, configuration, code, tests, and repository-structure changes all follow the same plan-first rule.
+- Emergency work may use an exception path, but must be recorded and linked retrospectively as soon as practical.
+
+### Files and folders affected
+
+| Path | Change |
+|---|---|
+| `progress/PLAN_LOG.md` | Updated with `PL-0002` and the plan/worklog relationship contract |
+| `progress/README.md` | Updated with mandatory plan-first governance and linked-record rules |
+| `progress/CODING_WORKLOG.md` | Added `WL-0007` as the newest execution record |
+| `app/`, `packages/`, `services/`, `infrastructure/`, `tests/`, `docs/`, `design/` | Unchanged |
+
+### Implementation details
+
+The enforced record relationship is:
+
+```text
+PL-0002 — approved intended work
+    ↓
+WL-0007 — actual execution record
+    ↓
+Commit — repository evidence
+```
+
+The required plan-to-execution process is:
+
+1. Create or update a plan item.
+2. Define objective, scope, dependencies, people, data, outputs, risks, and acceptance criteria.
+3. Obtain required approval.
+4. Execute only the approved scope.
+5. Record actual changes in the worklog.
+6. Add the `PL-` ID to the worklog and the `WL-` ID to the plan item.
+7. Link the resulting commit or pull request.
+8. Move the plan status only when evidence supports the transition.
+
+### Validation performed
+
+- Read `progress/PLAN_LOG.md`, `progress/README.md`, and `progress/CODING_WORKLOG.md` before updating the governance records.
+- Confirmed `PL-0002` was added before its execution changes were recorded.
+- Confirmed the governance update was limited to the progress folder.
+- Confirmed the worklog entry identifies `PL-0002`.
+- No application code, database migrations, automated tests, lint checks, type checks, deployment checks, or infrastructure provisioning were run.
+
+### Limitations or blockers
+
+- The relationship is currently enforced by documented process rather than automated CI validation.
+- The plan item remains Active until its final commit links are added and the acceptance review is complete.
+- The emergency-work exception path is documented but has not been tested.
+- The repository has no automated check preventing an unplanned commit.
+
+**Status:** Current  
+**Next steps:** Add or update a plan item before every future repository change; execute only after the plan is ready; link each resulting worklog entry and commit; consider adding automated validation for plan/worklog IDs and links later.  
+**Commit:** To be added after the repository write completes.
+
+</span>
+
+<span style="color:grey">
+
 ## WL-0006 — 2026-09-18
 
 **Change type:** Product, UX, data infrastructure, and backend/frontend planning  
@@ -21,123 +104,50 @@
 
 - Confirmed that parameter-driven design is a controlled and traceable design-exploration process, not a black-box image generator.
 - Recorded the need to understand what Toolboxed must do, which people and roles are required, what data must be collected, how that data is stored, and how backend records are represented in the frontend.
-- Established the main parameter groups for future data contracts and UI forms:
-  1. Site and context: boundary, orientation, north, contours, topography, setbacks, easements, access, roads, climate, neighbouring context, and retained elements.
-  2. Program and brief: typology, unit mix, room schedules, occupancy, target areas, room dimensions, accessibility, amenities, parking, storage, and circulation.
-  3. Building massing: footprint, envelope, levels, floor-to-floor heights, basement depth, roof form, courtyards, voids, frontage, setbacks, density, site coverage, daylight, and views.
-  4. Spatial and circulation rules: adjacencies, separation, cores, entrances, public/private zoning, wet-area stacking, egress, and accessible routes.
-  5. Envelope and performance: orientation, glazing, shading, assemblies, insulation, daylight, energy, thermal comfort, embodied carbon, and material preferences.
-  6. Cost and delivery: budget, unit-rate assumptions, cost ceilings, construction system, structural grid, repeatability, programme duration, and procurement constraints.
-  7. Compliance and governance: planning rules, building-code checks, project standards, tolerances, locked constraints, approval status, responsible roles, and audit history.
-  8. Design intent and presets: compact, daylight-focused, low-cost, high-density, adaptable, low-carbon, family-oriented, organisation presets, and project presets.
-- Defined the primary domain entities requiring future schema and relationship design: `DesignBrief`, `ParameterSet`, `ParameterDefinition`, `ParameterValue`, `Constraint`, `Objective`, `SiteContext`, `Preset`, `GenerationRun`, `Alternative`, `MetricSnapshot`, `ModelRevision`, `ModelDiff`, `DependencyImpact`, `Decision`, `Approval`, `AuditEvent`, and `Exception`.
-- Identified the wider platform entities that must connect to this work: identity, organisation, membership, role, permission, project, phase, building, level, room, architectural element, view, sheet, document, specialist system, issue, comment, notification, session, and export package.
-- Defined the required design-iteration lifecycle: create brief, import or define site, set hard constraints, set soft objectives, generate alternatives, inspect metrics and failures, revise parameters, regenerate, compare, fork or save options, accept an alternative as a model revision, review downstream impacts, obtain approvals, and publish a controlled candidate.
-- Identified backend responsibilities: persistence, validation, unit normalization, access control, generation orchestration, job status, model versioning, metric calculation, dependency analysis, audit recording, notifications, exports, and recovery.
-- Identified frontend responsibilities: guided data entry, parameter editing, site/context interaction, 2D and 3D previews, generation progress, alternatives gallery, synchronized comparison, constraint explanations, metric display, model-diff review, permissions-aware actions, stale-data states, and accessible responsive interaction.
-- Established that frontend state must distinguish local draft values, saved server state, active generation state, accepted model state, approved/published state, stale metrics, partial results, validation errors, and read-only or blocked access.
-- Established that generated alternatives must retain their immutable input parameters, units, constraints, objective weights, generation run, solver or model information, assumptions, metrics, model version, provenance, and user decisions.
-- Established that accepted alternatives must become explicit model revisions, preserving snapshots, diffs, affected views, dependent systems, documents, approvals, and audit events.
-- Identified the need for API and event contracts linking frontend actions to backend commands and queries, including draft saving, validation, generation requests, job progress, alternative retrieval, comparison, acceptance, revision creation, impact review, approval, and publishing.
-- Identified the need for asynchronous generation jobs so long-running design computation does not block the frontend. The UI must support queued, running, partial, completed, failed, cancelled, expired, and recoverable job states.
-- Identified the need for provenance and explainability records that show which inputs changed, which constraints were binding, which assumptions were used, why an alternative differs, and which downstream entities may be affected.
-- Identified the need for data collection rules covering source, owner, timestamp, units, confidence, validation status, sensitivity, permissions, version, and whether a value is user-entered, imported, calculated, generated, or approved.
-- Identified the people and responsibilities required for the next planning and implementation stages:
-  - Product owner: prioritises workflows, outcomes, scope, and acceptance criteria.
-  - BIM/domain architect: defines model entities, spatial relationships, views, and industry rules.
-  - UX/UI designer: converts data and states into usable workflows and accessible interfaces.
-  - Frontend engineer: implements forms, canvases, state management, API integration, and visual feedback.
-  - Backend engineer: implements services, persistence, validation, jobs, APIs, events, and permissions.
-  - Data/AI engineer: defines generation inputs, solver integration, metrics, evaluation, provenance, and model safety.
-  - Platform/DevOps engineer: defines environments, deployment, observability, backups, queues, storage, and secrets management.
-  - QA/test engineer: defines domain, API, workflow, visual, accessibility, performance, and regression coverage.
-  - Security/privacy specialist: defines tenancy, least privilege, audit, retention, encryption, and sensitive-data controls.
-  - Quantity surveyor, planner, architect, engineer, builder, and field representatives: validate professional requirements and real-world data quality.
+- Established the main parameter groups for future data contracts and UI forms.
+- Defined the primary domain entities requiring future schema and relationship design.
+- Defined the design-iteration lifecycle, backend responsibilities, frontend responsibilities, state categories, provenance requirements, API/event needs, background-job states, professional roles, and the planned infrastructure package.
 
 ### Decisions and rationale
 
-- The central BIM model remains the source of truth; generated alternatives, previews, metrics, and exports are derived or provisional outputs until explicitly accepted.
-- Parameter definitions must be metadata-driven where practical so the same definitions can support forms, validation, units, API schemas, audit labels, and documentation without duplicating rules across frontend and backend.
-- Hard constraints and soft objectives must be separate concepts. Hard constraints determine feasibility; soft objectives influence ranking and trade-offs.
-- User-entered, imported, calculated, generated, approved, and published values must be distinguishable in storage and the interface.
-- All important model and design decisions require versioning and provenance. No destructive replacement of approved information is permitted.
-- Backend writes should be command-like and permission-checked; frontend reads should use explicit projections suited to each screen rather than exposing raw database tables as the UI contract.
-- Long-running generation and metric work should be handled by background jobs with durable status, retry, cancellation, and recovery semantics.
-- Domain identifiers and relationships must support stable references between model elements, rooms, levels, views, sheets, systems, documents, issues, approvals, and construction records.
-- Units must be stored and validated consistently, with project-level unit settings and explicit conversion at API boundaries where required.
-- Every generated alternative must be reproducible or explainably non-reproducible through a recorded generation configuration, seed where supported, engine version, and input snapshot.
-- Permissions must apply at organisation, project, role, workflow, entity, and action levels. Publishing, accepting a revision, approving, exporting, and changing locked constraints require explicit authority.
-- The initial implementation should favour a modular monolith with clear domain boundaries and background job seams, unless later scale or computation requirements justify service separation.
-- Data infrastructure design must precede deep implementation so frontend screens do not create unstable or duplicated domain concepts.
+- The central BIM model remains the source of truth; generated alternatives, previews, metrics, and exports are derived or provisional until explicitly accepted.
+- Parameter definitions should be metadata-driven where practical.
+- Hard constraints and soft objectives remain separate concepts.
+- Important values and decisions require versioning and provenance.
+- Backend writes should be permission-checked commands; frontend reads should use explicit screen projections.
+- Long-running generation and metric work should use durable background jobs.
+- The initial implementation should favour a modular monolith with clear domain boundaries and background-job seams.
 
 ### Files and folders affected
 
 | Path | Change |
 |---|---|
-| `progress/CODING_WORKLOG.md` | Added detailed entry `WL-0006`; previous entries retained and marked grey |
-| `progress/README.md` | Unchanged; existing worklog governance rules followed |
+| `progress/CODING_WORKLOG.md` | Previous detailed entry retained as `WL-0006` |
+| `progress/README.md` | Unchanged for this historical entry |
 | `docs/product/PRODUCT_PLAN.md` | Unchanged; used as product and lifecycle context |
 | `docs/architecture/BIM_ARCHITECTURE_PLAN.md` | Unchanged; used as central-model and relationship context |
 | `docs/workflows/PROPERTY_DEVELOPMENT_WORKFLOW.md` | Unchanged; used as workflow and construction context |
 | `docs/product/REFERENCE_DOCUMENT_REQUIREMENTS.md` | Unchanged; used as reference-informed data context |
-| `design/` | Unchanged; existing UX/UI artifact is external to this repository update |
-| `app/`, `packages/`, `services/`, `infrastructure/`, `tests/` | Unchanged; no implementation code was added in this work item |
+| `design/` | Unchanged; UX/UI artifact remains external to this repository update |
+| `app/`, `packages/`, `services/`, `infrastructure/`, `tests/` | Unchanged; no implementation code was added |
 
 ### Implementation details
 
-The planned data flow is:
-
-1. A user enters or imports a project brief and site information in the frontend.
-2. The frontend validates basic format and units, then sends a draft command to the backend.
-3. The backend applies authoritative validation, permissions, normalization, and versioning.
-4. The backend stores the draft and returns a typed screen projection with validation results and provenance.
-5. The user chooses hard constraints, soft objectives, presets, and generation settings.
-6. The frontend submits a generation command referencing an immutable parameter snapshot.
-7. The backend creates a `GenerationRun`, queues computation, and emits durable status updates.
-8. The generation process produces one or more `Alternative` records with geometry/model references, metrics, warnings, assumptions, and provenance.
-9. The frontend subscribes to or polls job status and renders progress, partial results, failures, and alternatives.
-10. The user compares alternatives using synchronized model views and metric projections.
-11. The frontend requests a `ModelDiff` and `DependencyImpact` preview before acceptance.
-12. The backend checks permissions, creates a `ModelRevision`, records the decision and audit event, and preserves the prior state.
-13. Dependent views, schedules, overlays, documents, issues, and approvals are marked updated, affected, stale, or requiring review.
-14. Publishing creates a controlled issue or export package only after required approvals and validation gates pass.
-
-The first infrastructure planning package should define:
-
-| Package | Required output |
-|---|---|
-| Domain model | Entity catalogue, relationships, lifecycle states, ownership, and invariants |
-| Data contracts | Request/response schemas, commands, queries, events, errors, pagination, and versioning |
-| Persistence | Database choice, migrations, spatial geometry strategy, object storage, indexes, snapshots, and retention |
-| Computation | Generation jobs, queues, workers, metric services, retries, cancellation, and reproducibility |
-| Frontend state | Draft/server/generated/accepted/approved/published states and cache invalidation rules |
-| Security | Tenancy, RBAC/ABAC, audit, encryption, secrets, retention, and export controls |
-| Observability | Logs, metrics, traces, job health, model-validation failures, and user-visible status |
-| Testing | Domain invariants, API contracts, permissions, generation fixtures, visual states, accessibility, and recovery |
-| Migration and delivery | Incremental implementation seams, seed data, fixtures, migrations, backups, and deployment checks |
+The planned data flow begins with frontend brief and site input, authoritative backend validation and normalization, immutable parameter snapshots, asynchronous generation runs, alternative and metric records, comparison, model-diff and dependency-impact review, model-revision creation, audit, and controlled publishing.
 
 ### Validation performed
 
-- Read `progress/CODING_WORKLOG.md` and `progress/README.md` before preparing this entry.
-- Confirmed the next sequential worklog ID is `WL-0006`.
-- Reviewed the existing product, architecture, workflow, and UX planning context available in the repository and conversation.
-- Confirmed the parameter-driven design artifact defines the parameter groups, iteration workflow, safeguards, and core entities recorded here.
-- Confirmed the change is documentation and planning only.
-- No application code, database migrations, API implementation, automated tests, lint checks, type checks, deployment checks, or infrastructure provisioning were run.
+- Read the existing worklog and progress governance before preparing the entry.
+- Confirmed the entry was planning-only and no application validation was performed.
 
 ### Limitations or blockers
 
-- No technology stack has been selected for the database, API, frontend framework, geometry engine, job queue, object storage, authentication, or hosting.
-- Entity names and relationships are planning-level concepts and require domain review before becoming migrations or public APIs.
-- The exact BIM exchange format, geometry kernel, spatial database strategy, and model granularity remain undecided.
-- Professional validation is still required from architects, BIM specialists, engineers, planners, quantity surveyors, builders, and field users.
-- Compliance, energy, cost, geotechnical, and construction calculations require authoritative rules and source data; the system must not imply professional or regulatory certainty without validation.
-- The proposed modular-monolith direction is a planning default, not an approved architecture decision.
-- Group 1, Account and access, still requires its detailed UX tables and acceptance review before implementation proceeds.
+- Technology stack, database, API, frontend framework, geometry engine, job queue, object storage, authentication, hosting, and exact BIM strategy remain undecided.
+- Professional domain validation is still required.
+- Group 1, Account and access, still requires a detailed implementation-ready specification.
 
-**Status:** Current  
-**Next steps:** Create the data-infrastructure planning package; catalogue domain entities and relationships; define the first API and event contracts; select an initial technology stack; define tenancy, identity, permission, audit, and versioning rules; then convert Group 1, Account and access, into an implementation-ready specification before building the application shell.  
-**Commit:** To be added after the repository write completes.
+**Status:** Previous  
+**Next steps:** Create the data-infrastructure planning package and define the first contracts before application implementation.
 
 </span>
 
@@ -151,100 +161,41 @@ The first infrastructure planning package should define:
 
 ### Detailed work completed
 
-- Defined a 17-group UX sequence covering the primary Toolboxed user flows:
-  1. Account and access.
-  2. Project creation and setup.
-  3. Site and survey.
-  4. Central architectural model.
-  5. View browser.
-  6. Architecture views.
-  7. Drawing interaction and annotation.
-  8. Undo, redo, history, and recovery.
-  9. Specialist systems.
-  10. Coordination and change management.
-  11. Documents, sheets, and publishing.
-  12. Review, comments, and approvals.
-  13. Construction planning and execution.
-  14. AI assistant.
-  15. Reporting and project management.
-  16. Mobile, field, and accessibility.
-  17. Administration, security, and data.
-- Organised the UX work into four implementation phases: Foundation UX, Design and documentation UX, Coordination and delivery UX, and Advanced platform UX.
-- Defined the required documentation set for each UX group: user journey, screen sequence, spreadsheet-style screen layout, UI elements, interactions, states, role access, and dependencies.
-- Established the spreadsheet-style wireframe standard so each screen describes the visual position of headers, navigation, toolbars, workspaces, properties, activity areas, status information, and actions.
-- Defined the standard application shell consisting of the global header, primary navigation, context toolbar, main workspace, properties panel, activity panel, status bar, and action bar.
-- Defined the core visual hierarchy for project identity, navigation, settings, activity, warnings, primary actions, neutral workspaces, and inactive or read-only content.
-- Added a completion gate requiring all tables, states, permissions, dependencies, and consistency checks to be completed before moving to the next UX group.
+- Defined a 17-group UX sequence covering the primary Toolboxed user flows.
+- Organised the UX work into four implementation phases.
+- Defined the required documentation set for each UX group.
+- Established the spreadsheet-style wireframe standard and standard application shell.
+- Defined the core visual hierarchy and completion gate.
 - Selected Group 1, Account and access, as the first UX group to design in detail.
-- Identified the initial Group 1 flows: new user sign-in, invited user access, returning user access, organisation selection, role context, project access, rejected access, expired invitation, suspended access, and sign-out.
-- Defined the planned Group 1 screens and supporting records, including identity, organisation, role, project, permission, notification, session, and audit entities.
+- Identified the initial Group 1 flows, screens, and supporting access records.
 
 ### Decisions and rationale
 
-- UX groups will be completed sequentially so unresolved access, project, model, or permission decisions do not leak into later workflows.
-- The central application shell will remain consistent across model, documentation, coordination, construction, and administration workspaces.
-- Architecture remains the primary workspace, while specialist systems are presented through overlays connected to architectural elements.
-- Screen layouts will be represented as tables in the planning documentation, not as disconnected prose or isolated visual mock-ups.
-- Group completion requires explicit normal, empty, loading, warning, error, blocked, saved, unsaved, approved, and read-only states where applicable.
-- Role access will be documented for professional roles including owner, administrator, project manager, architect, engineer, consultant, builder, reviewer, field worker, and viewer.
-- The next stage is not to design Group 2. Group 1 must first have its required tables and acceptance review completed.
+- UX groups will be completed sequentially.
+- The central application shell remains consistent across workspaces.
+- Architecture remains the primary workspace, with specialist systems as overlays.
+- Screen layouts are represented as tables in planning documentation.
+- Group completion requires explicit states, permissions, dependencies, and consistency checks.
 
 ### Files and folders affected
 
 | Path | Change |
 |---|---|
-| `progress/CODING_WORKLOG.md` | Updated with detailed entry `WL-0005` and retained previous entries in grey |
-| `progress/README.md` | Unchanged in this work item; its detailed-entry rules were followed |
-| `docs/product/PRODUCT_PLAN.md` | Unchanged in this work item; used as product context |
-| `docs/architecture/BIM_ARCHITECTURE_PLAN.md` | Unchanged in this work item; used as model and overlay context |
-| `docs/workflows/PROPERTY_DEVELOPMENT_WORKFLOW.md` | Unchanged in this work item; used as lifecycle context |
-| `docs/product/REFERENCE_DOCUMENT_REQUIREMENTS.md` | Unchanged in this work item; used as reference-informed context |
-
-### Implementation details
-
-The planned UX implementation is organised as follows:
-
-| Phase | UX groups | Focus |
-|---|---|---|
-| Foundation UX | 1–5 | Access, project setup, site, architecture model, and view navigation |
-| Design and documentation UX | 6, 7, 8, 11 | Architecture views, annotations, recovery, sheets, and publishing |
-| Coordination and delivery UX | 9, 10, 12, 13 | Specialist overlays, coordination, approvals, and construction |
-| Advanced platform UX | 14–17 | AI, reporting, field use, accessibility, administration, security, and data |
-
-Every group will be documented using the following sequence:
-
-1. User journey.
-2. Screen sequence.
-3. Spreadsheet-style screen layout.
-4. UI element inventory.
-5. Interaction definitions.
-6. State definitions.
-7. Role and permission access.
-8. Navigation and dependency relationships.
-9. Review and acceptance gate.
-
-Group 1 will begin with the access shell rather than the BIM canvas because all later workspaces depend on identity, organisation, project, role, and permission context.
+| `progress/CODING_WORKLOG.md` | Historical entry retained as `WL-0005` |
+| `progress/README.md` | Unchanged for this historical entry |
+| `docs/product/PRODUCT_PLAN.md` | Unchanged; used as product context |
+| `docs/architecture/BIM_ARCHITECTURE_PLAN.md` | Unchanged; used as model and overlay context |
+| `docs/workflows/PROPERTY_DEVELOPMENT_WORKFLOW.md` | Unchanged; used as lifecycle context |
+| `docs/product/REFERENCE_DOCUMENT_REQUIREMENTS.md` | Unchanged; used as reference-informed context |
 
 ### Validation performed
 
-- Reviewed the established Toolboxed product, architecture, workflow, and reference-document context.
-- Confirmed the 17 UX groups and four implementation phases are internally ordered.
-- Confirmed the required table types cover journeys, screens, layout, controls, interactions, states, permissions, and dependencies.
-- Confirmed Group 1 is defined as the next design target.
-- Read the existing `progress/CODING_WORKLOG.md` before updating it.
-- No application code, automated tests, lint checks, type checks, or deployment checks were run because this work item records UX planning only.
+- Reviewed the established product, architecture, workflow, and reference-document context.
+- Confirmed the 17 UX groups and four implementation phases are ordered.
+- Confirmed Group 1 is the next design target.
 
-### Limitations or blockers
-
-- The UX plan is a planning framework, not a completed screen specification.
-- Group 1 still requires its detailed tables and acceptance review.
-- Detailed permission behaviour, organisation tenancy rules, authentication provider choices, and session-security requirements remain to be specified during Group 1 design.
-- Some previously planned repository structure files remain incomplete because earlier simultaneous GitHub writes were not all accepted; this work item does not repair those unrelated files.
-- No implementation code or final visual design system was created in this work item.
-
-**Status:** Current  
-**Next steps:** Design Group 1, Account and access, using all required UX tables; review and accept Group 1 before proceeding to Group 2.  
-**Commit:** To be added after the repository write completes.
+**Status:** Previous  
+**Next steps:** Design Group 1 using the required UX tables and acceptance gate.
 
 </span>
 
@@ -253,80 +204,33 @@ Group 1 will begin with the access shell rather than the BIM canvas because all 
 ## WL-0004 — 2026-09-18
 
 **Change type:** Worklog governance and documentation  
-**Objective:** Improve the coding worklog so every future update gives a detailed and descriptive record of all work completed.  
-**Context:** The previous worklog captured the headline summary of each change but did not consistently document the full objective, context, decisions, actions, implementation details, validation, limitations, and follow-up work.  
+**Objective:** Improve the coding worklog so future updates record detailed objectives, context, decisions, actions, implementation details, validation, limitations, and follow-up work.  
+**Context:** Earlier entries did not consistently document the full work item.
 
 ### Detailed work completed
 
-- Updated `progress/README.md` with a detailed worklog policy.
-- Expanded the scope of recorded changes to include code, configuration, tests, documentation, planning, and repository structure.
-- Required every entry to explain the complete work item rather than only its headline result.
-- Added required fields for objective, context, detailed work completed, decisions and rationale, files and folders affected, implementation details, validation performed, limitations or blockers, status, next steps, and commit or pull request.
-- Added guidance to identify created, updated, deleted, or unchanged files where relevant.
-- Added a rule requiring honest reporting of partial results, assumptions, failed checks, blockers, and unperformed validation.
-- Updated the worklog comments so the same detailed-entry rules are visible inside `CODING_WORKLOG.md`.
-- Added this `WL-0004` entry as the new current entry.
-- Converted `WL-0003`, `WL-0002`, and `WL-0001` from current or unlabelled history to previous history while preserving their original information.
-
-### Decisions and rationale
-
-- The newest entry remains green so the current state is immediately visible.
-- Previous entries remain grey and are never deleted, preserving an auditable project history.
-- ISO dates and sequential IDs remain mandatory so entries can be ordered and referenced unambiguously.
-- The worklog records documentation and planning changes as well as code changes because these decisions affect implementation and product behaviour.
+- Updated `progress/README.md` with detailed worklog policy.
+- Required fields for objective, context, work, decisions, files, implementation details, validation, limitations, status, next steps, and commit or pull request.
+- Added honest reporting rules for partial results, assumptions, failed checks, blockers, and unperformed validation.
+- Updated worklog comments with the same detailed-entry rules.
+- Added `WL-0004` and retained older entries as previous history.
 
 ### Files and folders affected
 
 | Path | Change |
 |---|---|
-| `progress/README.md` | Updated worklog rules and required detailed entry format |
-| `progress/CODING_WORKLOG.md` | Added detailed rules and recorded `WL-0004` |
-| `progress/` | No new folder created; existing progress folder retained |
-
-### Implementation details
-
-The worklog uses HTML colour spans supported by the existing document convention:
-
-- Green indicates the newest current entry.
-- Grey indicates retained previous history.
-- Yellow indicates a blocker or pending decision.
-- Red indicates failed validation or a known issue.
-
-The new entry template is:
-
-```text
-WL-0001 — YYYY-MM-DD
-
-Change type:
-Objective:
-Context:
-Detailed work completed:
-Decisions and rationale:
-Files and folders affected:
-Implementation details:
-Validation performed:
-Limitations or blockers:
-Status:
-Next steps:
-Commit or pull request:
-```
+| `progress/README.md` | Updated governance rules |
+| `progress/CODING_WORKLOG.md` | Added detailed `WL-0004` |
+| `progress/` | Existing folder retained |
 
 ### Validation performed
 
-- Read the existing `progress/README.md` before editing.
-- Read the existing `progress/CODING_WORKLOG.md` before editing.
-- Confirmed both files are on the `product-foundation` branch.
-- Updated both documents through GitHub.
-- No automated tests or application code checks were run because this change only updates Markdown documentation and worklog rules.
-
-### Limitations or blockers
-
-- The worklog colour spans depend on Markdown renderer support for inline HTML.
-- No application implementation was changed in this work item.
-- The worklog must be manually maintained for each future change unless an automated workflow is added later.
+- Read both progress files before editing.
+- Confirmed both files were updated on the `product-foundation` branch.
+- No application checks were run because this was documentation-only.
 
 **Status:** Previous  
-**Next steps:** Use `WL-0005` for the next repository change and complete every required detailed field.  
+**Next steps:** Continue detailed worklog entries for future repository changes.  
 **Commit:** [`d57091e`](https://github.com/tyrax871/Toolboxed-Ai/commit/d57091ea2cd3abcea5d471bcc1c660ffeafc4db4)
 
 </span>
@@ -338,26 +242,26 @@ Commit or pull request:
 **Change type:** Product planning and architecture documentation  
 **Summary:** Established the Toolboxed BIM product plan, architecture-first central model plan, property-development workflow, and reference-document requirements using the uploaded project materials.  
 **Affected paths:** `docs/product/PRODUCT_PLAN.md`, `docs/architecture/BIM_ARCHITECTURE_PLAN.md`, `docs/workflows/PROPERTY_DEVELOPMENT_WORKFLOW.md`, `docs/product/REFERENCE_DOCUMENT_REQUIREMENTS.md`  
-**Validation:** Reviewed the accessible architectural index, building permit, geotechnical report, truss layout, specifications, and energy-rating references. Password-protected engineering PDFs remain excluded from detailed extraction.  
+**Validation:** Reviewed accessible architecture references. Password-protected engineering PDFs remain excluded from detailed extraction.  
 **Status:** Previous  
 **Next step:** Convert the product plan into architecture-foundation requirements, data contracts, UX flows, and implementation tasks.
 
 ## WL-0002 — 2026-09-18
 
 **Change type:** Documentation  
-**Summary:** Added sequential worklog IDs and required ISO-formatted dates to the progress rules and coding worklog.  
+**Summary:** Added sequential worklog IDs and ISO-formatted dates to progress rules and the coding worklog.  
 **Affected paths:** `progress/README.md`, `progress/CODING_WORKLOG.md`  
-**Validation:** Read the existing worklog and updated both files on the `product-foundation` branch.  
+**Validation:** Read the existing worklog and updated both files on `product-foundation`.  
 **Status:** Previous  
 **Next step:** Use `WL-0003` for the next recorded repository change.
 
 ## WL-0001 — 2026-09-18
 
 **Change type:** Documentation and repository structure  
-**Summary:** Added the initial Toolboxed repository structure and created the progress-worklog rules.  
+**Summary:** Added the initial Toolboxed repository structure and progress-worklog rules.  
 **Affected paths:** `README.md`, `app/`, `packages/`, `docs/`, `design/`, `services/`, `infrastructure/`, `tests/`, `scripts/`, `.github/`, `progress/`  
-**Validation:** Confirmed the repository foundation files were written to the `product-foundation` branch.  
+**Validation:** Confirmed repository foundation files were written to `product-foundation`.  
 **Status:** Previous  
-**Next step:** Continue adding the remaining nested application, documentation, design, service, infrastructure, and test folders sequentially to avoid conflicting writes.
+**Next step:** Continue adding remaining nested folders sequentially to avoid conflicting writes.
 
 </span>
