@@ -11,84 +11,70 @@
 
 <span style="color:green">
 
-## WL-0007 — 2026-09-18
+## WL-0008 — 2026-09-18
 
-**Plan item:** `PL-0002`  
-**Change type:** Repository governance and progress-log workflow  
-**Objective:** Implement the approved plan-first repository execution workflow and create an explicit relationship between intended work in `PLAN_LOG.md` and completed work in `CODING_WORKLOG.md`.  
-**Context:** Toolboxed now maintains separate planning and execution records. The plan log records what the project wants to do; the coding worklog records what was actually changed. The project requires work to be planned before execution so scope, dependencies, acceptance criteria, and risks are visible before repository changes begin.
+**Plan item:** `PL-0003`  
+**Change type:** Technology and architecture documentation  
+**Objective:** Execute the approved technology and architecture planning item by documenting a provisional implementation baseline for Toolboxed.
 
 ### Detailed work completed
 
-- Added `PL-0002` to `progress/PLAN_LOG.md`.
-- Defined the mandatory sequence: plan, review, approve where required, execute, record, link, and update status.
-- Defined the relationship contract between `PL-` plan items, `WL-` worklog entries, and resulting commits or pull requests.
-- Made the plan-first execution gate explicit: no repository change may begin until intended work is recorded or updated in `PLAN_LOG.md`.
-- Required execution to remain within approved plan scope; scope changes must be planned before continuing.
-- Required every worklog entry to identify its authorising `PL-` item.
-- Required every completed plan item to link to its `WL-` execution record and resulting commit or pull request.
-- Added honest handling for failed, partial, blocked, cancelled, reverted, and emergency work.
-- Updated `progress/README.md` with the mandatory execution gate and the new `Plan item` field in the worklog template.
-- Preserved previous plan and worklog history rather than rewriting or deleting it.
+- Added `docs/architecture/TECHNOLOGY_DECISIONS.md`.
+- Added ADRs for application architecture, data and storage, authentication and access, background jobs and realtime, and testing and observability.
+- Documented a modular-monolith starting point with explicit domain modules and background-job seams.
+- Documented PostgreSQL-compatible transactional storage, object storage for large artifacts, and adapter boundaries for geometry and BIM exchange.
+- Documented managed OIDC/OAuth2 authentication as a provisional identity direction while retaining domain authorisation in Toolboxed.
+- Documented durable workers for generation, metrics, imports, exports, and heavy validation.
+- Documented polling or server-sent events as the initial realtime approach, with WebSockets deferred.
+- Documented layered validation, structured observability, and correlation metadata.
+- Updated the plan log with execution outputs and remaining open decisions.
 
 ### Decisions and rationale
 
-- Planning and execution remain separate records so changing priorities does not rewrite historical execution.
-- A plan item remains incomplete until its acceptance criteria and execution evidence are available.
-- A worklog records actual outcomes, including failures and unperformed validation, not intended outcomes.
-- Documentation-only, configuration, code, tests, and repository-structure changes all follow the same plan-first rule.
-- Emergency work may use an exception path, but must be recorded and linked retrospectively as soon as practical.
+The repository is not ready for application implementation until the remaining technology choices are reviewed. The provisional baseline intentionally avoids prematurely selecting a geometry vendor, BIM exchange format, or microservice topology. The central model remains authoritative, approved revisions remain immutable, and frontend/backend boundaries use typed contracts and explicit projections.
 
 ### Files and folders affected
 
 | Path | Change |
 |---|---|
-| `progress/PLAN_LOG.md` | Updated with `PL-0002` and the plan/worklog relationship contract |
-| `progress/README.md` | Updated with mandatory plan-first governance and linked-record rules |
-| `progress/CODING_WORKLOG.md` | Added `WL-0007` as the newest execution record |
-| `app/`, `packages/`, `services/`, `infrastructure/`, `tests/`, `docs/`, `design/` | Unchanged |
-
-### Implementation details
-
-The enforced record relationship is:
-
-```text
-PL-0002 — approved intended work
-    ↓
-WL-0007 — actual execution record
-    ↓
-Commit — repository evidence
-```
-
-The required plan-to-execution process is:
-
-1. Create or update a plan item.
-2. Define objective, scope, dependencies, people, data, outputs, risks, and acceptance criteria.
-3. Obtain required approval.
-4. Execute only the approved scope.
-5. Record actual changes in the worklog.
-6. Add the `PL-` ID to the worklog and the `WL-` ID to the plan item.
-7. Link the resulting commit or pull request.
-8. Move the plan status only when evidence supports the transition.
+| `docs/architecture/TECHNOLOGY_DECISIONS.md` | Created provisional technology baseline |
+| `docs/architecture/DECISIONS/ADR-0001-initial-application-architecture.md` | Created application architecture ADR |
+| `docs/architecture/DECISIONS/ADR-0002-data-and-storage-strategy.md` | Created data and storage ADR |
+| `docs/architecture/DECISIONS/ADR-0003-authentication-and-access.md` | Created authentication and access ADR |
+| `docs/architecture/DECISIONS/ADR-0004-background-jobs-and-realtime.md` | Created jobs and realtime ADR |
+| `docs/architecture/DECISIONS/ADR-0005-testing-and-observability.md` | Created testing and observability ADR |
+| `progress/PLAN_LOG.md` | Updated with PL-0003 execution outputs |
+| `progress/CODING_WORKLOG.md` | Added WL-0008 |
 
 ### Validation performed
 
-- Read `progress/PLAN_LOG.md`, `progress/README.md`, and `progress/CODING_WORKLOG.md` before updating the governance records.
-- Confirmed `PL-0002` was added before its execution changes were recorded.
-- Confirmed the governance update was limited to the progress folder.
-- Confirmed the worklog entry identifies `PL-0002`.
+- Read the repository README, product plan, BIM architecture plan, architecture directory, plan log, and worklog before execution.
+- Confirmed the changes remained within approved `PL-0003` scope.
+- Confirmed all planned architecture decision areas were addressed at a provisional level.
 - No application code, database migrations, automated tests, lint checks, type checks, deployment checks, or infrastructure provisioning were run.
 
 ### Limitations or blockers
 
-- The relationship is currently enforced by documented process rather than automated CI validation.
-- The plan item remains Active until its final commit links are added and the acceptance review is complete.
-- The emergency-work exception path is documented but has not been tested.
-- The repository has no automated check preventing an unplanned commit.
+- Frontend framework and rendering libraries remain open.
+- Backend language and framework remain open.
+- Exact spatial extension, geometry kernel, BIM exchange format, and model granularity remain open.
+- Identity, hosting, queue, and object-storage providers remain open.
+- Initial building typology, regulatory jurisdiction, scale targets, performance budgets, and professional review are not confirmed.
+- The architecture baseline remains provisional and is not approval for production implementation.
 
-**Status:** Current  
-**Next steps:** Add or update a plan item before every future repository change; execute only after the plan is ready; link each resulting worklog entry and commit; consider adding automated validation for plan/worklog IDs and links later.  
-**Commit:** To be added after the repository write completes.
+**Status:** Partial — provisional baseline recorded; acceptance review pending  
+**Next steps:** Review the technology package with the product owner, technical lead, BIM/domain architect, security, and QA representatives; resolve critical open choices; then update PL-0003.  
+**Commits:** [`2170000`](https://github.com/tyrax871/Toolboxed-Ai/commit/21700002a444a5beece65d98e3905c6b150fc00f), [`413a7ba`](https://github.com/tyrax871/Toolboxed-Ai/commit/413a7ba749aec3a376eeb4027991536595bac10d), [`f3016dd`](https://github.com/tyrax871/Toolboxed-Ai/commit/f3016dde24e48d14f2211b3e80466f1d36ae399a), [`63b734f`](https://github.com/tyrax871/Toolboxed-Ai/commit/63b734f95c61d9d2b5997459c67fb059fa57b7b7), [`4101224`](https://github.com/tyrax871/Toolboxed-Ai/commit/4101224f0f144688bfaeafc0dc4042005970de23), [`6f20c7d`](https://github.com/tyrax871/Toolboxed-Ai/commit/6f20c7dcc7d17d764e7995508909638aa17029d1), [`5ecbf86`](https://github.com/tyrax871/Toolboxed-Ai/commit/5ecbf863c5830a984eb880bb7b40110c6324f535)
+
+</span>
+
+<span style="color:grey">
+
+## WL-0007 — 2026-09-18
+
+**Plan item:** `PL-0002`  
+**Change type:** Repository governance and progress-log workflow  
+**Status:** Previous
 
 </span>
 
@@ -97,171 +83,32 @@ The required plan-to-execution process is:
 ## WL-0006 — 2026-09-18
 
 **Change type:** Product, UX, data infrastructure, and backend/frontend planning  
-**Objective:** Record the next planning direction for Toolboxed: move from high-level UX concepts into a detailed understanding of the data infrastructure required to implement parameter-driven architectural design, AI-assisted alternatives, the central BIM model, and the relationship between backend data and frontend workflows.  
-**Context:** Toolboxed is an architecture-first collaborative BIM platform. The central architectural model is the source of truth. The UX/UI work now includes controlled parameter-driven design inspired by professional AI-assisted architectural workflows: users define a brief, site context, constraints, objectives, and performance requirements; the system generates traceable alternatives; users compare outcomes; and an accepted alternative becomes a new model revision rather than silently replacing approved information. The repository remains in the planning phase, with no implemented application code, automated checks, issues, or pull requests.  
-
-### Detailed work completed
-
-- Confirmed that parameter-driven design is a controlled and traceable design-exploration process, not a black-box image generator.
-- Recorded the need to understand what Toolboxed must do, which people and roles are required, what data must be collected, how that data is stored, and how backend records are represented in the frontend.
-- Established the main parameter groups for future data contracts and UI forms.
-- Defined the primary domain entities requiring future schema and relationship design.
-- Defined the design-iteration lifecycle, backend responsibilities, frontend responsibilities, state categories, provenance requirements, API/event needs, background-job states, professional roles, and the planned infrastructure package.
-
-### Decisions and rationale
-
-- The central BIM model remains the source of truth; generated alternatives, previews, metrics, and exports are derived or provisional until explicitly accepted.
-- Parameter definitions should be metadata-driven where practical.
-- Hard constraints and soft objectives remain separate concepts.
-- Important values and decisions require versioning and provenance.
-- Backend writes should be permission-checked commands; frontend reads should use explicit screen projections.
-- Long-running generation and metric work should use durable background jobs.
-- The initial implementation should favour a modular monolith with clear domain boundaries and background-job seams.
-
-### Files and folders affected
-
-| Path | Change |
-|---|---|
-| `progress/CODING_WORKLOG.md` | Previous detailed entry retained as `WL-0006` |
-| `progress/README.md` | Unchanged for this historical entry |
-| `docs/product/PRODUCT_PLAN.md` | Unchanged; used as product and lifecycle context |
-| `docs/architecture/BIM_ARCHITECTURE_PLAN.md` | Unchanged; used as central-model and relationship context |
-| `docs/workflows/PROPERTY_DEVELOPMENT_WORKFLOW.md` | Unchanged; used as workflow and construction context |
-| `docs/product/REFERENCE_DOCUMENT_REQUIREMENTS.md` | Unchanged; used as reference-informed data context |
-| `design/` | Unchanged; UX/UI artifact remains external to this repository update |
-| `app/`, `packages/`, `services/`, `infrastructure/`, `tests/` | Unchanged; no implementation code was added |
-
-### Implementation details
-
-The planned data flow begins with frontend brief and site input, authoritative backend validation and normalization, immutable parameter snapshots, asynchronous generation runs, alternative and metric records, comparison, model-diff and dependency-impact review, model-revision creation, audit, and controlled publishing.
-
-### Validation performed
-
-- Read the existing worklog and progress governance before preparing the entry.
-- Confirmed the entry was planning-only and no application validation was performed.
-
-### Limitations or blockers
-
-- Technology stack, database, API, frontend framework, geometry engine, job queue, object storage, authentication, hosting, and exact BIM strategy remain undecided.
-- Professional domain validation is still required.
-- Group 1, Account and access, still requires a detailed implementation-ready specification.
-
-**Status:** Previous  
-**Next steps:** Create the data-infrastructure planning package and define the first contracts before application implementation.
-
-</span>
-
-<span style="color:grey">
+**Status:** Previous
 
 ## WL-0005 — 2026-09-18
 
 **Change type:** UX/UI product planning and workflow documentation  
-**Objective:** Establish a structured implementation plan for mapping Toolboxed user flows into the application's UX and UI design.  
-**Context:** Toolboxed is an architecture-first BIM application. The central architectural model is the source of truth, while specialist systems operate as coordinated overlays. The application therefore needs a deliberate UX sequence that supports design, documentation, coordination, approvals, construction, and administration without losing the relationships between model elements, views, documents, and project records.
-
-### Detailed work completed
-
-- Defined a 17-group UX sequence covering the primary Toolboxed user flows.
-- Organised the UX work into four implementation phases.
-- Defined the required documentation set for each UX group.
-- Established the spreadsheet-style wireframe standard and standard application shell.
-- Defined the core visual hierarchy and completion gate.
-- Selected Group 1, Account and access, as the first UX group to design in detail.
-- Identified the initial Group 1 flows, screens, and supporting access records.
-
-### Decisions and rationale
-
-- UX groups will be completed sequentially.
-- The central application shell remains consistent across workspaces.
-- Architecture remains the primary workspace, with specialist systems as overlays.
-- Screen layouts are represented as tables in planning documentation.
-- Group completion requires explicit states, permissions, dependencies, and consistency checks.
-
-### Files and folders affected
-
-| Path | Change |
-|---|---|
-| `progress/CODING_WORKLOG.md` | Historical entry retained as `WL-0005` |
-| `progress/README.md` | Unchanged for this historical entry |
-| `docs/product/PRODUCT_PLAN.md` | Unchanged; used as product context |
-| `docs/architecture/BIM_ARCHITECTURE_PLAN.md` | Unchanged; used as model and overlay context |
-| `docs/workflows/PROPERTY_DEVELOPMENT_WORKFLOW.md` | Unchanged; used as lifecycle context |
-| `docs/product/REFERENCE_DOCUMENT_REQUIREMENTS.md` | Unchanged; used as reference-informed context |
-
-### Validation performed
-
-- Reviewed the established product, architecture, workflow, and reference-document context.
-- Confirmed the 17 UX groups and four implementation phases are ordered.
-- Confirmed Group 1 is the next design target.
-
-**Status:** Previous  
-**Next steps:** Design Group 1 using the required UX tables and acceptance gate.
-
-</span>
-
-<span style="color:grey">
+**Status:** Previous
 
 ## WL-0004 — 2026-09-18
 
 **Change type:** Worklog governance and documentation  
-**Objective:** Improve the coding worklog so future updates record detailed objectives, context, decisions, actions, implementation details, validation, limitations, and follow-up work.  
-**Context:** Earlier entries did not consistently document the full work item.
-
-### Detailed work completed
-
-- Updated `progress/README.md` with detailed worklog policy.
-- Required fields for objective, context, work, decisions, files, implementation details, validation, limitations, status, next steps, and commit or pull request.
-- Added honest reporting rules for partial results, assumptions, failed checks, blockers, and unperformed validation.
-- Updated worklog comments with the same detailed-entry rules.
-- Added `WL-0004` and retained older entries as previous history.
-
-### Files and folders affected
-
-| Path | Change |
-|---|---|
-| `progress/README.md` | Updated governance rules |
-| `progress/CODING_WORKLOG.md` | Added detailed `WL-0004` |
-| `progress/` | Existing folder retained |
-
-### Validation performed
-
-- Read both progress files before editing.
-- Confirmed both files were updated on the `product-foundation` branch.
-- No application checks were run because this was documentation-only.
-
 **Status:** Previous  
-**Next steps:** Continue detailed worklog entries for future repository changes.  
 **Commit:** [`d57091e`](https://github.com/tyrax871/Toolboxed-Ai/commit/d57091ea2cd3abcea5d471bcc1c660ffeafc4db4)
-
-</span>
-
-<span style="color:grey">
 
 ## WL-0003 — 2026-09-18
 
 **Change type:** Product planning and architecture documentation  
-**Summary:** Established the Toolboxed BIM product plan, architecture-first central model plan, property-development workflow, and reference-document requirements using the uploaded project materials.  
-**Affected paths:** `docs/product/PRODUCT_PLAN.md`, `docs/architecture/BIM_ARCHITECTURE_PLAN.md`, `docs/workflows/PROPERTY_DEVELOPMENT_WORKFLOW.md`, `docs/product/REFERENCE_DOCUMENT_REQUIREMENTS.md`  
-**Validation:** Reviewed accessible architecture references. Password-protected engineering PDFs remain excluded from detailed extraction.  
-**Status:** Previous  
-**Next step:** Convert the product plan into architecture-foundation requirements, data contracts, UX flows, and implementation tasks.
+**Status:** Previous
 
 ## WL-0002 — 2026-09-18
 
 **Change type:** Documentation  
-**Summary:** Added sequential worklog IDs and ISO-formatted dates to progress rules and the coding worklog.  
-**Affected paths:** `progress/README.md`, `progress/CODING_WORKLOG.md`  
-**Validation:** Read the existing worklog and updated both files on `product-foundation`.  
-**Status:** Previous  
-**Next step:** Use `WL-0003` for the next recorded repository change.
+**Status:** Previous
 
 ## WL-0001 — 2026-09-18
 
 **Change type:** Documentation and repository structure  
-**Summary:** Added the initial Toolboxed repository structure and progress-worklog rules.  
-**Affected paths:** `README.md`, `app/`, `packages/`, `docs/`, `design/`, `services/`, `infrastructure/`, `tests/`, `scripts/`, `.github/`, `progress/`  
-**Validation:** Confirmed repository foundation files were written to `product-foundation`.  
-**Status:** Previous  
-**Next step:** Continue adding remaining nested folders sequentially to avoid conflicting writes.
+**Status:** Previous
 
 </span>
