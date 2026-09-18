@@ -10,18 +10,27 @@
 
 <span style="color:green">
 
+## WL-0003 — 2026-09-18
+
+**Change type:** Product planning and architecture documentation  
+**Summary:** Established the Toolboxed BIM product plan, architecture-first central model plan, property-development workflow, and reference-document requirements using the uploaded project materials.  
+**Affected paths:** `docs/product/PRODUCT_PLAN.md`, `docs/architecture/BIM_ARCHITECTURE_PLAN.md`, `docs/workflows/PROPERTY_DEVELOPMENT_WORKFLOW.md`, `docs/product/REFERENCE_DOCUMENT_REQUIREMENTS.md`  
+**Validation:** Reviewed the accessible architectural index, building permit, geotechnical report, truss layout, specifications, and energy-rating references. Password-protected engineering PDFs remain excluded from detailed extraction.  
+**Status:** Current  
+**Next step:** Convert the product plan into architecture-foundation requirements, data contracts, UX flows, and implementation tasks.
+
+</span>
+
+<span style="color:grey">
+
 ## WL-0002 — 2026-09-18
 
 **Change type:** Documentation  
 **Summary:** Added sequential worklog IDs and required ISO-formatted dates to the progress rules and coding worklog.  
 **Affected paths:** `progress/README.md`, `progress/CODING_WORKLOG.md`  
 **Validation:** Read the existing worklog and updated both files on the `product-foundation` branch.  
-**Status:** Current  
+**Status:** Previous  
 **Next step:** Use `WL-0003` for the next recorded repository change.
-
-</span>
-
-<span style="color:grey">
 
 ## WL-0001 — 2026-09-18
 
