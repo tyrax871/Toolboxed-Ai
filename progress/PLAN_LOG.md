@@ -11,6 +11,7 @@
 
 | ID | Plan item | Status | Priority | Next outcome |
 |---|---|---|---|---|
+| PL-0002 | Establish plan-first repository execution workflow | Active | Critical | Update governance, then record execution in the worklog |
 | PL-0001 | Establish the implementation and data-foundation roadmap | Active | Critical | Approve architecture decisions, domain boundaries, data contracts, and Group 1 scope before implementation |
 
 ## Status definitions
@@ -22,6 +23,90 @@
 - **Completed** — acceptance criteria met and linked to execution history.
 
 <span style="color:green">
+
+## PL-0002 — Establish plan-first repository execution workflow
+
+**Status:** Active  
+**Priority:** Critical  
+**Owner:** Product and engineering planning group  
+**Origin:** User-approved repository governance decision on 2026-09-18.  
+
+### Objective
+
+Make planning a required step before any repository work. Intended work must be recorded or updated in `progress/PLAN_LOG.md` before execution begins. Actual repository changes must then be recorded in `progress/CODING_WORKLOG.md`, with both records linked through plan and worklog IDs, affected paths, acceptance criteria, and the resulting commit or pull request.
+
+### Reason
+
+Separating intended work from completed work gives Toolboxed a controlled execution trail. The plan can change as priorities and scope evolve, while the execution worklog remains an honest chronological record of what was actually changed, validated, blocked, or left incomplete.
+
+### Dependencies
+
+- Existing `progress/PLAN_LOG.md`, `progress/CODING_WORKLOG.md`, and `progress/README.md`.
+- Existing sequential plan and worklog ID conventions.
+- User confirmation to establish this workflow.
+
+### People needed
+
+- Product owner or decision-maker to approve scope and priorities.
+- Technical lead or implementer to assess dependencies and acceptance criteria.
+- Contributors responsible for executing the approved plan item.
+- Reviewers responsible for checking validation and completion evidence.
+
+### Data or evidence needed
+
+- Requested repository change.
+- Objective, scope, dependencies, required outputs, and acceptance criteria.
+- Actual files changed, validation results, blockers, commit, and follow-up actions.
+
+### Planned outputs
+
+- `progress/PLAN_LOG.md` updated with `PL-0002`.
+- `progress/README.md` updated to make the plan-first execution gate mandatory.
+- `progress/CODING_WORKLOG.md` updated with the execution record for this plan item.
+
+### Required workflow
+
+1. Identify the requested repository work.
+2. Create or update a plan item before changing implementation or documentation files.
+3. Review status, priority, dependencies, people, data, outputs, risks, and acceptance criteria.
+4. Obtain the required user approval for the planned change where applicable.
+5. Execute only the approved scope.
+6. Record actual changes and validation in `CODING_WORKLOG.md`.
+7. Link the worklog entry, commit, or pull request back to this plan item.
+8. Update the plan status only when the acceptance criteria and evidence justify the transition.
+
+### Relationship contract
+
+- Every repository worklog entry must contain a `Plan item` field with a valid `PL-` identifier.
+- Every plan item must contain `Related execution records` with the relevant `WL-` identifier after execution begins.
+- A plan item may be `Completed` only after its acceptance criteria are met and its execution record links to the resulting commit or pull request.
+- A worklog entry must not claim completion for work outside the approved plan scope; scope changes require a plan update first.
+- Failed, partial, blocked, or cancelled execution must be recorded honestly and must not be marked completed.
+- Updating the plan after execution does not rewrite the historical worklog entry.
+
+### Acceptance criteria
+
+- `PL-0002` exists and defines the plan-first workflow.
+- `progress/README.md` makes planning before execution mandatory.
+- The execution worklog format requires a plan-item reference.
+- The plan format requires related execution records.
+- The workflow explains how plan status and worklog evidence are connected.
+- The governance change is recorded in `CODING_WORKLOG.md` with the resulting commit.
+
+### Risks and open questions
+
+- Manual linking can become inconsistent if entries are not reviewed.
+- A future automation check may be needed to validate IDs, links, and required fields.
+- The exact approval threshold for documentation-only changes versus code changes remains to be defined.
+- Emergency fixes may require a documented exception path while preserving the same retrospective audit requirements.
+
+### Related execution records
+
+- Pending execution under `WL-0007` after the governance files are updated.
+
+</span>
+
+<span style="color:grey">
 
 ## PL-0001 — Implementation and data-foundation roadmap
 
