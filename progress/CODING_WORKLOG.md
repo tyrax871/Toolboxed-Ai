@@ -11,6 +11,138 @@
 
 <span style="color:green">
 
+## WL-0006 — 2026-09-18
+
+**Change type:** Product, UX, data infrastructure, and backend/frontend planning  
+**Objective:** Record the next planning direction for Toolboxed: move from high-level UX concepts into a detailed understanding of the data infrastructure required to implement parameter-driven architectural design, AI-assisted alternatives, the central BIM model, and the relationship between backend data and frontend workflows.  
+**Context:** Toolboxed is an architecture-first collaborative BIM platform. The central architectural model is the source of truth. The UX/UI work now includes controlled parameter-driven design inspired by professional AI-assisted architectural workflows: users define a brief, site context, constraints, objectives, and performance requirements; the system generates traceable alternatives; users compare outcomes; and an accepted alternative becomes a new model revision rather than silently replacing approved information. The repository remains in the planning phase, with no implemented application code, automated checks, issues, or pull requests.  
+
+### Detailed work completed
+
+- Confirmed that parameter-driven design is a controlled and traceable design-exploration process, not a black-box image generator.
+- Recorded the need to understand what Toolboxed must do, which people and roles are required, what data must be collected, how that data is stored, and how backend records are represented in the frontend.
+- Established the main parameter groups for future data contracts and UI forms:
+  1. Site and context: boundary, orientation, north, contours, topography, setbacks, easements, access, roads, climate, neighbouring context, and retained elements.
+  2. Program and brief: typology, unit mix, room schedules, occupancy, target areas, room dimensions, accessibility, amenities, parking, storage, and circulation.
+  3. Building massing: footprint, envelope, levels, floor-to-floor heights, basement depth, roof form, courtyards, voids, frontage, setbacks, density, site coverage, daylight, and views.
+  4. Spatial and circulation rules: adjacencies, separation, cores, entrances, public/private zoning, wet-area stacking, egress, and accessible routes.
+  5. Envelope and performance: orientation, glazing, shading, assemblies, insulation, daylight, energy, thermal comfort, embodied carbon, and material preferences.
+  6. Cost and delivery: budget, unit-rate assumptions, cost ceilings, construction system, structural grid, repeatability, programme duration, and procurement constraints.
+  7. Compliance and governance: planning rules, building-code checks, project standards, tolerances, locked constraints, approval status, responsible roles, and audit history.
+  8. Design intent and presets: compact, daylight-focused, low-cost, high-density, adaptable, low-carbon, family-oriented, organisation presets, and project presets.
+- Defined the primary domain entities requiring future schema and relationship design: `DesignBrief`, `ParameterSet`, `ParameterDefinition`, `ParameterValue`, `Constraint`, `Objective`, `SiteContext`, `Preset`, `GenerationRun`, `Alternative`, `MetricSnapshot`, `ModelRevision`, `ModelDiff`, `DependencyImpact`, `Decision`, `Approval`, `AuditEvent`, and `Exception`.
+- Identified the wider platform entities that must connect to this work: identity, organisation, membership, role, permission, project, phase, building, level, room, architectural element, view, sheet, document, specialist system, issue, comment, notification, session, and export package.
+- Defined the required design-iteration lifecycle: create brief, import or define site, set hard constraints, set soft objectives, generate alternatives, inspect metrics and failures, revise parameters, regenerate, compare, fork or save options, accept an alternative as a model revision, review downstream impacts, obtain approvals, and publish a controlled candidate.
+- Identified backend responsibilities: persistence, validation, unit normalization, access control, generation orchestration, job status, model versioning, metric calculation, dependency analysis, audit recording, notifications, exports, and recovery.
+- Identified frontend responsibilities: guided data entry, parameter editing, site/context interaction, 2D and 3D previews, generation progress, alternatives gallery, synchronized comparison, constraint explanations, metric display, model-diff review, permissions-aware actions, stale-data states, and accessible responsive interaction.
+- Established that frontend state must distinguish local draft values, saved server state, active generation state, accepted model state, approved/published state, stale metrics, partial results, validation errors, and read-only or blocked access.
+- Established that generated alternatives must retain their immutable input parameters, units, constraints, objective weights, generation run, solver or model information, assumptions, metrics, model version, provenance, and user decisions.
+- Established that accepted alternatives must become explicit model revisions, preserving snapshots, diffs, affected views, dependent systems, documents, approvals, and audit events.
+- Identified the need for API and event contracts linking frontend actions to backend commands and queries, including draft saving, validation, generation requests, job progress, alternative retrieval, comparison, acceptance, revision creation, impact review, approval, and publishing.
+- Identified the need for asynchronous generation jobs so long-running design computation does not block the frontend. The UI must support queued, running, partial, completed, failed, cancelled, expired, and recoverable job states.
+- Identified the need for provenance and explainability records that show which inputs changed, which constraints were binding, which assumptions were used, why an alternative differs, and which downstream entities may be affected.
+- Identified the need for data collection rules covering source, owner, timestamp, units, confidence, validation status, sensitivity, permissions, version, and whether a value is user-entered, imported, calculated, generated, or approved.
+- Identified the people and responsibilities required for the next planning and implementation stages:
+  - Product owner: prioritises workflows, outcomes, scope, and acceptance criteria.
+  - BIM/domain architect: defines model entities, spatial relationships, views, and industry rules.
+  - UX/UI designer: converts data and states into usable workflows and accessible interfaces.
+  - Frontend engineer: implements forms, canvases, state management, API integration, and visual feedback.
+  - Backend engineer: implements services, persistence, validation, jobs, APIs, events, and permissions.
+  - Data/AI engineer: defines generation inputs, solver integration, metrics, evaluation, provenance, and model safety.
+  - Platform/DevOps engineer: defines environments, deployment, observability, backups, queues, storage, and secrets management.
+  - QA/test engineer: defines domain, API, workflow, visual, accessibility, performance, and regression coverage.
+  - Security/privacy specialist: defines tenancy, least privilege, audit, retention, encryption, and sensitive-data controls.
+  - Quantity surveyor, planner, architect, engineer, builder, and field representatives: validate professional requirements and real-world data quality.
+
+### Decisions and rationale
+
+- The central BIM model remains the source of truth; generated alternatives, previews, metrics, and exports are derived or provisional outputs until explicitly accepted.
+- Parameter definitions must be metadata-driven where practical so the same definitions can support forms, validation, units, API schemas, audit labels, and documentation without duplicating rules across frontend and backend.
+- Hard constraints and soft objectives must be separate concepts. Hard constraints determine feasibility; soft objectives influence ranking and trade-offs.
+- User-entered, imported, calculated, generated, approved, and published values must be distinguishable in storage and the interface.
+- All important model and design decisions require versioning and provenance. No destructive replacement of approved information is permitted.
+- Backend writes should be command-like and permission-checked; frontend reads should use explicit projections suited to each screen rather than exposing raw database tables as the UI contract.
+- Long-running generation and metric work should be handled by background jobs with durable status, retry, cancellation, and recovery semantics.
+- Domain identifiers and relationships must support stable references between model elements, rooms, levels, views, sheets, systems, documents, issues, approvals, and construction records.
+- Units must be stored and validated consistently, with project-level unit settings and explicit conversion at API boundaries where required.
+- Every generated alternative must be reproducible or explainably non-reproducible through a recorded generation configuration, seed where supported, engine version, and input snapshot.
+- Permissions must apply at organisation, project, role, workflow, entity, and action levels. Publishing, accepting a revision, approving, exporting, and changing locked constraints require explicit authority.
+- The initial implementation should favour a modular monolith with clear domain boundaries and background job seams, unless later scale or computation requirements justify service separation.
+- Data infrastructure design must precede deep implementation so frontend screens do not create unstable or duplicated domain concepts.
+
+### Files and folders affected
+
+| Path | Change |
+|---|---|
+| `progress/CODING_WORKLOG.md` | Added detailed entry `WL-0006`; previous entries retained and marked grey |
+| `progress/README.md` | Unchanged; existing worklog governance rules followed |
+| `docs/product/PRODUCT_PLAN.md` | Unchanged; used as product and lifecycle context |
+| `docs/architecture/BIM_ARCHITECTURE_PLAN.md` | Unchanged; used as central-model and relationship context |
+| `docs/workflows/PROPERTY_DEVELOPMENT_WORKFLOW.md` | Unchanged; used as workflow and construction context |
+| `docs/product/REFERENCE_DOCUMENT_REQUIREMENTS.md` | Unchanged; used as reference-informed data context |
+| `design/` | Unchanged; existing UX/UI artifact is external to this repository update |
+| `app/`, `packages/`, `services/`, `infrastructure/`, `tests/` | Unchanged; no implementation code was added in this work item |
+
+### Implementation details
+
+The planned data flow is:
+
+1. A user enters or imports a project brief and site information in the frontend.
+2. The frontend validates basic format and units, then sends a draft command to the backend.
+3. The backend applies authoritative validation, permissions, normalization, and versioning.
+4. The backend stores the draft and returns a typed screen projection with validation results and provenance.
+5. The user chooses hard constraints, soft objectives, presets, and generation settings.
+6. The frontend submits a generation command referencing an immutable parameter snapshot.
+7. The backend creates a `GenerationRun`, queues computation, and emits durable status updates.
+8. The generation process produces one or more `Alternative` records with geometry/model references, metrics, warnings, assumptions, and provenance.
+9. The frontend subscribes to or polls job status and renders progress, partial results, failures, and alternatives.
+10. The user compares alternatives using synchronized model views and metric projections.
+11. The frontend requests a `ModelDiff` and `DependencyImpact` preview before acceptance.
+12. The backend checks permissions, creates a `ModelRevision`, records the decision and audit event, and preserves the prior state.
+13. Dependent views, schedules, overlays, documents, issues, and approvals are marked updated, affected, stale, or requiring review.
+14. Publishing creates a controlled issue or export package only after required approvals and validation gates pass.
+
+The first infrastructure planning package should define:
+
+| Package | Required output |
+|---|---|
+| Domain model | Entity catalogue, relationships, lifecycle states, ownership, and invariants |
+| Data contracts | Request/response schemas, commands, queries, events, errors, pagination, and versioning |
+| Persistence | Database choice, migrations, spatial geometry strategy, object storage, indexes, snapshots, and retention |
+| Computation | Generation jobs, queues, workers, metric services, retries, cancellation, and reproducibility |
+| Frontend state | Draft/server/generated/accepted/approved/published states and cache invalidation rules |
+| Security | Tenancy, RBAC/ABAC, audit, encryption, secrets, retention, and export controls |
+| Observability | Logs, metrics, traces, job health, model-validation failures, and user-visible status |
+| Testing | Domain invariants, API contracts, permissions, generation fixtures, visual states, accessibility, and recovery |
+| Migration and delivery | Incremental implementation seams, seed data, fixtures, migrations, backups, and deployment checks |
+
+### Validation performed
+
+- Read `progress/CODING_WORKLOG.md` and `progress/README.md` before preparing this entry.
+- Confirmed the next sequential worklog ID is `WL-0006`.
+- Reviewed the existing product, architecture, workflow, and UX planning context available in the repository and conversation.
+- Confirmed the parameter-driven design artifact defines the parameter groups, iteration workflow, safeguards, and core entities recorded here.
+- Confirmed the change is documentation and planning only.
+- No application code, database migrations, API implementation, automated tests, lint checks, type checks, deployment checks, or infrastructure provisioning were run.
+
+### Limitations or blockers
+
+- No technology stack has been selected for the database, API, frontend framework, geometry engine, job queue, object storage, authentication, or hosting.
+- Entity names and relationships are planning-level concepts and require domain review before becoming migrations or public APIs.
+- The exact BIM exchange format, geometry kernel, spatial database strategy, and model granularity remain undecided.
+- Professional validation is still required from architects, BIM specialists, engineers, planners, quantity surveyors, builders, and field users.
+- Compliance, energy, cost, geotechnical, and construction calculations require authoritative rules and source data; the system must not imply professional or regulatory certainty without validation.
+- The proposed modular-monolith direction is a planning default, not an approved architecture decision.
+- Group 1, Account and access, still requires its detailed UX tables and acceptance review before implementation proceeds.
+
+**Status:** Current  
+**Next steps:** Create the data-infrastructure planning package; catalogue domain entities and relationships; define the first API and event contracts; select an initial technology stack; define tenancy, identity, permission, audit, and versioning rules; then convert Group 1, Account and access, into an implementation-ready specification before building the application shell.  
+**Commit:** To be added after the repository write completes.
+
+</span>
+
+<span style="color:grey">
+
 ## WL-0005 — 2026-09-18
 
 **Change type:** UX/UI product planning and workflow documentation  
