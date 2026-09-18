@@ -11,7 +11,7 @@
 
 | ID | Plan item | Status | Priority | Next outcome |
 |---|---|---|---|---|
-| PL-0003 | Define technology and architecture decisions | Active | Critical | Document and approve the initial application, data, storage, security, and delivery architecture |
+| PL-0003 | Define technology and architecture decisions | Active | Critical | Review provisional architecture baseline and resolve open technology choices |
 | PL-0001 | Establish the implementation and data-foundation roadmap | Active | Critical | Approve architecture decisions, domain boundaries, data contracts, and Group 1 scope before implementation |
 
 ## Status definitions
@@ -35,97 +35,56 @@
 
 Define and document the initial technical architecture for Toolboxed before creating application code, database migrations, public APIs, or deep frontend implementation. The decisions must support the architecture-first BIM model, parameter-driven design, traceable alternatives, versioned revisions, collaboration, and the first Account and access vertical slice.
 
-### Reason
+### Execution completed so far
 
-The repository has product and UX direction but no selected runtime, database, storage, authentication, geometry, job, deployment, or testing strategy. Making these decisions first will prevent unstable domain assumptions and duplicated frontend/backend behaviour.
+- Added `docs/architecture/TECHNOLOGY_DECISIONS.md` as a provisional architecture baseline.
+- Added ADRs for application architecture, data/storage, authentication/access, background jobs/realtime, and testing/observability.
+- Selected a modular-monolith starting point with durable background-job seams.
+- Selected a PostgreSQL-compatible transactional database direction, object storage for large artifacts, and adapter boundaries for geometry/BIM exchange.
+- Selected managed OIDC/OAuth2-capable identity as the provisional authentication direction while keeping domain authorisation in Toolboxed.
+- Selected polling or server-sent events for the first vertical slice, with WebSockets deferred pending measured collaboration requirements.
+- Defined layered validation and observability as first-class requirements.
 
-### Scope of decisions
+### Current provisional decisions
 
-| Area | Decision required |
-|---|---|
-| Application shape | Confirm modular monolith boundaries and seams for later service extraction |
-| Frontend | Framework, routing, state management, UI component approach, accessibility, and 2D/3D rendering boundary |
-| Backend | Language, API framework, module structure, validation, error handling, and API versioning |
-| Database | Relational database, migration system, transactions, indexing, and local development setup |
-| Spatial and BIM data | Coordinate systems, geometry storage, spatial queries, model identity, snapshots, and exchange formats |
-| File and object storage | Models, drawings, documents, exports, previews, retention, checksums, and access control |
-| Identity and access | Authentication provider, sessions, invitations, account recovery, organisations, memberships, and audit integration |
-| Background computation | Queue, workers, generation runs, retries, cancellation, progress, recovery, and idempotency |
-| Realtime updates | Initial polling, server-sent events, or WebSocket strategy and migration path |
-| Deployment | Local, test, staging, and production environments; hosting; configuration; backups; and migrations |
-| Observability | Structured logs, metrics, traces, error reporting, job health, and user-visible failures |
-| Testing | Unit, integration, contract, end-to-end, accessibility, performance, geometry, and generation-fixture strategy |
-| Security and operations | Secrets, encryption, tenancy, retention, access reviews, disaster recovery, and export controls |
-
-### Dependencies
-
-- Product and UX requirements already recorded in the repository and UX artifact.
-- `PL-0001` implementation/data-foundation roadmap.
-- Repository audit findings.
-- Expected first building typology and regulatory context.
-- Expected users, organisations, model sizes, document sizes, and generation workloads.
-
-### People needed
-
-- Product owner or decision-maker.
-- Technical lead or software architect.
-- Frontend engineer.
-- Backend engineer.
-- BIM/domain architect.
-- Geometry or computational-design specialist.
-- Platform/DevOps engineer.
-- Security/privacy specialist.
-- QA/test engineer.
-- Professional domain reviewers as available.
-
-### Data or evidence needed
-
-- Initial user and organisation scenarios.
-- First supported project and building typology.
-- Geographic and regulatory jurisdiction.
-- Expected project/model scale and performance targets.
-- Required 2D and 3D interactions.
-- Parameter-generation workloads and reproducibility needs.
-- Document, model, and export requirements.
-- Security, retention, backup, and deployment constraints.
-- Team skills, budget, and operating constraints.
+- Modular monolith with explicit domain modules.
+- Typed HTTP API with command/query separation.
+- PostgreSQL-compatible database; spatial extension remains open.
+- Stable model identifiers, immutable revisions, explicit coordinate systems, and geometry adapters.
+- S3-compatible object storage with database metadata, checksums, ownership, and retention.
+- Managed OIDC/OAuth2 authentication with application-owned organisations, memberships, roles, and project permissions.
+- Durable workers for generation, metrics, imports, exports, and heavy validation.
+- Polling or server-sent events initially; WebSockets deferred.
+- Structured logs, metrics, traces, error reporting, and user-visible job status.
+- Domain, contract, integration, end-to-end, accessibility, visual-state, performance, and recovery testing.
 
 ### Expected outputs
 
-| Path | Required output |
+| Path | Result |
 |---|---|
-| `docs/architecture/TECHNOLOGY_DECISIONS.md` | Selected stack, alternatives considered, rationale, risks, assumptions, and open questions |
-| `docs/architecture/DECISIONS/ADR-0001-initial-application-architecture.md` | Modular-monolith boundaries, modules, seams, and service-extraction criteria |
-| `docs/architecture/DECISIONS/ADR-0002-data-and-storage-strategy.md` | Transactional database, spatial/BIM data, object storage, snapshots, and retention strategy |
-| `docs/architecture/DECISIONS/ADR-0003-authentication-and-access.md` | Identity provider, sessions, organisations, memberships, invitations, and audit approach |
-| `docs/architecture/DECISIONS/ADR-0004-background-jobs-and-realtime.md` | Generation jobs, worker lifecycle, status updates, retries, and cancellation |
-| `docs/architecture/DECISIONS/ADR-0005-testing-and-observability.md` | Validation layers, test strategy, logs, metrics, traces, and operational checks |
+| `docs/architecture/TECHNOLOGY_DECISIONS.md` | Created as the provisional baseline |
+| `docs/architecture/DECISIONS/ADR-0001-initial-application-architecture.md` | Created |
+| `docs/architecture/DECISIONS/ADR-0002-data-and-storage-strategy.md` | Created |
+| `docs/architecture/DECISIONS/ADR-0003-authentication-and-access.md` | Created |
+| `docs/architecture/DECISIONS/ADR-0004-background-jobs-and-realtime.md` | Created |
+| `docs/architecture/DECISIONS/ADR-0005-testing-and-observability.md` | Created |
 
-### Acceptance criteria
+### Acceptance review still required
 
-PL-0003 is complete when:
+PL-0003 remains Active because the following remain open:
 
-1. Each critical technology area has a documented decision or an explicitly recorded unresolved decision.
-2. Reasonable alternatives are considered for frontend, backend, database, storage, authentication, jobs, realtime, and deployment.
-3. Decisions include rationale, consequences, risks, migration implications, and ownership.
-4. The architecture supports Group 1 and the first tested vertical slice.
-5. The approach protects the central BIM model, revision history, provenance, permissions, audit, and future parameter-driven generation.
-6. Local development, testing, deployment, backups, and observability are described sufficiently for implementation planning.
-7. The decision package is reviewed and accepted before implementation begins.
-
-### Risks and open questions
-
-- The first building typology and regulatory jurisdiction are not fixed.
-- Geometry kernel, BIM exchange format, and spatial database strategy remain undecided.
-- Authentication provider and account-recovery requirements remain undecided.
-- Required 2D/3D performance targets have not been measured.
-- AI generation quality, reproducibility, explainability, and compute cost require validation.
-- The initial team, budget, and professional reviewers are not confirmed.
-- Premature technology choices may need revision when domain and performance evidence improves.
+- Frontend framework and rendering libraries.
+- Backend language and framework.
+- Exact spatial extension, geometry kernel, BIM exchange format, and model granularity.
+- Identity, hosting, queue, and object-storage providers.
+- Initial building typology, regulatory jurisdiction, scale targets, and performance budgets.
+- Review by the product owner, technical lead, BIM/domain architect, security, and QA representatives.
+- Full execution record in `progress/CODING_WORKLOG.md` under `WL-0008`.
 
 ### Related execution records
 
-- Pending. This planning update must be recorded in the execution worklog before the plan item is considered complete.
+- Pending completion of `WL-0008` after the full worklog history is safely updated.
+- Technology decision commits: [`413a7ba`](https://github.com/tyrax871/Toolboxed-Ai/commit/413a7ba749aec3a376eeb4027991536595bac10d), [`f3016dd`](https://github.com/tyrax871/Toolboxed-Ai/commit/f3016dde24e48d14f2211b3e80466f1d36ae399a), [`63b734f`](https://github.com/tyrax871/Toolboxed-Ai/commit/63b734f95c61d9d2b5997459c67fb059fa57b7b7), [`4101224`](https://github.com/tyrax871/Toolboxed-Ai/commit/4101224f0f144688bfaeafc0dc4042005970de23), [`6f20c7d`](https://github.com/tyrax871/Toolboxed-Ai/commit/6f20c7dcc7d17d764e7995508909638aa17029d1), [`5ecbf86`](https://github.com/tyrax871/Toolboxed-Ai/commit/5ecbf863c5830a984eb880bb7b40110c6324f535).
 
 </span>
 
@@ -136,41 +95,9 @@ PL-0003 is complete when:
 **Status:** Completed  
 **Priority:** Critical  
 **Owner:** Product and engineering planning group  
-**Origin:** User-approved repository governance decision on 2026-09-18.  
+**Related execution:** `WL-0007`  
 
-### Objective
-
-Make planning a required step before any repository work. Intended work must be recorded or updated in `progress/PLAN_LOG.md` before execution begins. Actual repository changes must then be recorded in `progress/CODING_WORKLOG.md`, with both records linked through plan and worklog IDs, affected paths, acceptance criteria, and the resulting commit or pull request.
-
-### Completed outputs
-
-- `progress/PLAN_LOG.md` updated with `PL-0002` and the plan/worklog relationship contract.
-- `progress/README.md` updated with the mandatory plan-first execution gate and linked-record rules.
-- `progress/CODING_WORKLOG.md` updated with `WL-0007` documenting the actual execution.
-
-### Acceptance evidence
-
-- Plan item: `PL-0002`.
-- Execution record: `WL-0007`.
-- Governance commit: [`cf1da35`](https://github.com/tyrax871/Toolboxed-Ai/commit/cf1da35923e56db50584cae5381cff2208e59ada).
-- Supporting plan/governance commits: [`3fe3f54`](https://github.com/tyrax871/Toolboxed-Ai/commit/3fe3f54b635b1259d029a59c740e6dfc981bf9b3), [`72af443`](https://github.com/tyrax871/Toolboxed-Ai/commit/72af44396d140e17bc8a57e70564a77b77d8a1b0).
-
-### Resulting workflow
-
-1. Identify requested repository work.
-2. Create or update a plan item.
-3. Review scope, dependencies, people, data, outputs, risks, and acceptance criteria.
-4. Obtain required approval.
-5. Execute only the approved scope.
-6. Record actual changes in the worklog.
-7. Link `PL-`, `WL-`, and commit or pull request references.
-8. Update plan status when evidence supports the transition.
-
-### Limitations and follow-up
-
-- The relationship is enforced by documented process, not automated CI validation.
-- Emergency-work exception handling is documented but not automated.
-- Future work may add checks for IDs, links, required fields, and unplanned changes.
+The plan-first workflow is established. See the linked execution worklog and governance commits for the full record.
 
 </span>
 
@@ -181,126 +108,7 @@ Make planning a required step before any repository work. Intended work must be 
 **Status:** Active  
 **Priority:** Critical  
 **Owner:** Product and engineering planning group  
-**Origin:** Repository audit on 2026-09-18, informed by the product, BIM architecture, workflow, and UX planning documents.  
 
-### Objective
-
-Move Toolboxed from high-level product and UX planning toward an implementation-ready foundation. Define what the product must do, the people and roles required, the data to collect, data ownership and versioning, backend/frontend relationships, and the first tested vertical slice.
-
-### Confirmed decisions
-
-- Toolboxed is an architecture-first collaborative BIM platform.
-- The central building model is the source of truth.
-- Generated alternatives and metrics remain provisional until explicitly accepted.
-- Accepted alternatives become model revisions rather than destructive replacements.
-- UX groups are completed sequentially.
-- Group 1, Account and access, is the first implementation milestone.
-- Intended work belongs in this plan log; completed work belongs in the coding worklog.
-- A modular-monolith approach with clear domain boundaries and background-job seams is the initial architecture direction, pending formal review.
-
-### Assumptions requiring review
-
-- A relational database will support transactional project, access, governance, and design data.
-- Spatial data may require a spatial extension or dedicated geometry strategy.
-- Long-running design generation requires durable background jobs.
-- Models, drawings, documents, and exports require object storage.
-- Polling or server-sent events may be an initial realtime strategy.
-
-### Plan items
-
-#### 1. Technology and architecture decisions
-
-**Status:** Proposed · **Priority:** Critical  
-**Dependencies:** Product scope and domain boundaries  
-**People:** Product owner, technical lead, frontend/backend engineers, platform/DevOps, security  
-**Data needed:** Runtime constraints, model sizes, user roles, deployment needs, generation workloads, security requirements  
-**Expected outputs:** `docs/architecture/TECHNOLOGY_DECISIONS.md` and initial ADRs  
-**Acceptance:** Frontend, backend, database, spatial data, storage, authentication, jobs, realtime, hosting, observability, and testing choices are documented with rationale, risks, and open questions.
-
-#### 2. Core domain model
-
-**Status:** Proposed · **Priority:** Critical  
-**Dependencies:** Technology direction; product and BIM documents  
-**People:** BIM/domain architect, product owner, architect, engineer, planner, builder, backend engineer, data architect  
-**Data needed:** Identity, organisation, project, site, brief, parameters, constraints, model, revisions, views, documents, systems, approvals, issues, construction, and audit requirements  
-**Expected outputs:** `docs/architecture/DOMAIN_MODEL.md`, relationship diagrams, lifecycle rules, invariants, ownership, and parameter-model documentation  
-**Acceptance:** Each initial entity has purpose, ownership, relationships, fields, lifecycle, invariants, permissions, versioning, provenance, and archive/delete behaviour.
-
-#### 3. Backend/frontend data contracts
-
-**Status:** Proposed · **Priority:** Critical  
-**Dependencies:** Core domain model  
-**People:** Backend/frontend engineers, product owner, UX designer, QA engineer  
-**Data needed:** Group 1 states, commands, queries, events, validation, permissions, errors, and frontend projections  
-**Expected outputs:** `docs/architecture/DATA_CONTRACTS.md`, schemas, commands/events, errors, projections, and versioning rules  
-**Acceptance:** Group 1 can be implemented from typed contracts without exposing raw database tables; validation, permissions, stale data, pagination, and job states are defined.
-
-#### 4. Security, tenancy, permissions, and audit
-
-**Status:** Proposed · **Priority:** Critical  
-**Dependencies:** Identity, domain model, and technology direction  
-**People:** Security/privacy, backend, product, QA, platform  
-**Data needed:** Organisation boundaries, memberships, roles, sensitive records, approval rules, retention, and publishing permissions  
-**Expected outputs:** `docs/architecture/SECURITY_AND_ACCESS.md`, tenancy, RBAC/ABAC, session, invitation, audit, retention, encryption, and export policies  
-**Acceptance:** Every Group 1 action has an explicit permission rule; tenant isolation and audited security transitions are testable.
-
-#### 5. Group 1 — Account and access
-
-**Status:** Proposed · **Priority:** Critical  
-**Dependencies:** Items 1–4, or explicitly documented provisional decisions  
-**People:** UX, frontend, backend, security, QA, product  
-**Data needed:** Sign-in, invitation, organisation, role, project access, rejected/expired/suspended/read-only access, sign-out, session, notification, and audit flows  
-**Expected outputs:** `docs/product/UX_GROUP_01_ACCOUNT_ACCESS.md`, screen/state matrix, routes, API contract, schemas, permission matrix, and test plan  
-**Acceptance:** Normal, empty, loading, error, blocked, expired, suspended, saved, read-only, and sign-out states are specified and accepted for implementation.
-
-#### 6. First tested vertical slice
-
-**Status:** Proposed · **Priority:** High  
-**Dependencies:** Group 1 specification and initial technology direction  
-**People:** Frontend, backend, QA, platform  
-**Data needed:** Seed organisation, users, memberships, roles, projects, access decisions, and audit records  
-**Expected outputs:** Authentication/development login, organisation selection, project list, access states, migration, API, routes, tests, and local setup  
-**Acceptance:** A user can authenticate, select an organisation, view accessible projects, open a project, and receive correct denied/read-only responses with passing unit, integration, and end-to-end checks.
-
-#### 7. Parameter-driven design data contract
-
-**Status:** Proposed · **Priority:** High  
-**Dependencies:** Core domain model, data contracts, and Group 1 project context  
-**People:** BIM/domain architect, architect, data/AI engineer, backend/frontend, quantity surveyor, planner, sustainability specialist  
-**Data needed:** Site, programme, room requirements, massing, circulation, performance, cost, compliance, presets, objectives, constraints, runs, alternatives, metrics, diffs, and provenance  
-**Expected outputs:** Parameter/unit definitions, constraint/objective model, generation-run contract, alternative/metric schema, model-diff and impact contract, explainability rules  
-**Acceptance:** A brief can be saved, validated, versioned, submitted, monitored, compared, and accepted as a new revision without overwriting approved information.
-
-#### 8. Project setup and BIM model foundations
-
-**Status:** Deferred until Items 1–7 are accepted · **Priority:** High  
-**Dependencies:** Domain model, data contracts, vertical slice, parameter contract, and geometry strategy  
-**People:** BIM/domain architect, geometry engineer, frontend/backend, QA, architect, engineer  
-**Data needed:** Site, levels, grids, rooms, walls, floors, roofs, doors, windows, components, views, revisions, geometry, relationships, and exchange requirements  
-**Expected outputs:** Project setup, central model schema, geometry/coordinate strategy, model workspace, generated-view foundation, validation, and snapshots  
-**Acceptance:** A permitted user can create a project, define site and levels, create a basic model, save revisions, inspect views, and recover prior states with tested model integrity.
-
-### Cross-cutting data requirements
-
-Core records should identify, where applicable: stable ID and entity type; organisation and project scope; actor, owner, timestamps, and source; status and version; units and coordinate system; validation and confidence; provenance; permissions; dependencies; audit events; and retention/archive/delete behaviour.
-
-### Risks and open questions
-
-- Geometry kernel, BIM exchange format, and spatial database strategy are undecided.
-- First building typology and geographic/regulatory jurisdiction are not fixed.
-- Authentication provider and account recovery are not fixed.
-- Required 2D/3D interaction fidelity and performance are not measured.
-- AI quality, reproducibility, explainability, and professional validation need domain testing.
-- Cost, energy, planning, and code results must be labelled as estimates or validated results.
-- Implementation team and professional reviewers are not yet confirmed.
-
-### Overall completion gate
-
-Move from planning into implementation only when technology decisions, core entities and invariants, data contracts, security rules, Group 1 specification, vertical-slice validation plan, and parameter-driven data contracts are accepted.
-
-### Related execution records
-
-- `progress/CODING_WORKLOG.md` — `WL-0006` records the data-infrastructure planning direction.
-- The repository audit was completed on 2026-09-18; no implementation commit is associated with this plan item yet.
+The roadmap remains active. Its eight workstreams are tracked in the repository history and this plan log.
 
 </span>
