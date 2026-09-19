@@ -1,0 +1,170 @@
+{
+  "fixture": {
+    "id": "architecture-evaluation-fixture",
+    "version": "1.0.0",
+    "title": "Small low-rise residential architecture evaluation fixture",
+    "status": "evaluation-only",
+    "purpose": "Provide a small, inspectable BIM-style dataset for architecture evaluation.",
+    "provenance": {
+      "sourceType": "generated",
+      "generator": "Toolboxed planning fixture generator",
+      "generatorVersion": "1.0.0",
+      "license": "Internal evaluation fixture",
+      "jurisdiction": "neutral-assumption-pending-product-owner-confirmation",
+      "standardsProfile": "project-defined-neutral-profile",
+      "limitations": [
+        "Not regulatory guidance",
+        "Not an enterprise-scale benchmark",
+        "Not a production architecture decision"
+      ]
+    }
+  },
+  "project": {
+    "id": "project-eval-001",
+    "name": "Evaluation House",
+    "units": "metric",
+    "coordinateSystem": "local-project-coordinates",
+    "origin": { "x": 0, "y": 0, "z": 0 },
+    "orientation": { "trueNorthDegrees": 0 },
+    "standards": {
+      "id": "standards-neutral-001",
+      "name": "Neutral evaluation standards profile",
+      "status": "assumption"
+    }
+  },
+  "site": {
+    "id": "site-eval-001",
+    "boundary": [
+      { "x": 0, "y": 0 },
+      { "x": 20000, "y": 0 },
+      { "x": 20000, "y": 15000 },
+      { "x": 0, "y": 15000 }
+    ],
+    "referencePoints": [
+      { "id": "survey-point-001", "x": 0, "y": 0, "z": 0 }
+    ],
+    "constraints": [
+      { "id": "setback-front", "type": "setback", "distanceMillimetres": 3000 }
+    ]
+  },
+  "levels": [
+    { "id": "level-00", "name": "Ground Floor", "elevationMillimetres": 0 },
+    { "id": "level-01", "name": "First Floor", "elevationMillimetres": 3000 }
+  ],
+  "grids": [
+    { "id": "grid-a", "axis": "x", "positionMillimetres": 0 },
+    { "id": "grid-b", "axis": "x", "positionMillimetres": 6000 },
+    { "id": "grid-1", "axis": "y", "positionMillimetres": 0 },
+    { "id": "grid-2", "axis": "y", "positionMillimetres": 8000 }
+  ],
+  "spaces": [
+    {
+      "id": "room-ground-living",
+      "name": "Living Room",
+      "levelId": "level-00",
+      "zone": "living",
+      "occupancy": "residential",
+      "areaSquareMetres": 48,
+      "boundaryElementIds": ["wall-g-01", "wall-g-02", "wall-g-03", "wall-g-04"]
+    },
+    {
+      "id": "room-ground-kitchen",
+      "name": "Kitchen",
+      "levelId": "level-00",
+      "zone": "service",
+      "occupancy": "residential",
+      "areaSquareMetres": 18,
+      "boundaryElementIds": ["wall-g-02", "wall-g-05", "wall-g-06", "wall-g-07"]
+    },
+    {
+      "id": "room-first-bedroom",
+      "name": "Bedroom",
+      "levelId": "level-01",
+      "zone": "sleeping",
+      "occupancy": "residential",
+      "areaSquareMetres": 24,
+      "boundaryElementIds": ["wall-f-01", "wall-f-02", "wall-f-03", "wall-f-04"]
+    }
+  ],
+  "elements": [
+    { "id": "wall-g-01", "type": "wall", "levelId": "level-00", "state": "existing", "start": { "x": 1000, "y": 1000 }, "end": { "x": 9000, "y": 1000 }, "thicknessMillimetres": 200, "material": "masonry" },
+    { "id": "wall-g-02", "type": "wall", "levelId": "level-00", "state": "new", "start": { "x": 1000, "y": 5000 }, "end": { "x": 9000, "y": 5000 }, "thicknessMillimetres": 200, "material": "masonry" },
+    { "id": "wall-g-03", "type": "wall", "levelId": "level-00", "state": "existing", "start": { "x": 1000, "y": 1000 }, "end": { "x": 1000, "y": 5000 }, "thicknessMillimetres": 200, "material": "masonry" },
+    { "id": "wall-g-04", "type": "wall", "levelId": "level-00", "state": "proposed", "start": { "x": 9000, "y": 1000 }, "end": { "x": 9000, "y": 5000 }, "thicknessMillimetres": 200, "material": "masonry" },
+    { "id": "wall-g-05", "type": "wall", "levelId": "level-00", "state": "new", "start": { "x": 9000, "y": 1000 }, "end": { "x": 9000, "y": 5000 }, "thicknessMillimetres": 150, "material": "partition" },
+    { "id": "wall-g-06", "type": "wall", "levelId": "level-00", "state": "new", "start": { "x": 9000, "y": 1000 }, "end": { "x": 12000, "y": 1000 }, "thicknessMillimetres": 150, "material": "partition" },
+    { "id": "wall-g-07", "type": "wall", "levelId": "level-00", "state": "new", "start": { "x": 12000, "y": 1000 }, "end": { "x": 12000, "y": 5000 }, "thicknessMillimetres": 150, "material": "partition" },
+    { "id": "wall-f-01", "type": "wall", "levelId": "level-01", "state": "new", "start": { "x": 1000, "y": 1000 }, "end": { "x": 7000, "y": 1000 }, "thicknessMillimetres": 200, "material": "masonry" },
+    { "id": "wall-f-02", "type": "wall", "levelId": "level-01", "state": "new", "start": { "x": 1000, "y": 5000 }, "end": { "x": 7000, "y": 5000 }, "thicknessMillimetres": 200, "material": "masonry" },
+    { "id": "wall-f-03", "type": "wall", "levelId": "level-01", "state": "new", "start": { "x": 1000, "y": 1000 }, "end": { "x": 1000, "y": 5000 }, "thicknessMillimetres": 200, "material": "masonry" },
+    { "id": "wall-f-04", "type": "wall", "levelId": "level-01", "state": "new", "start": { "x": 7000, "y": 1000 }, "end": { "x": 7000, "y": 5000 }, "thicknessMillimetres": 200, "material": "masonry" },
+    { "id": "floor-ground", "type": "floor", "levelId": "level-00", "state": "existing", "areaSquareMetres": 120 },
+    { "id": "floor-first", "type": "floor", "levelId": "level-01", "state": "new", "areaSquareMetres": 72 },
+    { "id": "roof-main", "type": "roof", "levelId": "level-01", "state": "proposed", "slopeDegrees": 30, "material": "tile" },
+    { "id": "ceiling-ground", "type": "ceiling", "levelId": "level-00", "state": "new", "heightMillimetres": 2700 },
+    { "id": "door-main", "type": "door", "levelId": "level-00", "state": "new", "hostElementId": "wall-g-01", "widthMillimetres": 900, "heightMillimetres": 2100 },
+    { "id": "door-kitchen", "type": "door", "levelId": "level-00", "state": "proposed", "hostElementId": "wall-g-05", "widthMillimetres": 800, "heightMillimetres": 2100 },
+    { "id": "window-living", "type": "window", "levelId": "level-00", "state": "existing", "hostElementId": "wall-g-01", "widthMillimetres": 1800, "heightMillimetres": 1200 },
+    { "id": "window-bedroom", "type": "window", "levelId": "level-01", "state": "new", "hostElementId": "wall-f-02", "widthMillimetres": 1500, "heightMillimetres": 1200 }
+  ],
+  "relationships": [
+    { "id": "rel-project-site", "type": "contains", "sourceId": "project-eval-001", "targetId": "site-eval-001" },
+    { "id": "rel-project-levels", "type": "contains", "sourceId": "project-eval-001", "targetIds": ["level-00", "level-01"] },
+    { "id": "rel-level-spaces", "type": "contains", "sourceIds": ["level-00", "level-01"], "targetIds": ["room-ground-living", "room-ground-kitchen", "room-first-bedroom"] },
+    { "id": "rel-room-boundaries", "type": "bounded-by", "sourceIds": ["room-ground-living", "room-ground-kitchen", "room-first-bedroom"], "targetIds": ["wall-g-01", "wall-g-02", "wall-g-03", "wall-g-04", "wall-g-05", "wall-g-06", "wall-g-07", "wall-f-01", "wall-f-02", "wall-f-03", "wall-f-04"] },
+    { "id": "rel-hosted-openings", "type": "hosts", "sourceIds": ["wall-g-01", "wall-g-05", "wall-f-02"], "targetIds": ["door-main", "door-kitchen", "window-living", "window-bedroom"] },
+    { "id": "rel-material-assembly", "type": "has-material", "sourceId": "wall-g-01", "targetId": "masonry" }
+  ],
+  "materials": [
+    { "id": "masonry", "name": "Masonry wall assembly", "thermalConductivityWPerM2K": 0.35 }
+  ],
+  "views": [
+    { "id": "view-site-plan", "type": "site-plan", "sourceIds": ["site-eval-001"] },
+    { "id": "view-ground-plan", "type": "floor-plan", "sourceIds": ["level-00", "room-ground-living", "room-ground-kitchen"] },
+    { "id": "view-section", "type": "section", "sourceIds": ["level-00", "level-01", "roof-main"] },
+    { "id": "view-elevation", "type": "elevation", "sourceIds": ["wall-g-01", "wall-f-01", "window-living", "window-bedroom"] },
+    { "id": "view-model", "type": "model-3d-reference", "sourceIds": ["project-eval-001"] }
+  ],
+  "revisions": [
+    { "id": "revision-001", "number": 1, "status": "working", "parentId": null, "changedIds": ["project-eval-001", "site-eval-001", "level-00", "level-01"] },
+    { "id": "revision-002", "number": 2, "status": "proposed", "parentId": "revision-001", "changedIds": ["wall-g-02", "door-kitchen", "room-ground-kitchen"] }
+  ],
+  "snapshots": [
+    { "id": "snapshot-001", "revisionId": "revision-001", "purpose": "baseline-recovery" }
+  ],
+  "auditEvents": [
+    { "id": "audit-001", "action": "fixture-created", "revisionId": "revision-001", "actor": "fixture-generator", "timestamp": "2026-09-19T00:00:00Z" },
+    { "id": "audit-002", "action": "kitchen-wall-proposed", "revisionId": "revision-002", "actor": "fixture-generator", "timestamp": "2026-09-19T00:01:00Z" }
+  ],
+  "evaluationManifest": {
+    "entityCounts": {
+      "projects": 1,
+      "sites": 1,
+      "levels": 2,
+      "grids": 4,
+      "spaces": 3,
+      "elements": 19,
+      "relationships": 6,
+      "materials": 1,
+      "views": 5,
+      "revisions": 2,
+      "snapshots": 1,
+      "auditEvents": 2
+    },
+    "requiredChecks": [
+      "semantic-containment",
+      "spatial-coordinate-query",
+      "room-boundary-query",
+      "hosted-opening-query",
+      "revision-diff-and-restore",
+      "provenance-and-integrity",
+      "view-source-traceability"
+    ],
+    "checksum": "to-be-computed-after-commit",
+    "knownLimitations": [
+      "Neutral jurisdiction and standards assumptions require product-owner confirmation.",
+      "Geometry is represented as simple parametric data, not kernel-generated solids.",
+      "IFC exchange files are not included in this first dataset version."
+    ]
+  }
+}
