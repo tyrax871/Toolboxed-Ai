@@ -11,6 +11,63 @@
 
 <span style="color:green">
 
+## WL-0013 — 2026-09-19
+
+**Plan item:** `PL-0003 — Define technology and architecture decisions`  
+**Change type:** Architecture discovery and fixture definition  
+**Increment:** Discover and define the representative architecture evaluation fixture  
+**Objective:** Define a bounded building and workload fixture for evaluating the remaining Toolboxed architecture decisions before application implementation or provider-specific infrastructure.
+
+### Context
+
+PL-0003 contained a provisional architecture matrix and an authorised Increment 2 requiring a representative fixture covering the architecture-first BIM model, spatial and geometry behaviour, application workflows, storage, jobs, performance, quality, and security. No runtime implementation or benchmark evidence existed.
+
+### Detailed work completed
+
+- Created `docs/architecture/ARCHITECTURE_EVALUATION_FIXTURE.md`.
+- Defined a small low-rise residential project with site, orientation, levels, grids, rooms, walls, floors, roof, ceilings, openings, doors, windows, semantic relationships, stable identifiers, revisions, snapshots, audit events, and representative views.
+- Defined assumptions and explicitly labelled open jurisdiction, standards, provider, runtime, and source-provenance questions.
+- Defined workloads for model queries, edits, revisions/recovery, IFC exchange, geometry, workspace/rendering, storage, background jobs, access/security, and quality.
+- Defined a measurement protocol requiring fixture version, provenance, environment, workload, repetition, result, threshold or observation, limitation, and affected decision.
+- Defined provisional target observations for ordinary reads, autosave acknowledgement, workspace readiness, and non-blocking long-running work.
+- Added traceability and a review checklist for product, technical, BIM/domain, security, and QA responsibilities.
+- Kept application code, migrations, benchmarks, evaluators, provider-specific infrastructure, and final architecture decisions out of scope.
+
+### Decisions and rationale
+
+The fixture is intentionally small but semantically rich. It is designed to exercise model relationships, containment, adjacency, geometry operations, change propagation, revisions, provenance, recovery, and operational seams without implying that small-fixture results prove enterprise-scale capacity. The fixture authorises measured evaluation only; it does not approve a framework, vendor, geometry kernel, provider, or production SLO.
+
+### Files and folders affected
+
+| Path | Change |
+|---|---|
+| `docs/architecture/ARCHITECTURE_EVALUATION_FIXTURE.md` | Created |
+| `progress/CODING_WORKLOG.md` | Updated with this entry |
+| Application, package, service, infrastructure, and test files | Unchanged |
+
+### Validation performed
+
+- Read the current PL-0003 plan, architecture decision matrix, and existing worklog before editing.
+- Confirmed the fixture covers every evaluation dimension required by PL-0003 Increment 2.
+- Confirmed measurement results require reproducible environment and workload metadata.
+- Confirmed open assumptions and limitations are explicit.
+- No application code, migrations, evaluators, automated tests, benchmarks, lint checks, type checks, deployment checks, provider infrastructure, or stakeholder approvals were run.
+
+### Limitations or blockers
+
+- Building typology, jurisdiction, standards, source fixture, provider constraints, and reviewers are not yet confirmed.
+- No measured results exist yet.
+- The fixture does not establish enterprise-scale capacity or final performance budgets.
+- Geometry-kernel licensing and exact BIM exchange behaviour remain open.
+
+**Status:** Completed — fixture definition documented; review and measured evaluation remain pending  
+**Next steps:** Review and approve or amend the fixture, then execute the measured evaluation increment and record its evidence.  
+**Commit:** [`0e54d56`](https://github.com/tyrax871/Toolboxed-Ai/commit/0e54d56c5a72133c0355a4b1f06e8477d153a284)
+
+</span>
+
+<span style="color:grey">
+
 ## WL-0012 — 2026-09-19
 
 **Plan item:** `PL-0003 — Define technology and architecture decisions`  
