@@ -11,22 +11,72 @@
 
 | ID | Plan item | Status | Priority | Next outcome |
 |---|---|---|---|---|
-| PL-0003 | Define technology and architecture decisions | Active | Critical | Review provisional architecture baseline and resolve open technology choices |
+| PL-0004 | Write the repository usage and plan/worklog guide | Active | High | Document how readers use the repository, plan log, and worklog |
+| PL-0003 | Define technology and architecture decisions | Active / Partial execution | Critical | Review provisional architecture baseline and resolve open technology choices |
 | PL-0001 | Establish the implementation and data-foundation roadmap | Active | Critical | Approve architecture decisions, domain boundaries, data contracts, and Group 1 scope before implementation |
 
 ## Status definitions
 
 - **Proposed** — identified but not started.
 - **Active** — currently planned or being prepared.
+- **Active / Partial execution** — approved work has produced partial outputs, but acceptance criteria are not yet complete.
 - **Blocked** — waiting on a dependency, decision, resource, or source.
 - **Deferred** — intentionally postponed.
 - **Completed** — acceptance criteria met and linked to execution history.
 
 <span style="color:green">
 
-## PL-0003 — Define technology and architecture decisions
+## PL-0004 — Write the repository usage and plan/worklog guide
 
 **Status:** Active  
+**Priority:** High  
+**Owner:** Product and engineering planning group  
+**Origin:** User request to make repository usage and the distinction between intended work and completed work understandable to readers.  
+
+### Objective
+
+Create a clear guide explaining how to use the Toolboxed GitHub repository, how to read and update the plan log, how to read and update the execution worklog, and how plan items, worklog entries, commits, and acceptance status relate.
+
+### Scope
+
+- Explain the purpose of the repository and key folders.
+- Explain that `progress/PLAN_LOG.md` records what the project wants to do.
+- Explain that `progress/CODING_WORKLOG.md` records what the repository has actually done.
+- Explain the mandatory plan-first execution gate.
+- Explain authorising plan-item IDs, worklog IDs, commit links, statuses, and history preservation.
+- Explain how readers should follow a plan item from intention to execution evidence.
+- Document the current PL-0003 state as Active / Partial execution.
+
+### Expected output
+
+- Update `progress/README.md` with a reader-friendly repository usage guide.
+
+### Acceptance criteria
+
+- A new reader can understand the repository purpose and major folders.
+- A reader can distinguish planned work from completed repository work.
+- The plan-first sequence is explicit.
+- The relationship between `PL-`, `WL-`, and commit records is clear.
+- The guide explains partial, blocked, deferred, and completed work honestly.
+- The guide does not claim PL-0003 is complete.
+- The work is recorded in a new `WL-0009` entry.
+
+### Related plan items
+
+- `PL-0002` — plan-first repository execution workflow.
+- `PL-0003` — technology and architecture decisions.
+
+### Related execution records
+
+- Pending: `WL-0009`.
+
+</span>
+
+<span style="color:grey">
+
+## PL-0003 — Define technology and architecture decisions
+
+**Status:** Active / Partial execution  
 **Priority:** Critical  
 **Owner:** Product and engineering planning group  
 **Origin:** Next approved planning target following the repository audit and the implementation/data-foundation roadmap.  
@@ -71,7 +121,7 @@ Define and document the initial technical architecture for Toolboxed before crea
 
 ### Acceptance review still required
 
-PL-0003 remains Active because the following remain open:
+PL-0003 remains Active / Partial execution because the following remain open:
 
 - Frontend framework and rendering libraries.
 - Backend language and framework.
@@ -79,11 +129,10 @@ PL-0003 remains Active because the following remain open:
 - Identity, hosting, queue, and object-storage providers.
 - Initial building typology, regulatory jurisdiction, scale targets, and performance budgets.
 - Review by the product owner, technical lead, BIM/domain architect, security, and QA representatives.
-- Full execution record in `progress/CODING_WORKLOG.md` under `WL-0008`.
 
 ### Related execution records
 
-- Pending completion of `WL-0008` after the full worklog history is safely updated.
+- `WL-0008` — provisional architecture baseline and ADRs.
 - Technology decision commits: [`413a7ba`](https://github.com/tyrax871/Toolboxed-Ai/commit/413a7ba749aec3a376eeb4027991536595bac10d), [`f3016dd`](https://github.com/tyrax871/Toolboxed-Ai/commit/f3016dde24e48d14f2211b3e80466f1d36ae399a), [`63b734f`](https://github.com/tyrax871/Toolboxed-Ai/commit/63b734f95c61d9d2b5997459c67fb059fa57b7b7), [`4101224`](https://github.com/tyrax871/Toolboxed-Ai/commit/4101224f0f144688bfaeafc0dc4042005970de23), [`6f20c7d`](https://github.com/tyrax871/Toolboxed-Ai/commit/6f20c7dcc7d17d764e7995508909638aa17029d1), [`5ecbf86`](https://github.com/tyrax871/Toolboxed-Ai/commit/5ecbf863c5830a984eb880bb7b40110c6324f535).
 
 </span>
