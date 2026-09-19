@@ -11,65 +11,72 @@
 
 <span style="color:green">
 
-## WL-0010 — 2026-09-19
+## WL-0011 — 2026-09-19
 
-**Plan item:** `PL-0004 — Write the repository usage and plan/worklog guide`  
-**Change type:** Repository documentation and workflow guidance  
-**Objective:** Expand the repository guide so readers can interpret Partial, Blocked, Deferred, and Completed plan statuses consistently.
+**Plan item:** `PL-0005 — Add incremental execution sequences for large tasks`  
+**Change type:** Planning governance and repository documentation  
+**Increment:** Frame and document the large-task execution sequence  
+**Objective:** Define a repeatable sequence for breaking large tasks into ordered increments that can be validated and accepted one at a time until the parent objective succeeds.
 
 ### Detailed work completed
 
-- Added a status-interpretation section to `progress/README.md`.
-- Defined what each status means in relation to intended scope, execution, dependencies, and acceptance evidence.
-- Added guidance for reading and managing partial execution.
-- Distinguished Blocked from Deferred using dependency availability and project intent.
-- Added the acceptance gate for marking work Completed.
-- Added required evidence and follow-up expectations for each status.
-- Applied the guidance to the current `PL-0003` state without treating it as complete.
-- Updated `PL-0004` with its detailed status-guidance output and acceptance evidence.
+- Added `PL-0005` to `progress/PLAN_LOG.md`.
+- Defined the sequence: Frame, Discover, Design, Build, Validate, Review, and Accept or continue.
+- Added exit conditions for each increment.
+- Required bounded increments to identify scope, owner, dependencies, risks, outputs, and exit conditions.
+- Required each executed increment to be recorded in the worklog and linked to evidence.
+- Clarified that partial increments do not imply successful completion of the parent plan.
+- Added rules for failed, blocked, deferred, corrected, retried, and re-planned increments.
+- Updated the worklog template with an `Increment` field.
+- Applied the sequence to future continuation of `PL-0003` while preserving its Active / Partial execution status.
 
 ### Decisions and rationale
 
-Status labels must communicate project control state, not general confidence. Partial means useful outputs exist but acceptance is incomplete. Blocked means a specific dependency prevents the next responsible action. Deferred means the project intentionally postpones the work. Completed requires acceptance criteria, validation or review evidence, linked execution records, and no unresolved blocker preventing the stated outcome.
+Large tasks should not be treated as one indivisible change. The parent plan retains the overall objective and final acceptance criteria; increments provide controlled checkpoints. Each increment must have an observable exit condition, and the parent remains incomplete until its acceptance criteria are met.
 
 ### Files and folders affected
 
 | Path | Change |
 |---|---|
-| `progress/README.md` | Added detailed interpretation and decision rules for plan statuses |
-| `progress/PLAN_LOG.md` | Marked `PL-0004` Completed and preserved `PL-0003` as Active / Partial execution |
-| `progress/CODING_WORKLOG.md` | Added this `WL-0010` entry |
+| `progress/PLAN_LOG.md` | Added `PL-0005` and the standard increment sequence |
+| `progress/README.md` | Added large-task sequencing guidance and increment rules |
+| `progress/CODING_WORKLOG.md` | Added this `WL-0011` entry and the `Increment` template field |
 
 ### Validation performed
 
-- Read the current repository guide, plan log, and worklog before editing.
-- Confirmed the guide distinguishes planned work from executed work.
-- Confirmed the guide does not mark `PL-0003` Completed.
-- Confirmed the status rules cover Partial, Blocked, Deferred, and Completed work.
-- Confirmed the plan item links the guide commit and worklog records.
+- Read the current plan log, repository guide, and worklog before editing.
+- Confirmed the sequence preserves the plan-first workflow.
+- Confirmed each increment is required to have evidence and an exit condition.
+- Confirmed the guidance does not mark `PL-0003` complete.
 - No application code, database migrations, automated tests, lint checks, type checks, deployment checks, or infrastructure provisioning were run.
 
 ### Limitations or blockers
 
-- The guide documents governance but does not automatically enforce it through CI.
-- Status interpretation still depends on accurate plan, worklog, review, and commit records.
-- `PL-0003` remains pending technology-choice resolution and stakeholder acceptance review.
+- The sequence is documented process and is not yet enforced automatically by CI.
+- Existing historical worklog entries do not include the new `Increment` field; history is preserved unchanged.
+- The next PL-0003 increment still requires the open architecture choices and stakeholder review to be defined and planned.
 
 **Status:** Completed  
-**Next steps:** Apply the expanded status rules to future plan updates and continue the separate acceptance review for `PL-0003`.  
-**Commits:** [`c1547f5`](https://github.com/tyrax871/Toolboxed-Ai/commit/c1547f55c6388a99a20d4c3e0f79e8ba0e35e6e2), [`ad56f01`](https://github.com/tyrax871/Toolboxed-Ai/commit/ad56f01795a60c919ea59b8b70116e9f2f1f3e85)
+**Next steps:** Apply the sequence to the next PL-0003 increment and record its execution as a new worklog entry.  
+**Commits:** [`393211b`](https://github.com/tyrax871/Toolboxed-Ai/commit/393211b3dfafd8d002ffec93414806979c3a59ae), [`7b82cf9`](https://github.com/tyrax871/Toolboxed-Ai/commit/7b82cf9fd76f8e666a14dde3ac8287c691aec18c)
 
 </span>
 
 <span style="color:grey">
+
+## WL-0010 — 2026-09-19
+
+**Plan item:** `PL-0004`  
+**Change type:** Repository documentation and workflow guidance  
+**Status:** Completed
+
+See the linked guide and plan records for the detailed execution record.
 
 ## WL-0009 — 2026-09-19
 
 **Plan item:** `PL-0004`  
 **Change type:** Repository documentation and workflow guidance  
 **Status:** Previous
-
-See the linked repository guide and plan records for the detailed execution record.
 
 ## WL-0008 — 2026-09-18
 
