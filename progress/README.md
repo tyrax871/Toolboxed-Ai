@@ -1,82 +1,86 @@
 # Progress Logs and Repository Guide
 
-This folder is the authoritative development narrative for Toolboxed. It tells people and AI what we might do, what we have selected to do, how the task will be done, what was actually done, how it was reviewed, and whether it succeeded.
+This folder is the authoritative development narrative for Toolboxed. It tells people and AI what we might want to do, what we selected, how we plan to do it, what we actually did, what we found, and whether the result worked.
 
 ## Progress logs
 
-| File | Role | Lifecycle stage |
+| File | Role | Process stage |
 |---|---|---|
-| `BRAINSTORM_LOG.md` | Ideas, problems, opportunities, alternatives, and possible tasks; no work is authorised here | Brainstorm |
-| `PLAN_LOG.md` | Selected ideas turned into scoped, documented tasks with dependencies and acceptance criteria | Plan and Document |
-| `CODING_WORKLOG.md` | Actual execution: files, code, configuration, tests, data, validation, limitations, and commits | Execute |
-| `REVIEW_LOG.md` | Inspection of executed results against the plan and evidence requirements | Review |
-| `ACCEPTANCE_LOG.md` | Final task outcome: accepted success, correction, rejection, block, or deferral; identifies the next task | Accept |
-| `DEVELOPMENT_LIFECYCLE.md` | Rules connecting the logs and defining evidence for each stage | Governance |
+| `BRAINSTORM_LOG.md` | Loose ideas, questions, possibilities, and conversation-style notes | Brainstorm |
+| `PLAN_LOG.md` | Selected ideas expanded into documented tasks | Plan |
+| `CODING_WORKLOG.md` | Actual execution and repository evidence | Execute |
+| `REVIEW_LOG.md` | Inspection of executed results and findings | Review |
+| `ACCEPTANCE_LOG.md` | Whether the plan worked and what happens next | Accept or revise |
+| `DEVELOPMENT_LIFECYCLE.md` | Process rules connecting the logs | Governance |
 
-## Task lifecycle
+## Development process
 
 ```text
-Brainstorm → Plan → Document → Execute → Review → Accept → Next task
-                  ↑         ↓        ↓
-                  └── revise, correct, block, defer, or reject
+Brainstorm → Plan → Execute → Review → Accept or revise → Next task
 ```
 
-Each task should pass through this process. A task may return to planning or correction when review finds defects, evidence is insufficient, acceptance criteria fail, new scope is discovered, or a dependency blocks progress.
-
-### Evidence progression
-
-- A brainstorm entry records an idea; it is not a requirement.
-- A plan records selected scope and authorisation; it is not proof of execution.
-- Documentation records how the task will be built or evaluated; it is not proof that it works.
-- A worklog records what was executed; it is not proof that the result is satisfactory.
-- A review records inspection and findings; it is not automatically acceptance.
-- An acceptance entry records the final task outcome and authorises the next task.
-
-## Plan-first task workflow
-
-1. Capture ideas in `BRAINSTORM_LOG.md`.
-2. Select an idea for development and create or update its `PL-` entry in `PLAN_LOG.md`.
-3. Document the design, contracts, assumptions, evaluation method, and acceptance checks.
-4. Execute only the approved bounded scope.
-5. Record execution in `CODING_WORKLOG.md`.
-6. Review the result in `REVIEW_LOG.md`.
-7. Record success or the required next action in `ACCEPTANCE_LOG.md`.
-8. Move to the next authorised task only after the current task outcome is recorded.
+Every task should follow this sequence. Brainstorming is loose. Planning makes the idea understandable and executable. Execution performs the documented plan. Review checks the result. Acceptance records whether the plan worked. If it did not work, the acceptance record creates the corrective or next task rather than pretending the task succeeded.
 
 ## What each log does
 
-### Brainstorm log
+### `BRAINSTORM_LOG.md` — loose ideas
 
-Use it for free exploration. Record the problem, desired outcome, ideas, alternatives, assumptions, risks, and possible next actions. Entries may be selected, parked, rejected, or converted to plans. Brainstorm entries never authorise implementation.
+Use this like a simple chat, scratchpad, or list. Add anything we might want, a problem we notice, a question, a possible feature, or a technical possibility. Do not force ideas into full plans here. Nothing in this log authorises work.
 
-### Plan log
+### `PLAN_LOG.md` — explored and documented ideas
 
-Use it for selected work. A plan is a structured and documented version of an idea: it defines objective, scope, exclusions, owner, dependencies, evidence, outputs, risks, open questions, exit conditions, and acceptance criteria. Linked ADRs, design documents, contracts, and fixture briefs describe the method.
+Move an idea here when we want to explore it seriously. Expand it into an objective, scope, exclusions, approach, dependencies, evidence, risks, exit condition, and acceptance criteria. This is where the idea becomes a task that can be executed.
 
-### Coding worklog
+### `CODING_WORKLOG.md` — executed work
 
-Use it for actual work. Record the exact increment, changes, validation actually performed, unperformed checks, failures, limitations, blockers, and repository evidence. The worklog must not claim that review or acceptance occurred unless those records exist separately.
+Record what actually happened while carrying out the plan. Include changed files, implementation details, validation performed, unperformed checks, limitations, blockers, and exact repository evidence. This log does not decide whether the plan worked.
 
-### Review log
+### `REVIEW_LOG.md` — reviewed results
 
-Use it after execution. Record reviewers, evidence inspected, findings, required corrections, owners, decision, and next review point. Review determines whether the result is ready for acceptance or requires further work.
+Record what was inspected, by whom or by which review responsibility, what the evidence showed, what failed, and what corrections are required. Review prepares the result for acceptance; it is not acceptance by itself.
 
-### Acceptance log
+### `ACCEPTANCE_LOG.md` — outcome and next task
 
-Use it after review. Record the acceptance authority, criteria, evidence, limitations, outcome, follow-up plan, and next task. Only an accepted result is a success for that task. Acceptance is always scoped and does not accept the entire application.
+Record whether the plan worked: accepted, accepted with limitations, revise, rejected, blocked, or deferred. If the plan did not work, create or identify the next corrective task. If it worked, identify the next planned task. Only an accepted result is a task success.
+
+## Workflow
+
+1. Add a loose idea to `BRAINSTORM_LOG.md`.
+2. Select an idea and expand it into a documented task in `PLAN_LOG.md`.
+3. Execute only the documented task.
+4. Record actual work in `CODING_WORKLOG.md`.
+5. Review the result in `REVIEW_LOG.md`.
+6. Record whether the plan worked in `ACCEPTANCE_LOG.md`.
+7. Plan the next task or corrective task before continuing.
+
+## Evidence chain
+
+```text
+BRAINSTORM_LOG.md
+  → idea
+PLAN_LOG.md
+  → documented task
+CODING_WORKLOG.md
+  → execution
+REVIEW_LOG.md
+  → review
+ACCEPTANCE_LOG.md
+  → success or correction
+  → next task
+```
 
 ## Current PL-0003 state
 
-`PL-0003 — Define technology and architecture decisions` remains **Active / Partial execution**. Its baseline, matrix, and fixture definition are documented and executed as repository changes. The dataset, measured evaluations, formal review, evidence-backed ADR decisions, and architecture acceptance remain pending.
+`PL-0003 — Define technology and architecture decisions` remains **Active / Partial execution**. The fixture review was accepted with limitations. The next task is to create and review the versioned evaluation dataset. Dataset creation, measured evaluations, evidence-backed ADR decisions, and architecture acceptance remain pending.
 
-## Status and history rules
+## Rules
 
-- Do not infer execution from a plan or implementation from a design document.
-- Do not infer review from a commit or acceptance from a review recommendation.
-- Record failed, partial, blocked, deferred, rejected, and corrected work honestly.
-- Preserve all historical entries; do not rewrite history to make work appear complete.
-- Link each task across brainstorm, plan, worklog, review, acceptance, and exact repository evidence.
+- Keep brainstorm ideas loose; do not require a plan template there.
+- Do not infer execution from a plan or documentation.
+- Do not infer success from execution or review alone.
+- Record failed, partial, blocked, deferred, rejected, and corrective outcomes honestly.
+- Preserve historical entries and link each task across the logs.
 - Keep parent plans active until their own acceptance criteria are met.
 - Use the most cautious status when records disagree.
 
-For detailed lifecycle rules and templates, see `progress/DEVELOPMENT_LIFECYCLE.md`.
+For the full process rules, see `progress/DEVELOPMENT_LIFECYCLE.md`.
