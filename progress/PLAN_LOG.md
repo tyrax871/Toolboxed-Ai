@@ -1,14 +1,13 @@
 # Toolboxed Project Plan Log
 
-<!-- PLAN RULE: This file records selected and documented tasks. Brainstorm ideas belong in BRAINSTORM_LOG.md. -->
+<!-- PLAN RULE: This file records ideas selected from BRAINSTORM_LOG.md and expanded into documented tasks. -->
 <!-- PLAN RULE: Every task has a unique sequential ID in the format PL-0001, PL-0002, PL-0003, and so on. -->
 <!-- PLAN RULE: Record scope, exclusions, owner, dependencies, evidence, outputs, risks, exit conditions, and acceptance criteria. -->
-<!-- PLAN RULE: Distinguish planned, documented, executed, reviewed, and accepted work. -->
-<!-- PLAN RULE: A plan or design document is not proof of execution, review, validation, or acceptance. -->
+<!-- PLAN RULE: A plan is not proof of execution, review, validation, or success. -->
 
 ## Role of this log
 
-`PLAN_LOG.md` contains ideas selected from `BRAINSTORM_LOG.md` and turned into scoped, documented tasks. It records what we want to do, why we want to do it, how we intend to do it, what evidence is needed, and what success means. It does not record unapproved brainstorming or claim that execution occurred.
+`PLAN_LOG.md` is where a loose brainstorm idea becomes a task we can understand, execute, review, and accept. It records what we want to do, why, how, and what success means. Loose ideas remain in `BRAINSTORM_LOG.md`.
 
 ## Task lifecycle
 
@@ -20,18 +19,18 @@ BRAINSTORM_LOG.md → PLAN_LOG.md → CODING_WORKLOG.md → REVIEW_LOG.md → AC
 
 | ID | Plan item | Status | Priority | Next outcome |
 |---|---|---|---|---|
-| PL-0005 | Add incremental execution sequences for large tasks | Active | High | Apply the separate-log lifecycle to active product and architecture work |
-| PL-0003 | Define technology and architecture decisions | Active / Partial execution | Critical | Review the fixture, create the dataset, and run measured evaluations before architecture acceptance |
+| PL-0005 | Add incremental execution sequences for large tasks | Active | High | Apply the brainstorm-to-acceptance process to active work |
+| PL-0003 | Define technology and architecture decisions | Active / Partial execution | Critical | Create and review the versioned evaluation dataset before measured evaluations |
 | PL-0001 | Establish the implementation and data-foundation roadmap | Active | Critical | Execute the Group 1 foundation frame before application implementation |
 
 ## Status definitions
 
-- **Proposed** — selected idea is being considered; execution is not authorised.
+- **Proposed** — selected brainstorm idea is being considered for planning.
 - **Active** — task is planned, documented, or being executed within scope.
-- **Active / Partial execution** — useful outputs exist, but review or acceptance criteria remain incomplete.
+- **Active / Partial execution** — useful outputs exist, but review or acceptance remains incomplete.
 - **Blocked** — a named dependency prevents the next responsible action.
 - **Deferred** — the project intentionally postpones the task.
-- **Completed** — the task's scope-specific acceptance criteria are met and linked evidence exists.
+- **Completed** — the task's acceptance criteria are met and linked evidence exists.
 
 <span style="color:green">
 
@@ -47,53 +46,38 @@ Define and document the initial technical architecture for Toolboxed before crea
 
 ### Lifecycle state
 
-- **Planned:** PL-0003 authorises architecture definition and acceptance work.
-- **Documented:** The provisional baseline, ADRs, decision matrix, and evaluation fixture exist.
-- **Executed:** WL-0012 and WL-0013 record the documentation increments.
-- **Reviewed:** No formal review entry exists yet.
-- **Accepted:** Not reached; dataset creation, measured evaluations, review, and architecture acceptance remain pending.
+- **Brainstorm:** Architecture and evaluation ideas were explored before selection.
+- **Plan:** PL-0003 defines the architecture task and acceptance criteria.
+- **Execute:** WL-0012, WL-0013, and WL-0016 record executed documentation and fixture-review work.
+- **Review:** RV-0001 records the fixture review.
+- **Accept:** AC-0001 accepts the fixture review with limitations.
+- **Next task:** Create and review the versioned evaluation dataset.
 
-### Current task — review fixture and create evaluation dataset
+### Current task — create the versioned evaluation dataset
 
 **Status:** Active / Documented; execution not yet recorded  
-**Purpose:** Review the fixture definition, resolve or assign open assumptions, and create a versioned, inspectable dataset that can be used for measured architecture evaluations.
+**Purpose:** Create a small, inspectable dataset that satisfies the reviewed fixture and can support later measured architecture evaluation.
 
 #### Planned scope
 
-- Inspect `docs/architecture/ARCHITECTURE_EVALUATION_FIXTURE.md`.
-- Record product, technical, BIM/domain, security, and QA review decisions in `REVIEW_LOG.md`.
-- Confirm or explicitly label building typology, jurisdiction, standards, units, coordinate assumptions, source provenance, and licensing.
-- Create or select the smallest inspectable dataset satisfying the fixture brief.
-- Record dataset version, entity and relationship counts, files, provenance, license, integrity checks, and known limitations.
-- Record the executed work in `CODING_WORKLOG.md`.
-- Record acceptance or corrective action in `ACCEPTANCE_LOG.md` before proceeding to measured evaluations.
+- Choose and document a concrete serialisation format.
+- Define minimum entity and relationship counts.
+- Confirm or explicitly label building type, jurisdiction, standards, units, coordinates, and professional assumptions.
+- Create or select the smallest dataset satisfying the fixture.
+- Record source/generator provenance, version, license, checksums, file sizes, counts, and known limitations.
+- Verify that the dataset can support semantic, spatial, geometry, exchange, storage, and job evaluation tasks.
+- Record execution in `CODING_WORKLOG.md`, review in `REVIEW_LOG.md`, and outcome in `ACCEPTANCE_LOG.md`.
 
 #### Explicit exclusions
 
 - No production application code.
 - No database migrations or provider-specific infrastructure.
 - No final framework, geometry kernel, BIM exchange, identity, queue, or hosting decision.
-- No architecture acceptance based only on the fixture document.
+- No measured architecture acceptance from the dataset alone.
 
 #### Exit condition
 
-The fixture has a recorded review outcome, and a versioned dataset exists or a documented blocker explains why creation cannot proceed. The next task is measured evaluation only after the dataset task is accepted or explicitly continued with limitations.
-
-### Completed increments
-
-- **Increment 1:** Architecture decision matrix and bounded design work — `WL-0012`.
-- **Increment 2:** Representative architecture evaluation fixture definition — `WL-0013`, fixture commit [`0e54d56`](https://github.com/tyrax871/Toolboxed-Ai/commit/0e54d56c5a72133c0355a4b1f06e8477d153a284).
-- **Progress lifecycle governance:** Separate progress logs and task lifecycle — `WL-0015`.
-
-### Remaining acceptance work
-
-- Review the fixture and record `RV-0001` or a corrective review entry.
-- Create and inspect the versioned evaluation dataset.
-- Record `WL-0016` for the dataset task.
-- Record `AC-0001` or a corrective/deferred outcome before measured evaluation.
-- Run spatial, geometry, exchange, storage, rendering, job-recovery, performance, quality, and security evaluations.
-- Update ADRs and architecture decisions from evidence.
-- Complete final product, technical, BIM/domain, security, and QA acceptance review.
+A versioned, inspectable dataset exists with provenance, integrity, counts, and limitations recorded; its result has been reviewed; and acceptance or corrective action has been recorded before measured evaluations begin.
 
 </span>
 
@@ -116,7 +100,7 @@ The Group 1 roadmap defines the first usable vertical slice: account and access,
 **Status:** Active  
 **Priority:** High  
 
-The separate progress logs now apply the sequence Brainstorm, Plan, Document, Execute, Review, Accept, and Next task. The task lifecycle is defined in `progress/DEVELOPMENT_LIFECYCLE.md`; the governance update is recorded in `WL-0015`.
+The progress process is Brainstorm, Plan, Execute, Review, Accept or revise, then Next task. The process is defined in `progress/DEVELOPMENT_LIFECYCLE.md`; the separate-log structure is recorded in `WL-0015`.
 
 ## PL-0004 — Write the repository usage and plan/worklog guide
 
