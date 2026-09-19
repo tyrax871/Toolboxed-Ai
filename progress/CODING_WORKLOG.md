@@ -11,60 +11,66 @@
 
 <span style="color:green">
 
-## WL-0008 — 2026-09-18
+## WL-0009 — 2026-09-19
 
-**Plan item:** `PL-0003`  
-**Change type:** Technology and architecture documentation  
-**Objective:** Execute the approved technology and architecture planning item by documenting a provisional implementation baseline for Toolboxed.
+**Plan item:** `PL-0004 — Write the repository usage and plan/worklog guide`  
+**Change type:** Repository documentation and workflow guidance  
+**Objective:** Explain how readers use the Toolboxed repository and distinguish intended work in the plan log from completed repository work in the execution worklog.
 
 ### Detailed work completed
 
-- Added `docs/architecture/TECHNOLOGY_DECISIONS.md`.
-- Added ADRs for application architecture, data and storage, authentication and access, background jobs and realtime, and testing and observability.
-- Documented a modular-monolith starting point with explicit domain modules and background-job seams.
-- Documented PostgreSQL-compatible transactional storage, object storage for large artifacts, and adapter boundaries for geometry and BIM exchange.
-- Documented managed OIDC/OAuth2 authentication as a provisional identity direction while retaining domain authorisation in Toolboxed.
-- Documented durable workers for generation, metrics, imports, exports, and heavy validation.
-- Documented polling or server-sent events as the initial realtime approach, with WebSockets deferred.
-- Documented layered validation, structured observability, and correlation metadata.
-- Updated the plan log with execution outputs and remaining open decisions.
+- Added a reader-friendly guide to `progress/README.md`.
+- Documented the repository purpose and major folders.
+- Explained that `progress/PLAN_LOG.md` records what the project wants to do.
+- Explained that `progress/CODING_WORKLOG.md` records what the repository has actually done.
+- Documented the mandatory plan-first execution workflow.
+- Documented the relationship between `PL-`, `WL-`, commit, pull-request, and acceptance records.
+- Documented the correct use of an authorising plan item, including `PL-0003`.
+- Documented how readers should review a change from plan to worklog to commit.
+- Documented honest handling of partial, blocked, deferred, and completed work.
+- Documented that `PL-0003` remains Active / Partial execution until provisional architecture decisions are reviewed and remaining open choices are resolved.
 
 ### Decisions and rationale
 
-The repository is not ready for application implementation until the remaining technology choices are reviewed. The provisional baseline intentionally avoids prematurely selecting a geometry vendor, BIM exchange format, or microservice topology. The central model remains authoritative, approved revisions remain immutable, and frontend/backend boundaries use typed contracts and explicit projections.
+The plan log and worklog serve different purposes and must remain separate. The plan log records intended scope and authorisation. The worklog records actual repository changes and validation. A plan item is not complete merely because files were created; acceptance criteria and evidence must support the status transition.
 
 ### Files and folders affected
 
 | Path | Change |
 |---|---|
-| `docs/architecture/TECHNOLOGY_DECISIONS.md` | Created provisional technology baseline |
-| `docs/architecture/DECISIONS/ADR-0001-initial-application-architecture.md` | Created application architecture ADR |
-| `docs/architecture/DECISIONS/ADR-0002-data-and-storage-strategy.md` | Created data and storage ADR |
-| `docs/architecture/DECISIONS/ADR-0003-authentication-and-access.md` | Created authentication and access ADR |
-| `docs/architecture/DECISIONS/ADR-0004-background-jobs-and-realtime.md` | Created jobs and realtime ADR |
-| `docs/architecture/DECISIONS/ADR-0005-testing-and-observability.md` | Created testing and observability ADR |
-| `progress/PLAN_LOG.md` | Updated with PL-0003 execution outputs |
-| `progress/CODING_WORKLOG.md` | Added WL-0008 |
+| `progress/README.md` | Updated with repository usage, plan/worklog, traceability, and status guidance |
+| `progress/PLAN_LOG.md` | Added `PL-0004`; preserved `PL-0003` as Active / Partial execution |
+| `progress/CODING_WORKLOG.md` | Added this `WL-0009` entry |
 
 ### Validation performed
 
-- Read the repository README, product plan, BIM architecture plan, architecture directory, plan log, and worklog before execution.
-- Confirmed the changes remained within approved `PL-0003` scope.
-- Confirmed all planned architecture decision areas were addressed at a provisional level.
+- Read the existing repository guide, plan log, and worklog before updating them.
+- Confirmed the guide reflects the established plan-first workflow.
+- Confirmed PL-0003 is not described as completed.
+- Confirmed the guide distinguishes planned work, executed work, evidence, and acceptance.
 - No application code, database migrations, automated tests, lint checks, type checks, deployment checks, or infrastructure provisioning were run.
 
 ### Limitations or blockers
 
-- Frontend framework and rendering libraries remain open.
-- Backend language and framework remain open.
-- Exact spatial extension, geometry kernel, BIM exchange format, and model granularity remain open.
-- Identity, hosting, queue, and object-storage providers remain open.
-- Initial building typology, regulatory jurisdiction, scale targets, performance budgets, and professional review are not confirmed.
-- The architecture baseline remains provisional and is not approval for production implementation.
+- The guide documents process but does not automatically enforce it through CI.
+- PL-0003 still requires technology-choice resolution and stakeholder acceptance review.
+- The guide may need revision if repository structure or governance rules change.
 
-**Status:** Partial — provisional baseline recorded; acceptance review pending  
-**Next steps:** Review the technology package with the product owner, technical lead, BIM/domain architect, security, and QA representatives; resolve critical open choices; then update PL-0003.  
-**Commits:** [`2170000`](https://github.com/tyrax871/Toolboxed-Ai/commit/21700002a444a5beece65d98e3905c6b150fc00f), [`413a7ba`](https://github.com/tyrax871/Toolboxed-Ai/commit/413a7ba749aec3a376eeb4027991536595bac10d), [`f3016dd`](https://github.com/tyrax871/Toolboxed-Ai/commit/f3016dde24e48d14f2211b3e80466f1d36ae399a), [`63b734f`](https://github.com/tyrax871/Toolboxed-Ai/commit/63b734f95c61d9d2b5997459c67fb059fa57b7b7), [`4101224`](https://github.com/tyrax871/Toolboxed-Ai/commit/4101224f0f144688bfaeafc0dc4042005970de23), [`6f20c7d`](https://github.com/tyrax871/Toolboxed-Ai/commit/6f20c7dcc7d17d764e7995508909638aa17029d1), [`5ecbf86`](https://github.com/tyrax871/Toolboxed-Ai/commit/5ecbf863c5830a984eb880bb7b40110c6324f535)
+**Status:** Completed  
+**Next steps:** Use this guide for future repository work; continue PL-0003 acceptance review separately.  
+**Commits:** [`9489ab8`](https://github.com/tyrax871/Toolboxed-Ai/commit/9489ab8c53cc1fb8f647501937bb4e2404d5ace3), [`aff27c6`](https://github.com/tyrax871/Toolboxed-Ai/commit/aff27c61d1c1e1df88514343c5ee45be11a15a52)
+
+</span>
+
+<span style="color:grey">
+
+## WL-0008 — 2026-09-18
+
+**Plan item:** `PL-0003`  
+**Change type:** Technology and architecture documentation  
+**Status:** Partial — provisional baseline recorded; acceptance review pending
+
+See the linked architecture decisions and commits for the detailed execution record.
 
 </span>
 
