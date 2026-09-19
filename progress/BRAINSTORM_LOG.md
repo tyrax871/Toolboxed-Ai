@@ -1,6 +1,6 @@
 # Toolboxed Brainstorm Log
 
-This is a loose idea-capture space for Toolboxed. Use it like a simple chat, scratchpad, or list. Write down things we might want, questions we have, problems we notice, or possibilities worth exploring.
+This is a loose idea-capture space for Toolboxed. Use it like a simple chat, scratchpad, or list, and write down things we might want, questions we have, problems we notice, or possibilities worth exploring.
 
 Nothing in this log is a requirement, decision, plan, authorisation, or acceptance record.
 
@@ -29,7 +29,8 @@ Loose idea → selected for exploration → expanded in PLAN_LOG.md
 - We should explore the simplest useful account, organisation, membership, and project-access flow.
 - We should understand what a first 2D model workspace needs before adding a 3D viewer.
 - We should explore how import, export, validation, and other long-running jobs should show progress and recover from failure.
+- We should use the Architechtures reference to represent the design problem, generated alternatives, comparison metrics, and selected option—not only the final BIM elements.
 
 ## Historical idea
 
-The architecture-fixture review idea was previously recorded as `BR-0001` and was taken forward into the plan and execution process. It remains represented above in loose form; its detailed planning and outcome belong in `PLAN_LOG.md`, `REVIEW_LOG.md`, `ACCEPTANCE_LOG.md`, and `CODING_WORKLOG.md`.
+The architecture-fixture review idea was previously recorded as `BR-0001` and was taken forward into the plan and execution process. It remains represented above in loose form; its detailed planning and outcome belong in the other progress logs.
