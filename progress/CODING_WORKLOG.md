@@ -11,6 +11,65 @@
 
 <span style="color:green">
 
+## WL-0015 — 2026-09-19
+
+**Plan item:** `PL-0005 — Add incremental execution sequences for large tasks`  
+**Change type:** Progress-folder structure and lifecycle governance  
+**Increment:** Separate brainstorm, plan/document, execution, review, and acceptance records for every task  
+**Objective:** Make each Toolboxed task move through a controlled sequence: brainstorm, plan, document, execute, review, accept, and then continue to the next task.
+
+### Context
+
+The progress folder previously combined selected plans, execution records, and lifecycle guidance but did not provide separate logs for exploratory ideas, review decisions, or final acceptance outcomes. The new structure must preserve the distinction between an idea, a documented plan, executed work, reviewed results, and an accepted success.
+
+### Detailed work completed
+
+- Created `progress/BRAINSTORM_LOG.md` for unapproved ideas, alternatives, opportunities, assumptions, risks, and candidate tasks.
+- Created `progress/REVIEW_LOG.md` for inspection of executed results, reviewers, evidence, findings, corrections, and review outcomes.
+- Created `progress/ACCEPTANCE_LOG.md` for scope-specific success, correction, rejection, blocking, and deferral decisions.
+- Updated `progress/DEVELOPMENT_LIFECYCLE.md` to define the full task sequence and the role of every log.
+- Updated `progress/README.md` to identify each log, describe its purpose, define evidence progression, and require tasks to move through the separate records.
+- Preserved `PLAN_LOG.md` as the record of selected and documented tasks, and `CODING_WORKLOG.md` as the record of actual execution.
+- Kept PL-0003 Active / Partial execution because its dataset, measured evaluations, review, and architecture acceptance have not occurred.
+
+### Decisions and rationale
+
+Brainstorming should remain exploratory and non-authorising. Planning should select and scope an idea. Documentation should define how the work will be done. Execution should record actual changes. Review should inspect evidence. Acceptance should record whether the result is satisfactory and identify the next task. This prevents a proposal, documentation commit, or worklog entry from being mistaken for a successful application increment.
+
+### Files and folders affected
+
+| Path | Change |
+|---|---|
+| `progress/BRAINSTORM_LOG.md` | Created |
+| `progress/REVIEW_LOG.md` | Created |
+| `progress/ACCEPTANCE_LOG.md` | Created |
+| `progress/DEVELOPMENT_LIFECYCLE.md` | Updated with separate log roles and task flow |
+| `progress/README.md` | Updated with separate log definitions and workflow |
+| `progress/CODING_WORKLOG.md` | Updated with this entry |
+| Application, package, service, infrastructure, and test files | Unchanged |
+
+### Validation performed
+
+- Read the existing progress guide, lifecycle guide, plan log, and worklog before editing.
+- Confirmed the new logs have templates, status/outcome rules, and explicit non-authorising or non-acceptance boundaries.
+- Confirmed the progress guide links the full task lifecycle and current PL-0003 state.
+- Confirmed the acceptance log was created after resolving a concurrent file update.
+- No application code, migrations, automated tests, benchmarks, deployment checks, stakeholder reviews, or task acceptance decisions were performed.
+
+### Limitations or blockers
+
+- The new logs are governance records and are not automatically enforced by CI or tooling.
+- Existing historical worklog entries remain unchanged in substance.
+- No formal review or acceptance entries exist yet; PL-0003 remains pending review and evidence.
+
+**Status:** Completed — progress-folder task lifecycle and separate logs established  
+**Next steps:** Apply the new lifecycle to the next PL-0003 task: review the fixture and create the versioned evaluation dataset.  
+**Commits:** [`594ca9c`](https://github.com/tyrax871/Toolboxed-Ai/commit/594ca9c7be17c6653310ef73e627b354bb47823a), [`45fae17`](https://github.com/tyrax871/Toolboxed-Ai/commit/45fae17ecb53dbc4e818fcc1ef8b2085343a16be), [`6da16d1`](https://github.com/tyrax871/Toolboxed-Ai/commit/6da16d10ffb097b89b767284ad665ee516b47450), [`2c0e6ae`](https://github.com/tyrax871/Toolboxed-Ai/commit/2c0e6ae07ab8777402981b69e426f81b89508383), [`ba74253`](https://github.com/tyrax871/Toolboxed-Ai/commit/ba74253a2e3c0c7b4eaa09550b84be408518abfc)
+
+</span>
+
+<span style="color:grey">
+
 ## WL-0014 — 2026-09-19
 
 **Plan item:** `PL-0005 — Add incremental execution sequences for large tasks`  
@@ -155,7 +214,7 @@ The recommended implementation direction is a TypeScript web application and Typ
 |---|---|
 | `docs/architecture/ARCHITECTURE_DECISION_MATRIX.md` | Created |
 | `progress/CODING_WORKLOG.md` | Updated with this execution record |
-| Existing application, package, service, infrastructure, and test files | Unchanged |
+| Existing application, package, service, infrastructure, and test files | Unchanged
 
 ### Validation performed
 
@@ -240,13 +299,11 @@ Large tasks should not be treated as one indivisible change. The parent plan ret
 See the linked guide and plan records for the detailed execution record.
 
 ## WL-0009 — 2026-09-19
-
 **Plan item:** `PL-0004`  
 **Change type:** Repository documentation and workflow guidance  
 **Status:** Previous
 
 ## WL-0008 — 2026-09-18
-
 **Plan item:** `PL-0003`  
 **Change type:** Technology and architecture documentation  
 **Status:** Partial — provisional baseline recorded; acceptance review pending
@@ -258,39 +315,32 @@ See the linked architecture decisions and commits for the detailed execution rec
 <span style="color:grey">
 
 ## WL-0007 — 2026-09-18
-
 **Plan item:** `PL-0002`  
 **Change type:** Repository governance and progress-log workflow  
 **Status:** Previous
 
 ## WL-0006 — 2026-09-18
-
 **Change type:** Product, UX, data infrastructure, and backend/frontend planning  
 **Status:** Previous
 
 ## WL-0005 — 2026-09-18
-
 **Change type:** UX/UI product planning and workflow documentation  
 **Status:** Previous
 
 ## WL-0004 — 2026-09-18
-
 **Change type:** Worklog governance and documentation  
 **Status:** Previous  
 **Commit:** [`d57091e`](https://github.com/tyrax871/Toolboxed-Ai/commit/d57091ea2cd3abcea5d471bcc1c660ffeafc4db4)
 
 ## WL-0003 — 2026-09-18
-
 **Change type:** Product planning and architecture documentation  
 **Status:** Previous
 
 ## WL-0002 — 2026-09-18
-
 **Change type:** Documentation  
 **Status:** Previous
 
 ## WL-0001 — 2026-09-18
-
 **Change type:** Documentation and repository structure  
 **Status:** Previous
 
