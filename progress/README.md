@@ -44,6 +44,50 @@ Each entry records what actually happened: objective, context, decisions, affect
 
 If work expands beyond the approved scope, update the plan before continuing. Failed, partial, blocked, cancelled, and reverted work must be recorded honestly and cannot be marked Completed.
 
+## Large-task execution sequence
+
+Large tasks should be divided into ordered increments so the team can make useful progress, validate each result, and continue until the parent objective succeeds. The parent plan item remains the source of the overall objective, scope, and final acceptance criteria.
+
+Use this sequence for complex work:
+
+| Step | Increment | Required result before moving on |
+|---|---|---|
+| 1 | **Frame** | Objective, scope, owner, dependencies, risks, and success criteria are recorded in the plan log |
+| 2 | **Discover** | Relevant repository files, requirements, constraints, assumptions, and evidence are inspected |
+| 3 | **Design** | Options, decisions, contracts, interfaces, and acceptance checks are documented |
+| 4 | **Build** | The approved increment is implemented within its stated scope |
+| 5 | **Validate** | Relevant tests, checks, review, and evidence are performed and recorded honestly |
+| 6 | **Review** | Required stakeholders inspect the result and resolve open decisions |
+| 7 | **Accept or continue** | The increment is accepted, corrected, blocked, deferred, or followed by the next increment |
+
+### Rules for incremental execution
+
+- Give each major increment a clear name, scope, owner, and exit condition.
+- Record the increment in the parent plan item before execution begins when it changes scope or risk.
+- Use one worklog entry for each executed increment or clearly bounded batch.
+- Link each increment to its commit, pull request, tests, and review evidence.
+- Do not call an increment successful merely because it produced files; its exit condition must be met.
+- Keep the parent plan Active or Active / Partial until its final acceptance criteria are met.
+- If an increment fails, record the failure and decide whether to correct, retry, split, block, defer, or re-plan it.
+- If an increment reveals new scope, update the plan before executing that new scope.
+- At any point, a reader should be able to identify the current increment and the next required action.
+
+### Increment status pattern
+
+```text
+Parent plan: PL-0003 — Define technology and architecture decisions
+    ↓
+Increment: Review framework and runtime options
+    ↓
+Worklog: WL-xxxx — actual research and decision record
+    ↓
+Evidence: commits, ADR updates, tests, and stakeholder review
+    ↓
+Outcome: accepted / correction required / blocked / deferred
+```
+
+This sequence supports partial progress without confusing intermediate results with final success.
+
 ## How records connect
 
 ```text
@@ -67,71 +111,28 @@ A status describes the relationship between intended scope, actual execution, de
 
 | Status | Meaning | What may have happened | What the reader should conclude | What happens next |
 |---|---|---|---|---|
-| **Proposed** | The work has been identified but execution has not started | A need, idea, milestone, or dependency was recorded | Do not expect repository outputs yet | Clarify scope, dependencies, owners, evidence, outputs, risks, and acceptance criteria; obtain approval where required |
-| **Active** | The plan is currently being prepared or executed | Research, design, implementation, or review is underway | The work is authorised and current, but completion is not implied | Continue within scope and record actual results in the worklog |
-| **Active / Partial execution** | Approved work produced useful outputs, but acceptance is incomplete | Some files, decisions, tests, or implementation exist; important criteria or reviews remain open | The outputs are real but incomplete, provisional, or not fully approved; do not treat them as final | Identify remaining criteria, decisions, reviewers, evidence, and dependencies; continue or request acceptance review |
-| **Blocked** | Progress cannot responsibly continue because a required dependency is unavailable | Missing decision, access, source data, person, environment, approval, or technical prerequisite | Work may be planned or partly complete, but the blocker must be resolved before the next dependent step | Record the blocker, owner, impact, unblock condition, and next review point; do not silently work around it |
-| **Deferred** | The work is intentionally postponed, not necessarily prevented | Priority, timing, resources, or sequencing changed | Do not spend effort on it unless the plan is reactivated | Record why it was deferred, what remains preserved, and the condition or decision that would reactivate it |
-| **Completed** | Acceptance criteria are met and evidence is linked | Planned outputs exist, validation or review was performed, and remaining limitations are accepted or closed | The plan item is complete within its stated scope; this does not mean the whole product is complete | Preserve the evidence and create a new plan item for follow-up work or changed scope |
+| **Proposed** | Work identified but execution has not started | Need, idea, milestone, or dependency recorded | Do not expect repository outputs yet | Clarify scope and obtain approval |
+| **Active** | Plan is being prepared or executed | Research, design, implementation, or review underway | Work is current, but completion is not implied | Continue within scope and record actual results |
+| **Active / Partial execution** | Useful outputs exist, but acceptance is incomplete | Some files, decisions, tests, or implementation exist; criteria or reviews remain open | Outputs are real but incomplete or provisional | Identify remaining criteria and continue or request review |
+| **Blocked** | A specific dependency prevents the next responsible action | Missing decision, access, source, person, environment, approval, or prerequisite | Work may be partly complete, but the blocker must be resolved | Record blocker, owner, impact, unblock condition, and next review |
+| **Deferred** | Project intentionally postpones the work | Priority, timing, resources, or sequencing changed | Do not continue until reactivated | Record rationale and reactivation condition |
+| **Completed** | Acceptance criteria met and evidence linked | Outputs exist, validation/review performed, limitations resolved or accepted | Complete for this plan scope | Preserve evidence and create follow-up plans as needed |
 
-### Partial execution: how to read it carefully
+### Partial execution
 
-**Partial** is not the same as failed, abandoned, or almost complete. It means the repository contains a meaningful result, but the result has a known gap between execution and acceptance.
+Partial is not failed, abandoned, or almost complete. It means a meaningful result exists with a known gap between execution and acceptance. Record what is complete, what remains, open criteria, provisional limits, required reviewers, dependent-work constraints, and the next decision point.
 
-A partial item should state:
+### Blocked
 
-- What was completed.
-- What was not completed.
-- Which acceptance criteria remain open.
-- Whether the output is provisional, experimental, draft, or usable within a limited scope.
-- Who or what is needed for acceptance.
-- Whether dependent implementation may proceed or must wait.
-- The next decision or review point.
+Use Blocked only when a named obstacle prevents the next responsible action. Open questions alone do not make work blocked. Record the dependency, responsible owner, affected work, safe work that can continue, unblock condition, and review point.
 
-For example, `PL-0003` is **Active / Partial execution** because its technology baseline and ADRs exist, but framework selection, BIM and geometry strategy, provider choices, performance targets, and stakeholder review remain unresolved. The documents can guide review, but they are not final production architecture.
+### Deferred
 
-A partial status should not be used to hide failed validation. Failed checks belong in the worklog and may require **Blocked** or a separate corrective plan item if they prevent progress.
+Use Deferred when the project chooses not to pursue the work now. Use Blocked when the project wants to proceed but cannot. Preserve the original scope, rationale, dependencies, and acceptance criteria so the item can be resumed.
 
-### Blocked: how to read and manage it
+### Completed
 
-Use **Blocked** only when a specific obstacle prevents the next responsible action. Name the blocker rather than using vague language such as “waiting” or “not ready.”
-
-A useful blocked record includes:
-
-- The exact dependency or decision that is missing.
-- The person, team, system, or source responsible for resolving it.
-- The work affected by the blocker.
-- What can continue safely, if anything.
-- The condition that will remove the blocker.
-- A review date or next action.
-
-Do not mark work Blocked merely because it is difficult, has open questions, or has partial output. Open questions may be compatible with **Active** or **Active / Partial execution**. Use Blocked when the unresolved matter prevents the planned next step.
-
-### Deferred: how to distinguish it from blocked
-
-Use **Deferred** when the project chooses not to pursue the work now. Use **Blocked** when the project wants to proceed but cannot.
-
-| Question | If yes, use |
-|---|---|
-| Are we intentionally postponing this because of priority or sequencing? | **Deferred** |
-| Would we continue now if the missing dependency or decision were available? | **Blocked** |
-| Has some output been delivered but acceptance is not complete? | **Active / Partial execution** |
-
-A deferred item should retain its scope, rationale, dependencies, and acceptance criteria so it can be resumed without reconstructing the original intent.
-
-### Completed: the acceptance gate
-
-Mark an item **Completed** only when the plan’s acceptance criteria are satisfied or explicitly closed through an approved decision. Check all of the following:
-
-- The planned scope was executed, or an approved scope change explains the difference.
-- Expected outputs exist at the required quality and locations.
-- Required validation, testing, review, or approval was actually performed.
-- Failed checks and limitations are resolved, accepted, or linked to follow-up work.
-- The worklog records the actual outcome.
-- The worklog ID and commit or pull-request evidence are linked from the plan item.
-- No known blocker prevents the stated outcome.
-
-Completed means **complete for this plan item and scope**. It does not mean the repository, product, or future work is finished.
+Mark Completed only when scope is executed or formally changed, expected outputs exist, required validation or review occurred, failures and limitations are resolved or accepted, worklog and evidence are linked, and no known blocker prevents the stated outcome. Completed means complete for that plan item—not for the entire product.
 
 ## Authorising plan items
 
@@ -141,11 +142,11 @@ Every worklog entry must identify the exact plan item that authorised it:
 **Plan item:** `PL-0003 — Define technology and architecture decisions`
 ```
 
-Use the exact ID and one primary authorising plan item. Do not invent IDs or use informal names. If work crosses scope boundaries, update the plan or create a new plan item first. Account and access implementation should use its own Group 1 plan item rather than only `PL-0003`.
+Use the exact ID and one primary authorising plan item. If work crosses scope boundaries, update the plan or create a new plan item first.
 
 ## Current PL-0003 state
 
-`PL-0003 — Define technology and architecture decisions` is **Active / Partial execution**. The provisional architecture baseline and ADRs exist and are recorded in `WL-0008`, but frontend/backend framework choices, spatial and BIM strategy, providers, scale and performance targets, and stakeholder review remain unresolved.
+`PL-0003 — Define technology and architecture decisions` is **Active / Partial execution**. The provisional architecture baseline and ADRs exist and are recorded in `WL-0008`, but framework choices, spatial and BIM strategy, providers, scale and performance targets, and stakeholder review remain unresolved.
 
 The documents may guide review and further planning, but they are not final production architecture. Do not mark PL-0003 Completed until the open choices are resolved and acceptance evidence is recorded.
 
@@ -192,6 +193,7 @@ Related execution records:
 ```text
 WL-0001 — YYYY-MM-DD
 Plan item: PL-0001 — Plan item title
+Increment:
 Change type:
 Objective:
 Context:
