@@ -11,58 +11,65 @@
 
 <span style="color:green">
 
-## WL-0009 — 2026-09-19
+## WL-0010 — 2026-09-19
 
 **Plan item:** `PL-0004 — Write the repository usage and plan/worklog guide`  
 **Change type:** Repository documentation and workflow guidance  
-**Objective:** Explain how readers use the Toolboxed repository and distinguish intended work in the plan log from completed repository work in the execution worklog.
+**Objective:** Expand the repository guide so readers can interpret Partial, Blocked, Deferred, and Completed plan statuses consistently.
 
 ### Detailed work completed
 
-- Added a reader-friendly guide to `progress/README.md`.
-- Documented the repository purpose and major folders.
-- Explained that `progress/PLAN_LOG.md` records what the project wants to do.
-- Explained that `progress/CODING_WORKLOG.md` records what the repository has actually done.
-- Documented the mandatory plan-first execution workflow.
-- Documented the relationship between `PL-`, `WL-`, commit, pull-request, and acceptance records.
-- Documented the correct use of an authorising plan item, including `PL-0003`.
-- Documented how readers should review a change from plan to worklog to commit.
-- Documented honest handling of partial, blocked, deferred, and completed work.
-- Documented that `PL-0003` remains Active / Partial execution until provisional architecture decisions are reviewed and remaining open choices are resolved.
+- Added a status-interpretation section to `progress/README.md`.
+- Defined what each status means in relation to intended scope, execution, dependencies, and acceptance evidence.
+- Added guidance for reading and managing partial execution.
+- Distinguished Blocked from Deferred using dependency availability and project intent.
+- Added the acceptance gate for marking work Completed.
+- Added required evidence and follow-up expectations for each status.
+- Applied the guidance to the current `PL-0003` state without treating it as complete.
+- Updated `PL-0004` with its detailed status-guidance output and acceptance evidence.
 
 ### Decisions and rationale
 
-The plan log and worklog serve different purposes and must remain separate. The plan log records intended scope and authorisation. The worklog records actual repository changes and validation. A plan item is not complete merely because files were created; acceptance criteria and evidence must support the status transition.
+Status labels must communicate project control state, not general confidence. Partial means useful outputs exist but acceptance is incomplete. Blocked means a specific dependency prevents the next responsible action. Deferred means the project intentionally postpones the work. Completed requires acceptance criteria, validation or review evidence, linked execution records, and no unresolved blocker preventing the stated outcome.
 
 ### Files and folders affected
 
 | Path | Change |
 |---|---|
-| `progress/README.md` | Updated with repository usage, plan/worklog, traceability, and status guidance |
-| `progress/PLAN_LOG.md` | Added `PL-0004`; preserved `PL-0003` as Active / Partial execution |
-| `progress/CODING_WORKLOG.md` | Added this `WL-0009` entry |
+| `progress/README.md` | Added detailed interpretation and decision rules for plan statuses |
+| `progress/PLAN_LOG.md` | Marked `PL-0004` Completed and preserved `PL-0003` as Active / Partial execution |
+| `progress/CODING_WORKLOG.md` | Added this `WL-0010` entry |
 
 ### Validation performed
 
-- Read the existing repository guide, plan log, and worklog before updating them.
-- Confirmed the guide reflects the established plan-first workflow.
-- Confirmed PL-0003 is not described as completed.
-- Confirmed the guide distinguishes planned work, executed work, evidence, and acceptance.
+- Read the current repository guide, plan log, and worklog before editing.
+- Confirmed the guide distinguishes planned work from executed work.
+- Confirmed the guide does not mark `PL-0003` Completed.
+- Confirmed the status rules cover Partial, Blocked, Deferred, and Completed work.
+- Confirmed the plan item links the guide commit and worklog records.
 - No application code, database migrations, automated tests, lint checks, type checks, deployment checks, or infrastructure provisioning were run.
 
 ### Limitations or blockers
 
-- The guide documents process but does not automatically enforce it through CI.
-- PL-0003 still requires technology-choice resolution and stakeholder acceptance review.
-- The guide may need revision if repository structure or governance rules change.
+- The guide documents governance but does not automatically enforce it through CI.
+- Status interpretation still depends on accurate plan, worklog, review, and commit records.
+- `PL-0003` remains pending technology-choice resolution and stakeholder acceptance review.
 
 **Status:** Completed  
-**Next steps:** Use this guide for future repository work; continue PL-0003 acceptance review separately.  
-**Commits:** [`9489ab8`](https://github.com/tyrax871/Toolboxed-Ai/commit/9489ab8c53cc1fb8f647501937bb4e2404d5ace3), [`aff27c6`](https://github.com/tyrax871/Toolboxed-Ai/commit/aff27c61d1c1e1df88514343c5ee45be11a15a52)
+**Next steps:** Apply the expanded status rules to future plan updates and continue the separate acceptance review for `PL-0003`.  
+**Commits:** [`c1547f5`](https://github.com/tyrax871/Toolboxed-Ai/commit/c1547f55c6388a99a20d4c3e0f79e8ba0e35e6e2), [`ad56f01`](https://github.com/tyrax871/Toolboxed-Ai/commit/ad56f01795a60c919ea59b8b70116e9f2f1f3e85)
 
 </span>
 
 <span style="color:grey">
+
+## WL-0009 — 2026-09-19
+
+**Plan item:** `PL-0004`  
+**Change type:** Repository documentation and workflow guidance  
+**Status:** Previous
+
+See the linked repository guide and plan records for the detailed execution record.
 
 ## WL-0008 — 2026-09-18
 
@@ -81,10 +88,6 @@ See the linked architecture decisions and commits for the detailed execution rec
 **Plan item:** `PL-0002`  
 **Change type:** Repository governance and progress-log workflow  
 **Status:** Previous
-
-</span>
-
-<span style="color:grey">
 
 ## WL-0006 — 2026-09-18
 
