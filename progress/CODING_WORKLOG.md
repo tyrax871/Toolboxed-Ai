@@ -11,6 +11,59 @@
 
 <span style="color:green">
 
+## WL-0012 — 2026-09-19
+
+**Plan item:** `PL-0003 — Define technology and architecture decisions`  
+**Change type:** Architecture discovery and design documentation  
+**Increment:** Frame and design the remaining architecture decisions  
+**Objective:** Produce a bounded, evidence-oriented recommendation matrix for the remaining provisional architecture choices without treating unvalidated recommendations as final production commitments.
+
+### Context
+
+The repository already contained a provisional modular-monolith architecture baseline and five provisional ADRs. PL-0003 identified unresolved choices across frontend, backend, spatial/BIM technology, providers, project scale, performance, and stakeholder acceptance.
+
+### Detailed work completed
+
+- Reviewed the current plan log, coding worklog, technology baseline, five architecture ADRs, BIM architecture plan, product plan, and reference-document requirements.
+- Added `docs/architecture/ARCHITECTURE_DECISION_MATRIX.md`.
+- Documented recommended baselines, alternatives, rationale, acceptance evidence, and state for frontend, rendering, backend, database/spatial, geometry, BIM exchange, model granularity, identity, hosting, jobs, object storage, product fixture, scale, and performance.
+- Preserved adapter boundaries and explicitly avoided declaring provider, geometry-kernel, or framework choices final without representative fixtures and stakeholder review.
+- Defined a review group consisting of product, technical, BIM/domain, security, and QA responsibilities.
+- Defined the immediate next evidence step: representative fixtures and measured evaluations before deep implementation.
+
+### Decisions and rationale
+
+The recommended implementation direction is a TypeScript web application and TypeScript modular monolith, with PostgreSQL/PostGIS evaluation, an IFC4-compatible exchange adapter, semantic entities with immutable revisions, managed OIDC/OAuth2 behind an adapter, containerised environments, durable provider-agnostic jobs, and S3-compatible object storage. These are provisional recommendations because the repository has no runtime implementation or benchmark fixtures yet.
+
+### Files and folders affected
+
+| Path | Change |
+|---|---|
+| `docs/architecture/ARCHITECTURE_DECISION_MATRIX.md` | Created |
+| `progress/CODING_WORKLOG.md` | Updated with this execution record |
+| Existing application, package, service, infrastructure, and test files | Unchanged |
+
+### Validation performed
+
+- Read the relevant repository documentation and existing ADRs before drafting the matrix.
+- Checked that each recommendation includes alternatives, rationale, state, and acceptance evidence.
+- Checked that unresolved choices have explicit review or measurement requirements.
+- No application code, migrations, automated tests, lint checks, type checks, benchmarks, deployment checks, or stakeholder approvals were performed.
+
+### Limitations or blockers
+
+- No stakeholder review has yet been recorded.
+- The initial building typology, regulatory jurisdiction, provider constraints, team runtime preferences, and performance profile remain unconfirmed.
+- Recommendations for rendering, geometry, exchange, queue, and providers require representative fixtures, licensing review where applicable, and measured validation.
+
+**Status:** Partial — design increment documented; review and evidence remain pending  
+**Next steps:** Obtain the required stakeholder decisions, build the representative fixture, run the defined evaluations, and update the relevant ADRs and plan status based on evidence.  
+**Commit:** Pending plan-log linkage
+
+</span>
+
+<span style="color:grey">
+
 ## WL-0011 — 2026-09-19
 
 **Plan item:** `PL-0005 — Add incremental execution sequences for large tasks`  
