@@ -1,91 +1,60 @@
 # Toolboxed Review Log
 
-This log records review of executed task results. It is separate from execution: a commit or worklog entry proves that work occurred, while this log records whether the evidence was inspected and what reviewers decided.
-
-## How to use this log
-
-- Create a review entry after the bounded task is executed.
-- Identify the task, plan ID, worklog ID, evidence inspected, reviewers, findings, and decision.
-- Record approval, requested correction, rejection, blocking issues, owners, and next review point.
-- A review may recommend acceptance; it does not itself change the task to accepted unless acceptance is recorded in `ACCEPTANCE_LOG.md`.
-- If review finds new scope, update `PLAN_LOG.md` before executing it.
-
-## Review outcomes
-
-`Approved for acceptance` | `Corrections required` | `Blocked` | `Rejected` | `Deferred` | `Insufficient evidence`
-
-## Entry template
-
-```text
-RV-0001 — YYYY-MM-DD
-Task:
-Plan item:
-Worklog entry:
-Review status:
-Reviewers and roles:
-Evidence inspected:
-Findings:
-Required corrections:
-Owners and due dates:
-Decision:
-Next review point:
-Related acceptance entry:
-```
-
-## Current reviews
-
 <span style="color:green">
+
+## RV-0002 — 2026-09-19
+
+**Task:** Create the versioned architecture evaluation fixture dataset  
+**Plan item:** `PL-0003 — Define technology and architecture decisions`  
+**Worklog entry:** `WL-0018`  
+**Review status:** Completed — dataset review; acceptance decision pending
+
+### Evidence inspected
+
+- `docs/architecture/architecture-evaluation-fixture-v1.json`
+- `docs/architecture/ARCHITECTURE_EVALUATION_FIXTURE.md`
+- `progress/PLAN_LOG.md`, including the current PL-0003 dataset task
+- `progress/CODING_WORKLOG.md`, entry `WL-0018`
+
+### Findings
+
+- The dataset is present and readable as version `1.0.0`.
+- The dataset includes the principal fixture categories: project, site, levels, grids, spaces, architectural elements, materials, views, relationships, revisions, snapshots, and audit events.
+- The dataset manifest records 1 project, 1 site, 2 levels, 4 grids, 3 spaces, 19 elements, 6 relationships, 1 material, 5 views, 2 revisions, 1 snapshot, and 2 audit events.
+- The dataset supports basic semantic containment, hosted-opening, room-boundary, revision, snapshot, audit, and view-traceability checks.
+- The file was created at `docs/architecture/architecture-evaluation-fixture-v1.json`, not the originally proposed `docs/architecture/fixtures/architecture-evaluation-fixture-v1.json`. The dataset remains reviewable, but the path deviation should be resolved or explicitly accepted.
+- The manifest checksum is a placeholder and is not integrity evidence.
+- Jurisdiction, standards, licensing, IFC exchange, and kernel-generated geometry remain unresolved.
+
+### Required corrections
+
+- Compute and record a real checksum after the final dataset content and path are agreed.
+- Decide whether the dataset should move into a dedicated `docs/architecture/fixtures/` directory.
+- Confirm or explicitly accept the neutral jurisdiction and standards assumptions.
+- Record the dataset license/provenance decision.
+- Keep IFC exchange and solid geometry as later evaluation tasks rather than treating them as complete here.
+
+### Decision
+
+**Corrections required before acceptance.** The dataset is useful and substantially complete for review, but the plan has not yet fully worked because integrity, path, and provenance decisions remain open.
+
+### Next review point
+
+Review the corrected dataset after the checksum, path, provenance, and standards decisions are recorded.
+
+**Related acceptance entry:** Pending `AC-0002`.
+
+</span>
+
+<span style="color:grey">
 
 ## RV-0001 — 2026-09-19
 
 **Task:** Review the representative architecture evaluation fixture  
 **Plan item:** `PL-0003 — Define technology and architecture decisions`  
 **Worklog entry:** `WL-0013`  
-**Review status:** Completed — planning/repository review; stakeholder approvals not represented by this entry  
+**Review status:** Completed — planning/repository review; stakeholder approvals not represented by this entry
 
-### Reviewers and roles
-
-- AI/software planning review: completed from the repository evidence available in this task.
-- Product owner: decision required for building typology, jurisdiction, and first-slice relevance.
-- Technical lead: decision required for workload sufficiency and evaluation environment.
-- BIM/domain architect: decision required for semantic, geometry, exchange, and provenance coverage.
-- Security lead: decision required for tenant isolation, artifact access, redaction, and audit cases.
-- QA lead: decision required for reproducibility, accessibility, recovery, and failure-state coverage.
-
-The latter roles are recorded as required reviewers, not as completed approvals.
-
-### Evidence inspected
-
-- `docs/architecture/ARCHITECTURE_EVALUATION_FIXTURE.md`
-- `docs/architecture/ARCHITECTURE_DECISION_MATRIX.md`
-- `progress/PLAN_LOG.md`, including the PL-0003 task scope and exit criteria
-- `progress/DEVELOPMENT_LIFECYCLE.md`
-- `WL-0013`, documenting creation of the fixture brief
-
-### Findings
-
-- The fixture is sufficiently bounded to proceed to dataset definition and creation as a separate task.
-- It covers the required evaluation areas: semantic model, spatial data, geometry, application workflows, rendering, storage, jobs, performance, quality, and security.
-- The measurement protocol correctly requires fixture provenance, environment, workload, repetitions, results, thresholds or observations, limitations, and affected decisions.
-- The fixture correctly avoids claiming enterprise-scale capacity or final architecture decisions.
-- The fixture does not define a concrete serialisation format, minimum entity/relationship counts, exact source dataset, jurisdiction, standards profile, or licensing record.
-- These gaps are appropriate inputs to the dataset task rather than reasons to approve production architecture.
-
-### Required corrections or follow-up
-
-- Dataset task must choose and document a concrete representation, such as versioned JSON plus optional exchange files.
-- Dataset task must define minimum counts and required relationships for the inspectable fixture.
-- Dataset task must record provenance, license, checksums, version, and known limitations.
-- Product/domain/security/QA reviewers must record their decisions or explicit unresolved owners before final architecture acceptance.
-
-### Decision
-
-**Approved for acceptance as a fixture-definition review outcome and approved to proceed to the dataset task.** This review does not accept the architecture recommendations or authorise deep application implementation.
-
-### Next review point
-
-Review the versioned fixture dataset and its integrity/provenance record after execution.
-
-**Related acceptance entry:** Pending `AC-0001`.
+The fixture was approved to proceed to dataset definition with limitations. See the original review evidence below.
 
 </span>
