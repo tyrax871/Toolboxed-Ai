@@ -1,45 +1,37 @@
 # Toolboxed Project Plan Log
 
-<!-- PLAN RULE: This file records intended work, priorities, dependencies, decisions, and acceptance criteria. -->
-<!-- PLAN RULE: Keep current and active items near the top. -->
-<!-- PLAN RULE: Give every plan item a unique sequential ID: PL-0001, PL-0002, PL-0003, and so on. -->
-<!-- PLAN RULE: Update status as Proposed, Active, Blocked, Deferred, or Completed. -->
-<!-- PLAN RULE: Do not use this file as a record of completed implementation; link completed items to CODING_WORKLOG.md. -->
+<!-- PLAN RULE: This file records selected and documented tasks. Brainstorm ideas belong in BRAINSTORM_LOG.md. -->
+<!-- PLAN RULE: Every task has a unique sequential ID in the format PL-0001, PL-0002, PL-0003, and so on. -->
+<!-- PLAN RULE: Record scope, exclusions, owner, dependencies, evidence, outputs, risks, exit conditions, and acceptance criteria. -->
 <!-- PLAN RULE: Distinguish planned, documented, executed, reviewed, and accepted work. -->
-<!-- PLAN RULE: A document or recommendation is not proof of implementation, validation, review, or acceptance. -->
+<!-- PLAN RULE: A plan or design document is not proof of execution, review, validation, or acceptance. -->
 
-## Development lifecycle
+## Role of this log
 
-The progress folder uses this evidence lifecycle:
+`PLAN_LOG.md` contains ideas selected from `BRAINSTORM_LOG.md` and turned into scoped, documented tasks. It records what we want to do, why we want to do it, how we intend to do it, what evidence is needed, and what success means. It does not record unapproved brainstorming or claim that execution occurred.
+
+## Task lifecycle
 
 ```text
-Planned → Documented → Executed → Reviewed → Accepted
+BRAINSTORM_LOG.md → PLAN_LOG.md → CODING_WORKLOG.md → REVIEW_LOG.md → ACCEPTANCE_LOG.md → next task
 ```
-
-- **Planned** — intended scope, dependencies, outputs, risks, and acceptance criteria are recorded here.
-- **Documented** — design, contracts, assumptions, fixtures, or evaluation methods are written down.
-- **Executed** — the approved bounded increment was actually performed and recorded in `CODING_WORKLOG.md`.
-- **Reviewed** — required reviewers inspected the relevant evidence and recorded decisions or amendments.
-- **Accepted** — the scope-specific acceptance criteria are met and evidence is linked.
-
-These states must not be conflated. A fixture brief documents an evaluation; it does not prove that a dataset exists or that measurements were run. A documentation commit proves that documentation changed; it does not prove that the documented application architecture works.
 
 ## Current plan
 
 | ID | Plan item | Status | Priority | Next outcome |
 |---|---|---|---|---|
-| PL-0005 | Add incremental execution sequences for large tasks | Active | High | Apply the sequence to active product and architecture work |
-| PL-0003 | Define technology and architecture decisions | Active / Partial execution | Critical | Review the fixture and run measured evaluations before final architecture acceptance |
+| PL-0005 | Add incremental execution sequences for large tasks | Active | High | Apply the separate-log lifecycle to active product and architecture work |
+| PL-0003 | Define technology and architecture decisions | Active / Partial execution | Critical | Review the fixture, create the dataset, and run measured evaluations before architecture acceptance |
 | PL-0001 | Establish the implementation and data-foundation roadmap | Active | Critical | Execute the Group 1 foundation frame before application implementation |
 
 ## Status definitions
 
-- **Proposed** — identified but not started.
-- **Active** — currently planned or being prepared.
-- **Active / Partial execution** — useful outputs exist, but acceptance criteria remain incomplete.
-- **Blocked** — waiting on a named decision, resource, source, or prerequisite.
-- **Deferred** — intentionally postponed.
-- **Completed** — acceptance criteria met and linked to execution history.
+- **Proposed** — selected idea is being considered; execution is not authorised.
+- **Active** — task is planned, documented, or being executed within scope.
+- **Active / Partial execution** — useful outputs exist, but review or acceptance criteria remain incomplete.
+- **Blocked** — a named dependency prevents the next responsible action.
+- **Deferred** — the project intentionally postpones the task.
+- **Completed** — the task's scope-specific acceptance criteria are met and linked evidence exists.
 
 <span style="color:green">
 
@@ -48,74 +40,60 @@ These states must not be conflated. A fixture brief documents an evaluation; it 
 **Status:** Active / Partial execution  
 **Priority:** Critical  
 **Owner:** Product and engineering planning group  
-**Origin:** Approved planning target following the repository audit and implementation/data-foundation roadmap.  
 
 ### Objective
 
-Define and document the initial technical architecture for Toolboxed before creating application code, database migrations, public APIs, or deep frontend implementation. The decisions must support the architecture-first BIM model, parameter-driven design, traceable alternatives, versioned revisions, collaboration, and the first Account and access vertical slice.
+Define and document the initial technical architecture for Toolboxed before creating application code, database migrations, public APIs, or deep frontend implementation.
 
 ### Lifecycle state
 
 - **Planned:** PL-0003 authorises architecture definition and acceptance work.
-- **Documented:** The provisional baseline, ADRs, decision matrix, and architecture evaluation fixture exist.
-- **Executed:** Documentation increments WL-0012 and WL-0013 were completed and linked to commits.
-- **Reviewed:** Stakeholder review of the fixture and architecture recommendations is not yet recorded.
-- **Accepted:** Not reached. Dataset creation, measured evaluations, evidence-backed ADR updates, and architecture acceptance remain pending.
+- **Documented:** The provisional baseline, ADRs, decision matrix, and evaluation fixture exist.
+- **Executed:** WL-0012 and WL-0013 record the documentation increments.
+- **Reviewed:** No formal review entry exists yet.
+- **Accepted:** Not reached; dataset creation, measured evaluations, review, and architecture acceptance remain pending.
 
-### Completed foundation
+### Current task — review fixture and create evaluation dataset
 
-- Added `docs/architecture/TECHNOLOGY_DECISIONS.md` as a provisional architecture baseline.
-- Added ADRs for application architecture, data/storage, authentication/access, background jobs/realtime, and testing/observability.
-- Selected a modular-monolith starting point with durable background-job seams.
-- Selected a PostgreSQL-compatible transactional database direction, object storage for large artifacts, and adapter boundaries for geometry/BIM exchange.
-- Selected managed OIDC/OAuth2-capable identity as the provisional authentication direction while keeping domain authorisation in Toolboxed.
-- Selected polling or server-sent events for the first vertical slice, with WebSockets deferred pending measured collaboration requirements.
-- Defined layered validation and observability as first-class requirements.
-- Added `docs/architecture/ARCHITECTURE_DECISION_MATRIX.md` with alternatives, provisional recommendations, acceptance evidence, risks, and review responsibilities.
+**Status:** Active / Documented; execution not yet recorded  
+**Purpose:** Review the fixture definition, resolve or assign open assumptions, and create a versioned, inspectable dataset that can be used for measured architecture evaluations.
 
-### Increment 1 — Frame and design the remaining architecture decisions
+#### Planned scope
 
-**Status:** Partial — design documented; stakeholder review and measured evidence pending  
-**Evidence:** `WL-0012`, commits [`a502f6d`](https://github.com/tyrax871/Toolboxed-Ai/commit/a502f6d051b711ce937b9d000a0ccf5e79a1ad11) and [`5ab8c6e`](https://github.com/tyrax871/Toolboxed-Ai/commit/5ab8c6ef0add4e88b554da43edaea158f411fdc4).  
+- Inspect `docs/architecture/ARCHITECTURE_EVALUATION_FIXTURE.md`.
+- Record product, technical, BIM/domain, security, and QA review decisions in `REVIEW_LOG.md`.
+- Confirm or explicitly label building typology, jurisdiction, standards, units, coordinate assumptions, source provenance, and licensing.
+- Create or select the smallest inspectable dataset satisfying the fixture brief.
+- Record dataset version, entity and relationship counts, files, provenance, license, integrity checks, and known limitations.
+- Record the executed work in `CODING_WORKLOG.md`.
+- Record acceptance or corrective action in `ACCEPTANCE_LOG.md` before proceeding to measured evaluations.
 
-The decision matrix defines alternatives, rationale, provisional recommendations, acceptance evidence, and review responsibilities for frontend, rendering, backend, database/spatial, geometry, BIM exchange, model granularity, identity, hosting, jobs, object storage, product fixture, scale, and performance.
+#### Explicit exclusions
 
-### Increment 2 — Discover and define the representative architecture evaluation fixture
+- No production application code.
+- No database migrations or provider-specific infrastructure.
+- No final framework, geometry kernel, BIM exchange, identity, queue, or hosting decision.
+- No architecture acceptance based only on the fixture document.
 
-**Status:** Completed — fixture definition documented; review and measured evaluation pending  
-**Owner:** Product and engineering planning group  
-**Evidence:** `WL-0013`, fixture brief [`0e54d56`](https://github.com/tyrax871/Toolboxed-Ai/commit/0e54d56c5a72133c0355a4b1f06e8477d153a284), worklog [`773d9ef`](https://github.com/tyrax871/Toolboxed-Ai/commit/773d9efeabc49c38ca087944a2ade3274445056a).  
+#### Exit condition
 
-The fixture brief defines the low-rise residential model, workloads, measurement protocol, traceability, review checklist, and limitations. It does not create the dataset or provide measured runtime evidence.
+The fixture has a recorded review outcome, and a versioned dataset exists or a documented blocker explains why creation cannot proceed. The next task is measured evaluation only after the dataset task is accepted or explicitly continued with limitations.
 
-#### Remaining exit work
+### Completed increments
 
-- Obtain product, technical, BIM/domain, security, and QA review or record explicit amendments.
-- Confirm or explicitly bound building typology, jurisdiction, standards, source provenance, and project assumptions.
-- Create or select the fixture dataset and record its version, entities, relationships, files, and license.
-- Run measured evaluations and record results before finalising architecture decisions.
+- **Increment 1:** Architecture decision matrix and bounded design work — `WL-0012`.
+- **Increment 2:** Representative architecture evaluation fixture definition — `WL-0013`, fixture commit [`0e54d56`](https://github.com/tyrax871/Toolboxed-Ai/commit/0e54d56c5a72133c0355a4b1f06e8477d153a284).
+- **Progress lifecycle governance:** Separate progress logs and task lifecycle — `WL-0015`.
 
-#### Exit condition and acceptance criteria
+### Remaining acceptance work
 
-This increment is complete as a planning and discovery document. It may advance to measured evaluation when the fixture is reviewed or amended with explicit owners and unblock conditions. PL-0003 remains **Active / Partial execution** until measured evidence and architecture acceptance are complete.
-
-### Remaining PL-0003 acceptance work
-
-- Review and amend the fixture.
-- Create the versioned evaluation dataset.
-- Run representative spatial, geometry, exchange, storage, rendering, and job-recovery evaluations.
-- Record stakeholder decisions or named owners and unblock conditions for unresolved choices.
-- Update the relevant technology baseline and ADRs with evidence-backed decisions.
-- Complete product, technical, BIM/domain, security, and QA acceptance review before authorising deep implementation.
-
-### Related records
-
-- `WL-0008` — provisional architecture baseline and ADRs.
-- `WL-0012` — architecture decision matrix and bounded design increment.
-- `WL-0013` — representative architecture evaluation fixture.
-- [`a502f6d`](https://github.com/tyrax871/Toolboxed-Ai/commit/a502f6d051b711ce937b9d000a0ccf5e79a1ad11) — architecture decision matrix.
-- [`0e54d56`](https://github.com/tyrax871/Toolboxed-Ai/commit/0e54d56c5a72133c0355a4b1f06e8477d153a284) — fixture brief.
-- [`773d9ef`](https://github.com/tyrax871/Toolboxed-Ai/commit/773d9efeabc49c38ca087944a2ade3274445056a) — worklog entry.
+- Review the fixture and record `RV-0001` or a corrective review entry.
+- Create and inspect the versioned evaluation dataset.
+- Record `WL-0016` for the dataset task.
+- Record `AC-0001` or a corrective/deferred outcome before measured evaluation.
+- Run spatial, geometry, exchange, storage, rendering, job-recovery, performance, quality, and security evaluations.
+- Update ADRs and architecture decisions from evidence.
+- Complete final product, technical, BIM/domain, security, and QA acceptance review.
 
 </span>
 
@@ -127,39 +105,7 @@ This increment is complete as a planning and discovery document. It may advance 
 **Priority:** Critical  
 **Owner:** Product and engineering planning group  
 
-### Objective
-
-Define the ordered Group 1 implementation and data-foundation sequence so readers and AI understand the first usable Toolboxed vertical slice, its domain boundaries, dependencies, contracts, validation, and acceptance evidence before implementation begins.
-
-### Roadmap sequence
-
-| Increment | Scope | Depends on | Exit condition |
-|---|---|---|---|
-| 1. Foundation frame | Confirm Group 1 boundaries, first user journey, domain modules, assumptions, and acceptance evidence | PL-0003; product and BIM plans | Group 1 scope and first vertical slice are bounded |
-| 2. Account and access | Organisation, membership, invitation, roles, project permissions, tenant isolation, audit | Identity direction and access ADR | Authenticated user receives project-scoped access |
-| 3. Project foundation | Project, units, standards, phases, site, orientation, and governance | Account/access and contracts | Authorised user creates a validated project |
-| 4. Model foundation | IDs, entities, relationships, coordinates, levels, grids, rooms, and initial elements | Project and BIM boundaries | Connected initial model is stored and retrieved |
-| 5. Revision and change | Immutable revisions, snapshots, autosave, undo/redo seams, audit, provenance | Model and storage strategy | State can be saved, recovered, compared, and audited |
-| 6. Contracts and shell | Typed API, commands/queries, projections, errors, loading, accessibility, workflows | Domain and technology decisions | First workflows operate through typed contracts |
-| 7. Validation and observability | Invariants, permissions, contracts, integration, logs, metrics, traces, job status | Prior increments | Required checks and operational evidence exist |
-| 8. Group 1 acceptance | End-to-end project setup and initial modelling, recovery, audit, and review | Increments 1–7 | First usable slice accepted or corrective work recorded |
-
-### First usable vertical slice
-
-An authenticated user can enter or create an organisation context, create a project with units/standards/phase/site/orientation, define levels and grids, create and edit a small connected set of rooms and architectural elements, save working state with revision and audit history, recover a snapshot or transaction, and see permission, validation, loading, error, and recovery states.
-
-### Acceptance criteria
-
-- Group 1 boundary and first usable slice are explicitly approved.
-- Each increment has dependencies, outputs, exit conditions, and worklog evidence.
-- Domain boundaries and initial data/API contracts are documented before deep implementation.
-- The central model remains the source of truth with revision and audit traceability.
-- Permission, validation, accessibility, recovery, observability, and performance checks are defined and run.
-- Product and engineering review authorises the next roadmap increment.
-
-### Current next action
-
-Execute the Foundation frame increment after reconciling its assumptions with PL-0003 Increment 2.
+The Group 1 roadmap defines the first usable vertical slice: account and access, project foundation, model foundation, revision/change, contracts/application shell, validation/observability, and Group 1 acceptance. Its implementation remains dependent on sufficient PL-0003 architecture evidence.
 
 </span>
 
@@ -169,32 +115,17 @@ Execute the Foundation frame increment after reconciling its assumptions with PL
 
 **Status:** Active  
 **Priority:** High  
-**Owner:** Product and engineering planning group  
 
-The standard sequence is Frame, Discover, Design, Build, Validate, Review, and Accept or continue. Each increment requires scope, owner, dependencies, risks, outputs, exit conditions, evidence, and a worklog record. PL-0005 remains active while the sequence is being applied to current work.
-
-**Related execution:** `WL-0011`.
+The separate progress logs now apply the sequence Brainstorm, Plan, Document, Execute, Review, Accept, and Next task. The task lifecycle is defined in `progress/DEVELOPMENT_LIFECYCLE.md`; the governance update is recorded in `WL-0015`.
 
 ## PL-0004 — Write the repository usage and plan/worklog guide
 
 **Status:** Completed  
 **Related execution:** `WL-0009`, `WL-0010`.
 
-The repository guide explains the plan/worklog relationship, plan-first execution, traceability, history preservation, status interpretation, and incremental execution.
-
 ## PL-0002 — Establish plan-first repository execution workflow
 
 **Status:** Completed  
 **Related execution:** `WL-0007`.
-
-The plan-first workflow is established. See the linked execution worklog and governance commits.
-
-</span>
-
-<span style="color:grey">
-
-## Historical roadmap records
-
-PL-0001 originally established the implementation and data-foundation roadmap. Its current active scope is maintained in the Group 1 roadmap above; historical execution records remain in `progress/CODING_WORKLOG.md`.
 
 </span>
