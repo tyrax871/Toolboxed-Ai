@@ -34,4 +34,58 @@ Related acceptance entry:
 
 ## Current reviews
 
-No formal review entries have been recorded yet. PL-0003 fixture review remains pending.
+<span style="color:green">
+
+## RV-0001 — 2026-09-19
+
+**Task:** Review the representative architecture evaluation fixture  
+**Plan item:** `PL-0003 — Define technology and architecture decisions`  
+**Worklog entry:** `WL-0013`  
+**Review status:** Completed — planning/repository review; stakeholder approvals not represented by this entry  
+
+### Reviewers and roles
+
+- AI/software planning review: completed from the repository evidence available in this task.
+- Product owner: decision required for building typology, jurisdiction, and first-slice relevance.
+- Technical lead: decision required for workload sufficiency and evaluation environment.
+- BIM/domain architect: decision required for semantic, geometry, exchange, and provenance coverage.
+- Security lead: decision required for tenant isolation, artifact access, redaction, and audit cases.
+- QA lead: decision required for reproducibility, accessibility, recovery, and failure-state coverage.
+
+The latter roles are recorded as required reviewers, not as completed approvals.
+
+### Evidence inspected
+
+- `docs/architecture/ARCHITECTURE_EVALUATION_FIXTURE.md`
+- `docs/architecture/ARCHITECTURE_DECISION_MATRIX.md`
+- `progress/PLAN_LOG.md`, including the PL-0003 task scope and exit criteria
+- `progress/DEVELOPMENT_LIFECYCLE.md`
+- `WL-0013`, documenting creation of the fixture brief
+
+### Findings
+
+- The fixture is sufficiently bounded to proceed to dataset definition and creation as a separate task.
+- It covers the required evaluation areas: semantic model, spatial data, geometry, application workflows, rendering, storage, jobs, performance, quality, and security.
+- The measurement protocol correctly requires fixture provenance, environment, workload, repetitions, results, thresholds or observations, limitations, and affected decisions.
+- The fixture correctly avoids claiming enterprise-scale capacity or final architecture decisions.
+- The fixture does not define a concrete serialisation format, minimum entity/relationship counts, exact source dataset, jurisdiction, standards profile, or licensing record.
+- These gaps are appropriate inputs to the dataset task rather than reasons to approve production architecture.
+
+### Required corrections or follow-up
+
+- Dataset task must choose and document a concrete representation, such as versioned JSON plus optional exchange files.
+- Dataset task must define minimum counts and required relationships for the inspectable fixture.
+- Dataset task must record provenance, license, checksums, version, and known limitations.
+- Product/domain/security/QA reviewers must record their decisions or explicit unresolved owners before final architecture acceptance.
+
+### Decision
+
+**Approved for acceptance as a fixture-definition review outcome and approved to proceed to the dataset task.** This review does not accept the architecture recommendations or authorise deep application implementation.
+
+### Next review point
+
+Review the versioned fixture dataset and its integrity/provenance record after execution.
+
+**Related acceptance entry:** Pending `AC-0001`.
+
+</span>
