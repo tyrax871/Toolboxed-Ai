@@ -11,6 +11,7 @@
 
 | ID | Plan item | Status | Priority | Next outcome |
 |---|---|---|---|---|
+| PL-0005 | Add incremental execution sequences for large tasks | Active | High | Define and apply a repeatable sequence for breaking large plan items into accepted increments |
 | PL-0003 | Define technology and architecture decisions | Active / Partial execution | Critical | Review provisional architecture baseline and resolve open technology choices |
 | PL-0001 | Establish the implementation and data-foundation roadmap | Active | Critical | Approve architecture decisions, domain boundaries, data contracts, and Group 1 scope before implementation |
 
@@ -24,6 +25,62 @@
 - **Completed** — acceptance criteria met and linked to execution history.
 
 <span style="color:green">
+
+## PL-0005 — Add incremental execution sequences for large tasks
+
+**Status:** Active  
+**Priority:** High  
+**Owner:** Product and engineering planning group  
+**Origin:** User request to add a plan sequence for large tasks so work can be completed incrementally until the overall objective succeeds.  
+
+### Objective
+
+Define a repeatable plan-log sequence for large or complex work. Each sequence must divide a large objective into ordered increments with explicit entry conditions, outputs, acceptance criteria, dependencies, status, and evidence. The sequence must support honest partial progress without treating intermediate work as final success.
+
+### Scope
+
+- Add a standard large-task sequence to the repository guide.
+- Add sequence fields and rules to this plan log.
+- Show how a large plan item progresses from discovery through design, implementation, validation, review, and acceptance.
+- Require each increment to be independently recorded in the worklog.
+- Preserve the parent plan item as the source of overall objective and acceptance criteria.
+- Explain how to handle partial, blocked, deferred, failed, and completed increments.
+- Apply the sequence to future work, including the remaining PL-0003 architecture review.
+
+### Standard sequence
+
+| Step | Increment | Exit condition |
+|---|---|---|
+| 1 | Frame | Objective, scope, owner, dependencies, risks, and success criteria are recorded |
+| 2 | Discover | Relevant repository files, requirements, constraints, and evidence are inspected |
+| 3 | Design | Options, decisions, contracts, and acceptance tests are documented |
+| 4 | Build | The approved increment is implemented within its stated scope |
+| 5 | Validate | Relevant tests, checks, review, and evidence are performed and recorded |
+| 6 | Review | Required stakeholders inspect the result and resolve open decisions |
+| 7 | Accept or continue | Increment is accepted, corrected, blocked, deferred, or followed by the next increment |
+
+### Acceptance criteria
+
+- The repository guide explains the large-task sequence.
+- The plan log defines parent tasks, increments, dependencies, exit conditions, and evidence.
+- The worklog rules require one entry per executed increment or clearly bounded batch.
+- Partial progress cannot be mistaken for overall completion.
+- A future reader can identify the current increment and the next required action.
+- PL-0003 remains Active / Partial execution until its open architecture choices and acceptance review are complete.
+
+### Related plan items
+
+- `PL-0002` — plan-first repository execution workflow.
+- `PL-0003` — technology and architecture decisions.
+- `PL-0004` — repository usage and plan/worklog guide.
+
+### Related execution records
+
+- Pending: `WL-0011`.
+
+</span>
+
+<span style="color:grey">
 
 ## PL-0003 — Define technology and architecture decisions
 
@@ -95,28 +152,9 @@ PL-0003 remains Active / Partial execution because the following remain open:
 **Status:** Completed  
 **Priority:** High  
 **Owner:** Product and engineering planning group  
-**Origin:** User request to make repository usage and the distinction between intended work and completed work understandable to readers.  
+**Related execution:** `WL-0009`, `WL-0010`  
 
-### Objective
-
-Create a clear guide explaining how to use the Toolboxed GitHub repository, how to read and update the plan log, how to read and update the execution worklog, and how plan items, worklog entries, commits, and acceptance status relate.
-
-### Completed outputs
-
-- Added the reader-friendly repository guide to `progress/README.md`.
-- Explained the plan log as the record of intended work and the worklog as the record of actual repository changes.
-- Documented the plan-first workflow, authorising plan items, traceability, history preservation, and review order.
-- Added detailed guidance for interpreting Proposed, Active, Active / Partial execution, Blocked, Deferred, and Completed statuses.
-- Added decision rules distinguishing Partial from Blocked, Deferred, and Completed.
-- Documented the acceptance gate for marking work Completed.
-- Preserved `PL-0003` as Active / Partial execution.
-
-### Acceptance evidence
-
-- `WL-0009` — initial repository usage guide.
-- `WL-0010` — detailed plan-status interpretation guidance.
-- Guide commit: [`c1547f5`](https://github.com/tyrax871/Toolboxed-Ai/commit/c1547f55c6388a99a20d4c3e0f79e8ba0e35e6e2).
-- Earlier plan and guide commits: [`9489ab8`](https://github.com/tyrax871/Toolboxed-Ai/commit/9489ab8c53cc1fb8f647501937bb4e2404d5ace3), [`aff27c6`](https://github.com/tyrax871/Toolboxed-Ai/commit/aff27c61d1c1e1df88514343c5ee45be11a15a52).
+The repository guide explains the plan/worklog relationship, plan-first execution, traceability, history preservation, and status interpretation.
 
 </span>
 
