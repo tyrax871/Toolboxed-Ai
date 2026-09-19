@@ -5,7 +5,24 @@
 <!-- PLAN RULE: Give every plan item a unique sequential ID: PL-0001, PL-0002, PL-0003, and so on. -->
 <!-- PLAN RULE: Update status as Proposed, Active, Blocked, Deferred, or Completed. -->
 <!-- PLAN RULE: Do not use this file as a record of completed implementation; link completed items to CODING_WORKLOG.md. -->
-<!-- PLAN RULE: Distinguish confirmed decisions, assumptions, open questions, and blockers. -->
+<!-- PLAN RULE: Distinguish planned, documented, executed, reviewed, and accepted work. -->
+<!-- PLAN RULE: A document or recommendation is not proof of implementation, validation, review, or acceptance. -->
+
+## Development lifecycle
+
+The progress folder uses this evidence lifecycle:
+
+```text
+Planned → Documented → Executed → Reviewed → Accepted
+```
+
+- **Planned** — intended scope, dependencies, outputs, risks, and acceptance criteria are recorded here.
+- **Documented** — design, contracts, assumptions, fixtures, or evaluation methods are written down.
+- **Executed** — the approved bounded increment was actually performed and recorded in `CODING_WORKLOG.md`.
+- **Reviewed** — required reviewers inspected the relevant evidence and recorded decisions or amendments.
+- **Accepted** — the scope-specific acceptance criteria are met and evidence is linked.
+
+These states must not be conflated. A fixture brief documents an evaluation; it does not prove that a dataset exists or that measurements were run. A documentation commit proves that documentation changed; it does not prove that the documented application architecture works.
 
 ## Current plan
 
@@ -37,6 +54,14 @@
 
 Define and document the initial technical architecture for Toolboxed before creating application code, database migrations, public APIs, or deep frontend implementation. The decisions must support the architecture-first BIM model, parameter-driven design, traceable alternatives, versioned revisions, collaboration, and the first Account and access vertical slice.
 
+### Lifecycle state
+
+- **Planned:** PL-0003 authorises architecture definition and acceptance work.
+- **Documented:** The provisional baseline, ADRs, decision matrix, and architecture evaluation fixture exist.
+- **Executed:** Documentation increments WL-0012 and WL-0013 were completed and linked to commits.
+- **Reviewed:** Stakeholder review of the fixture and architecture recommendations is not yet recorded.
+- **Accepted:** Not reached. Dataset creation, measured evaluations, evidence-backed ADR updates, and architecture acceptance remain pending.
+
 ### Completed foundation
 
 - Added `docs/architecture/TECHNOLOGY_DECISIONS.md` as a provisional architecture baseline.
@@ -61,16 +86,7 @@ The decision matrix defines alternatives, rationale, provisional recommendations
 **Owner:** Product and engineering planning group  
 **Evidence:** `WL-0013`, fixture brief [`0e54d56`](https://github.com/tyrax871/Toolboxed-Ai/commit/0e54d56c5a72133c0355a4b1f06e8477d153a284), worklog [`773d9ef`](https://github.com/tyrax871/Toolboxed-Ai/commit/773d9efeabc49c38ca087944a2ade3274445056a).  
 
-#### Purpose
-
-Define a small, representative building and workload fixture that can evaluate the remaining architecture choices without creating application code or declaring provisional decisions final.
-
-#### Completed outputs
-
-- `docs/architecture/ARCHITECTURE_EVALUATION_FIXTURE.md` with the fixture brief, assumptions, minimum model contents, workloads, measurement protocol, traceability matrix, review checklist, exit criteria, and limitations.
-- Defined a low-rise residential fixture covering site, orientation, levels, grids, rooms, walls, floors, roof, ceilings, openings, doors, windows, semantic relationships, stable identifiers, revisions, snapshots, audit events, and representative views.
-- Defined evaluation dimensions for BIM semantics, spatial data, geometry, application workflows, rendering, storage, background jobs, performance, quality, and security.
-- Defined reproducibility requirements for fixture version, provenance, environment, workload, repetitions, results, thresholds, limitations, and affected decisions.
+The fixture brief defines the low-rise residential model, workloads, measurement protocol, traceability, review checklist, and limitations. It does not create the dataset or provide measured runtime evidence.
 
 #### Remaining exit work
 
@@ -86,6 +102,7 @@ This increment is complete as a planning and discovery document. It may advance 
 ### Remaining PL-0003 acceptance work
 
 - Review and amend the fixture.
+- Create the versioned evaluation dataset.
 - Run representative spatial, geometry, exchange, storage, rendering, and job-recovery evaluations.
 - Record stakeholder decisions or named owners and unblock conditions for unresolved choices.
 - Update the relevant technology baseline and ADRs with evidence-backed decisions.
