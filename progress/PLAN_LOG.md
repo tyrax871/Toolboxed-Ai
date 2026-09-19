@@ -12,7 +12,7 @@
 | ID | Plan item | Status | Priority | Next outcome |
 |---|---|---|---|---|
 | PL-0005 | Add incremental execution sequences for large tasks | Active | High | Apply the sequence to active product and architecture work |
-| PL-0003 | Define technology and architecture decisions | Active / Partial execution | Critical | Define and evaluate the representative architecture fixture before final architecture acceptance |
+| PL-0003 | Define technology and architecture decisions | Active / Partial execution | Critical | Review the fixture and run measured evaluations before final architecture acceptance |
 | PL-0001 | Establish the implementation and data-foundation roadmap | Active | Critical | Execute the Group 1 foundation frame before application implementation |
 
 ## Status definitions
@@ -57,86 +57,35 @@ The decision matrix defines alternatives, rationale, provisional recommendations
 
 ### Increment 2 — Discover and define the representative architecture evaluation fixture
 
-**Status:** Active  
+**Status:** Completed — fixture definition documented; review and measured evaluation pending  
 **Owner:** Product and engineering planning group  
-**Purpose:** Define a small, representative building and workload fixture that can be used to evaluate the remaining architecture choices without creating application code or declaring provisional decisions final.
+**Evidence:** `WL-0013`, fixture brief [`0e54d56`](https://github.com/tyrax871/Toolboxed-Ai/commit/0e54d56c5a72133c0355a4b1f06e8477d153a284), worklog [`773d9ef`](https://github.com/tyrax871/Toolboxed-Ai/commit/773d9efeabc49c38ca087944a2ade3274445056a).  
 
-#### Fixture scope
+#### Purpose
 
-Use a small low-rise residential building model based on the existing product and BIM context. The fixture must define, at minimum:
+Define a small, representative building and workload fixture that can evaluate the remaining architecture choices without creating application code or declaring provisional decisions final.
 
-- Site boundary, orientation, survey/reference coordinates, setbacks, and constraints.
-- Levels, grids, reference geometry, and project units.
-- Rooms/spaces with names, areas, zones, occupancy, and relationships.
-- Walls, floors, slabs, roofs, ceilings, openings, doors, and windows.
-- Materials or assemblies sufficient to test semantic relationships and derived properties.
-- Existing, new, proposed, relocated, and superseded states where relevant.
-- Stable identifiers, relationships, provenance, revision, snapshot, and audit examples.
-- Representative views: site plan, floor plan, section, elevation, and a simple 3D/model view.
+#### Completed outputs
 
-#### Evaluation dimensions
+- `docs/architecture/ARCHITECTURE_EVALUATION_FIXTURE.md` with the fixture brief, assumptions, minimum model contents, workloads, measurement protocol, traceability matrix, review checklist, exit criteria, and limitations.
+- Defined a low-rise residential fixture covering site, orientation, levels, grids, rooms, walls, floors, roof, ceilings, openings, doors, windows, semantic relationships, stable identifiers, revisions, snapshots, audit events, and representative views.
+- Defined evaluation dimensions for BIM semantics, spatial data, geometry, application workflows, rendering, storage, background jobs, performance, quality, and security.
+- Defined reproducibility requirements for fixture version, provenance, environment, workload, repetitions, results, thresholds, limitations, and affected decisions.
 
-| Dimension | Evidence to define |
-|---|---|
-| BIM and semantics | Entity inventory, relationships, stable IDs, revision rules, IFC provenance, unsupported-property reporting |
-| Spatial data | Coordinates, levels, room/element containment, site queries, spatial indexes, migration and recovery cases |
-| Geometry | Wall, opening, room, section, view, validity, and derived-property operations; kernel boundary and licensing review |
-| Application | Account access, project setup, model setup, save, revision, audit, snapshot, undo/redo seam, and recovery states |
-| Rendering | 2D workspace readiness, selection/linking, optional isolated WebGL evaluation, memory and frame-time observations |
-| Storage | Upload/download authorization, metadata, checksums, retention, signed access, orphan repair, and provenance |
-| Jobs | Import/export or validation job payload, retry, restart recovery, idempotency, cancellation, progress, and failure states |
-| Performance | API latency, workspace readiness, autosave acknowledgement, memory, representative query plans, and worker throughput |
-| Quality and security | Permission negatives, tenant isolation, accessibility, error recovery, redaction, auditability, and review evidence |
+#### Remaining exit work
 
-#### Required fixture documentation
-
-The fixture brief must record:
-
-- Building typology and project assumptions.
-- Jurisdiction, standards, units, and regulatory assumptions, or explicit unresolved status.
-- Source/reference files or generated fixture provenance.
-- Entity counts, relationship counts, model size, file size, and expected workload profile.
-- Test environment, hardware/network profile, tools, versions, and licensing constraints.
-- Pass/fail thresholds or observations for each evaluation dimension.
-- Named decision owners, reviewers, unresolved questions, and unblock conditions.
-
-#### Expected outputs
-
-- `docs/architecture/ARCHITECTURE_EVALUATION_FIXTURE.md` describing the fixture, assumptions, dataset, workloads, evidence, and acceptance checks.
-- A fixture-to-decision traceability matrix linking each workload to the architecture decision it informs.
-- Evaluation checklist for product, technical, BIM/domain, security, and QA review.
-- Follow-up worklog entry documenting discovery, evidence, limitations, and next decisions.
-- Updates to the technology baseline and ADRs only where measured evidence justifies a change.
-
-#### Dependencies
-
-- `docs/architecture/TECHNOLOGY_DECISIONS.md`
-- `docs/architecture/ARCHITECTURE_DECISION_MATRIX.md`
-- `docs/architecture/BIM_ARCHITECTURE_PLAN.md`
-- `docs/architecture/DECISIONS/`
-- `docs/product/PRODUCT_PLAN.md`
-- `docs/product/REFERENCE_DOCUMENT_REQUIREMENTS.md`
-- PL-0001 Group 1 roadmap and first usable vertical slice.
-
-#### Risks and open questions
-
-- The building type, jurisdiction, and professional assumptions may require product-owner confirmation.
-- A small fixture may not predict enterprise-scale model behaviour; scale-up fixtures must be planned separately.
-- Geometry and IFC requirements may expose scope beyond the first implementation slice.
-- Licensing, provider, hosting, and team constraints may change technology recommendations.
-- Benchmark results without a recorded environment or workload are not sufficient acceptance evidence.
+- Obtain product, technical, BIM/domain, security, and QA review or record explicit amendments.
+- Confirm or explicitly bound building typology, jurisdiction, standards, source provenance, and project assumptions.
+- Create or select the fixture dataset and record its version, entities, relationships, files, and license.
+- Run measured evaluations and record results before finalising architecture decisions.
 
 #### Exit condition and acceptance criteria
 
-This increment is ready for review when the fixture brief, workload definitions, assumptions, evaluation dimensions, environment requirements, pass/fail or observation criteria, owners, and unresolved questions are documented. It is ready to continue to measured evaluation when the required reviewers accept the fixture scope or record explicit amendments. PL-0003 remains **Active / Partial execution** until the resulting evidence and architecture review are complete.
-
-#### Next action
-
-Create the fixture brief and record it in a new worklog entry before building evaluators, application code, migrations, or provider-specific infrastructure.
+This increment is complete as a planning and discovery document. It may advance to measured evaluation when the fixture is reviewed or amended with explicit owners and unblock conditions. PL-0003 remains **Active / Partial execution** until measured evidence and architecture acceptance are complete.
 
 ### Remaining PL-0003 acceptance work
 
-- Confirm or explicitly bound the initial building typology, jurisdiction, professional assumptions, and project fixture.
+- Review and amend the fixture.
 - Run representative spatial, geometry, exchange, storage, rendering, and job-recovery evaluations.
 - Record stakeholder decisions or named owners and unblock conditions for unresolved choices.
 - Update the relevant technology baseline and ADRs with evidence-backed decisions.
@@ -146,8 +95,10 @@ Create the fixture brief and record it in a new worklog entry before building ev
 
 - `WL-0008` — provisional architecture baseline and ADRs.
 - `WL-0012` — architecture decision matrix and bounded design increment.
+- `WL-0013` — representative architecture evaluation fixture.
 - [`a502f6d`](https://github.com/tyrax871/Toolboxed-Ai/commit/a502f6d051b711ce937b9d000a0ccf5e79a1ad11) — architecture decision matrix.
-- [`5ab8c6e`](https://github.com/tyrax871/Toolboxed-Ai/commit/5ab8c6ef0add4e88b554da43edaea158f411fdc4) — worklog entry.
+- [`0e54d56`](https://github.com/tyrax871/Toolboxed-Ai/commit/0e54d56c5a72133c0355a4b1f06e8477d153a284) — fixture brief.
+- [`773d9ef`](https://github.com/tyrax871/Toolboxed-Ai/commit/773d9efeabc49c38ca087944a2ade3274445056a) — worklog entry.
 
 </span>
 
