@@ -1,70 +1,35 @@
 # Toolboxed Brainstorm Log
 
-This log captures ideas, problems, alternatives, opportunities, and possible tasks before they become authorised work. Entries are exploratory and do not authorise implementation.
+This is a loose idea-capture space for Toolboxed. Use it like a simple chat, scratchpad, or list. Write down things we might want, questions we have, problems we notice, or possibilities worth exploring.
+
+Nothing in this log is a requirement, decision, plan, authorisation, or acceptance record.
 
 ## How to use this log
 
-- Record one idea or related idea set per entry.
-- Include the problem, desired outcome, options, assumptions, risks, and possible next action.
-- Mark each entry as `Open`, `Selected for planning`, `Parked`, `Rejected`, or `Converted to plan`.
-- When an idea is selected, create or link a `PL-` item in `PLAN_LOG.md`.
-- Preserve the brainstorm entry after conversion so the reasoning remains traceable.
-- Do not treat brainstorm entries as requirements, commitments, decisions, or acceptance evidence.
+- Add ideas in plain language.
+- Use short notes, bullets, questions, or conversation-style entries.
+- Do not complete a full task plan here.
+- Do not require scope, owners, dependencies, acceptance criteria, or detailed evidence here.
+- When an idea is worth exploring, move it into `PLAN_LOG.md` and expand it there.
+- Keep the original idea so the reasoning remains visible.
 
-## Entry template
+## Idea flow
 
 ```text
-BR-0001 — YYYY-MM-DD
-Title:
-Status: Open | Selected for planning | Parked | Rejected | Converted to plan
-Problem or opportunity:
-Desired outcome:
-Ideas and alternatives:
-Assumptions:
-Risks and questions:
-Possible next action:
-Related plan item:
+Loose idea → selected for exploration → expanded in PLAN_LOG.md
 ```
 
-## Current entries
+## Current ideas
 
-<span style="color:green">
+- We should review the architecture evaluation fixture before creating the dataset.
+- We should define a small, inspectable BIM dataset for architecture evaluation.
+- We should understand which model relationships the first application slice must support.
+- We should decide how project setup, units, standards, phases, site, and orientation should work.
+- We should define how revisions, snapshots, autosave, undo, redo, recovery, and audit should behave.
+- We should explore the simplest useful account, organisation, membership, and project-access flow.
+- We should understand what a first 2D model workspace needs before adding a 3D viewer.
+- We should explore how import, export, validation, and other long-running jobs should show progress and recover from failure.
 
-## BR-0001 — 2026-09-19
+## Historical idea
 
-**Title:** Review the architecture evaluation fixture  
-**Status:** Converted to plan  
-**Related plan item:** `PL-0003 — Define technology and architecture decisions`  
-
-### Problem or opportunity
-
-The architecture evaluation fixture is documented, but its assumptions, scope, workloads, evidence requirements, and review responsibilities have not yet been inspected and recorded as a review outcome.
-
-### Desired outcome
-
-Determine whether the fixture is sufficiently bounded and reproducible to support dataset creation and measured architecture evaluation, or identify corrections and named decisions required first.
-
-### Ideas and alternatives
-
-- Review the fixture against the architecture decision matrix and PL-0003 acceptance criteria.
-- Compare the fixture requirements with the first Group 1 vertical slice.
-- Approve the fixture for dataset creation if the scope is sufficient.
-- Request corrections if assumptions, provenance, workload definitions, or evidence criteria are incomplete.
-- Defer provider or framework decisions until measured evidence exists.
-
-### Assumptions
-
-- This first review is a repository and planning review; required stakeholder approvals remain separate.
-- The fixture should be small enough to inspect manually but semantically rich enough to exercise the listed architecture concerns.
-
-### Risks and questions
-
-- The fixture may not define a concrete file/data representation or minimum counts.
-- Jurisdiction, standards, source provenance, and licensing remain open.
-- A fixture review cannot establish runtime suitability without a dataset and measurements.
-
-### Possible next action
-
-Record `RV-0001`, then create or correct the dataset task based on the review outcome.
-
-</span>
+The architecture-fixture review idea was previously recorded as `BR-0001` and was taken forward into the plan and execution process. It remains represented above in loose form; its detailed planning and outcome belong in `PLAN_LOG.md`, `REVIEW_LOG.md`, `ACCEPTANCE_LOG.md`, and `CODING_WORKLOG.md`.
