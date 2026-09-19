@@ -1,157 +1,104 @@
 # Application Development Progress Lifecycle
 
-This guide defines how the `progress/` folder explains Toolboxed development to people and AI. It separates what the project intends to do, how the work is described, what has actually happened, what has been reviewed, and what has been accepted.
+This guide defines how the `progress/` folder records each Toolboxed task from idea through success. The progress folder is the authoritative development narrative for people and AI.
 
-The progress folder is the authoritative project narrative. It must allow a reader to answer:
-
-1. What are we building?
-2. Why are we building it?
-3. How will we build it?
-4. What has actually been done?
-5. What evidence exists?
-6. What remains unreviewed, unvalidated, or unaccepted?
-7. What should happen next?
-
-## Lifecycle
+## The task lifecycle
 
 ```text
-Planned → Documented → Executed → Reviewed → Accepted
-              ↑            ↓          ↓
-              └──── corrected, blocked, deferred, or continued
+Brainstorm → Plan → Document → Execute → Review → Accept → Next task
+                  ↑         ↓        ↓
+                  └── revise, correct, block, defer, or reject
 ```
 
-The stages are related but are not interchangeable. A later stage requires evidence from the earlier stage; producing a document does not prove that implementation or validation occurred.
+Every task moves through separate records. A task may not skip directly from an idea to acceptance. If evidence is insufficient or the result is unsatisfactory, the task returns to planning, correction, or a new bounded increment.
 
-| Stage | Meaning | Required record | What it does not prove |
+| Stage | Meaning | Primary log | Required evidence |
 |---|---|---|---|
-| **Planned** | Intended scope and outcome are authorised or proposed | Plan item, objective, scope, dependencies, risks, outputs, acceptance criteria, and next action in `PLAN_LOG.md` | That work started or produced repository changes |
-| **Documented** | The intended approach, design, contracts, assumptions, or evaluation method has been written down | Design document, ADR, fixture brief, contract, checklist, or other linked planning evidence | That the design works, was implemented, or was approved |
-| **Executed** | The approved increment was carried out within its bounded scope | Worklog entry, affected paths, implementation details, validation performed, limitations, and commit/PR evidence in `CODING_WORKLOG.md` | That the result is correct, sufficient, or accepted |
-| **Reviewed** | Required people or defined review roles inspected the result and recorded decisions | Reviewers, date, evidence inspected, comments, amendments, decisions, owners, and unresolved items | That all technical or product acceptance criteria passed |
-| **Accepted** | Scope-specific acceptance criteria are met, evidence is linked, and remaining limitations are resolved or explicitly accepted | Acceptance decision, validation evidence, review record, status change, and next authorised scope | That the entire product or every future use case is complete |
+| **Brainstorm** | Capture an idea, problem, opportunity, alternative, or possible task without authorising work | `BRAINSTORM_LOG.md` | Problem, desired outcome, options, assumptions, risks, and possible next action |
+| **Plan** | Select an idea for development and define its scope, dependencies, risks, outputs, and acceptance criteria | `PLAN_LOG.md` | Plan ID, owner, scope, exclusions, dependencies, evidence needed, exit condition, and acceptance criteria |
+| **Document** | Describe how the planned task will be built or evaluated before execution | `PLAN_LOG.md` plus linked design/ADR/contract/fixture documents | Decisions, interfaces, assumptions, alternatives, evaluation method, and review criteria |
+| **Execute** | Perform only the approved bounded task | `CODING_WORKLOG.md` | Actual changes, affected paths, validation, limitations, blockers, and commit/PR evidence |
+| **Review** | Inspect the executed result against the plan and evidence requirements | `REVIEW_LOG.md` | Reviewers, evidence inspected, findings, corrections, decision, owners, and next review point |
+| **Accept** | Record whether the reviewed result is satisfactory and authorise the next task | `ACCEPTANCE_LOG.md` | Acceptance authority, criteria, evidence, limitations, decision, follow-up, and next task |
 
-## How to apply the lifecycle
+## What each log does
 
-### 1. Planned
+### `BRAINSTORM_LOG.md` — ideas and possibilities
 
-Before consequential work begins, record the intended work in `PLAN_LOG.md`. Include:
+This is the least committed log. It is a safe place to think about what Toolboxed might do, problems it might solve, technical options, product opportunities, and questions. Entries are not requirements, decisions, authorisation, implementation evidence, or acceptance.
 
-- Plan ID and status.
-- Objective and reason.
-- Scope and explicit exclusions.
-- Owner and required roles.
-- Dependencies and prerequisites.
-- Data, fixtures, tools, or evidence needed.
-- Expected outputs.
-- Risks, assumptions, open questions, and blockers.
-- Increment exit condition and final acceptance criteria.
-- Next responsible action.
+When an idea is worth pursuing, mark it **Selected for planning** and create or link a plan item.
 
-A plan is the authorisation and explanation of intended work. It is not an execution record.
+### `PLAN_LOG.md` — selected and documented tasks
 
-### 2. Documented
+This log turns a selected idea into an actionable task. It records what we want to do, why, how it will be done, what it depends on, what evidence is needed, and what success means. The plan is similar to a structured brainstorm, but it is scoped and controlled.
 
-Document the design or evaluation method before building when the work changes architecture, data, public contracts, domain boundaries, security, or operational behaviour. Record:
+A plan can be proposed, active, blocked, deferred, or completed. A plan entry is not proof that execution occurred. Design documents, ADRs, contracts, and fixture briefs linked from the plan provide the documented method.
 
-- Options and alternatives.
-- Decisions and rationale.
-- Interfaces and contracts.
-- Assumptions and unresolved questions.
-- Evaluation fixture and workload definitions.
-- Expected evidence and pass/fail or observation criteria.
-- Review responsibilities.
+### `CODING_WORKLOG.md` — executed tasks
 
-For example, a fixture brief documents what must be evaluated. It does not mean that the fixture dataset exists or that measurements have been run.
+This log records what actually happened in the repository. It covers documentation, code, configuration, tests, data, infrastructure, and other bounded execution. It must distinguish completed actions from unperformed checks and unresolved limitations.
 
-### 3. Executed
+A worklog entry proves that the recorded action occurred; it does not prove that the result is correct or accepted.
 
-Execute only the approved scope. Record actual work in `CODING_WORKLOG.md`, including:
+### `REVIEW_LOG.md` — inspected results
 
-- Exact increment and authorising plan ID.
-- Files created, updated, deleted, or unchanged.
-- Decisions made during execution.
-- Validation actually performed.
-- Failed or unperformed checks.
-- Limitations, blockers, and deviations.
-- Commit, pull request, test, or other exact evidence.
+This log records inspection of executed work. It identifies what was examined, who reviewed it, what was found, what corrections are required, and whether the result is ready for acceptance. Review is evidence inspection, not automatic approval.
 
-A created document is evidence that documentation was executed. It is not evidence that the documented design was implemented or validated.
+### `ACCEPTANCE_LOG.md` — success or next action
 
-### 4. Reviewed
+This log records the outcome after review. A result may be accepted, accepted with limitations, require correction, be rejected, blocked, or deferred. Only an accepted result is recorded as a success for that task. Acceptance is scoped to the task; it does not accept the entire application.
 
-Review is a distinct activity. Record:
+## Evidence rules
 
-- Required and actual reviewers.
-- Date and scope of review.
-- Documents, code, tests, fixtures, or measurements inspected.
-- Approval, amendment, rejection, or request for correction.
-- Open questions and named owners.
-- Unblock conditions and next review point.
+| Claim | Minimum evidence |
+|---|---|
+| Idea exists | Brainstorm entry |
+| Task is planned | Plan entry with scope and criteria |
+| Method is documented | Linked design, ADR, contract, fixture, or evaluation document |
+| Task was executed | Worklog entry and exact repository evidence |
+| Result was reviewed | Review entry naming reviewers and inspected evidence |
+| Task succeeded | Acceptance entry linked to plan, worklog, review, and validation evidence |
 
-If reviewers have not recorded a decision, the work remains unreviewed even when the documentation is detailed.
+Do not infer execution from a plan, review from a commit, or acceptance from a detailed document. Missing evidence must be recorded as missing.
 
-### 5. Accepted
+## Task rules
 
-Move an increment or plan item to accepted/completed only when:
-
-- Its scope was executed or formally changed.
-- Its stated outputs exist.
-- Required validation was performed and recorded.
-- Required review occurred.
-- Failures and limitations are resolved or explicitly accepted.
-- Evidence is linked from the plan and worklog.
-- No known blocker prevents the stated outcome.
-
-Acceptance is always scoped. Accepting a fixture definition accepts the definition, not the architecture choices that the fixture will later evaluate.
-
-## Evidence examples
-
-| Work state | Evidence that is sufficient | Evidence that is insufficient by itself |
-|---|---|---|
-| Architecture planned | PL item with alternatives, dependencies, risks, and acceptance criteria | A sentence saying a framework is preferred |
-| Architecture documented | ADR or decision matrix with rationale and evaluation method | A provisional recommendation with no assumptions or criteria |
-| Fixture defined | Versioned fixture brief with workloads and reproducibility requirements | A list of desired model elements without workload definitions |
-| Dataset created | Versioned model/file, provenance, counts, license, and integrity record | A fixture brief or filename with no inspectable dataset |
-| Evaluation executed | Reproducible environment, commands/tools, results, failures, and limitations | Claiming that a benchmark was run without results |
-| Review completed | Named reviewers, date, inspected evidence, decisions, and amendments | “Reviewed” with no review record |
-| Architecture accepted | Evidence-backed ADR updates, review approval, and linked validation | A successful documentation commit alone |
-
-## Rules for readers and AI
-
-- Treat `PLAN_LOG.md` as intended scope and authorisation, not proof of implementation.
-- Treat `CODING_WORKLOG.md` as the record of actual repository work, not proof of product acceptance.
-- Treat documents labelled provisional, proposed, assumption, open, or pending as unresolved.
-- Do not infer dataset creation, measurements, tests, approvals, or acceptance from a plan or design document.
-- Do not infer implementation from a commit that only changes documentation.
-- Report missing evidence explicitly.
-- Preserve partial, failed, blocked, deferred, corrected, and rejected outcomes.
-- Link every accepted increment to its plan, worklog, exact evidence, and review record.
-- Keep parent plans active until their own acceptance criteria are met, even when individual increments are accepted.
+1. Capture ideas in the brainstorm log before treating them as candidate work.
+2. Select an idea into `PLAN_LOG.md` before authorising execution.
+3. Document the method, contracts, assumptions, and acceptance checks before consequential implementation.
+4. Execute only the approved scope and record it in `CODING_WORKLOG.md`.
+5. Review the result against the plan; record failures and corrections honestly.
+6. Record the acceptance decision separately; do not silently treat review as success.
+7. After acceptance, select and plan the next task rather than expanding the accepted scope invisibly.
+8. If a task fails, is blocked, deferred, or reveals new scope, record the outcome and create the next bounded action.
+9. Preserve all historical entries. Never rewrite history to make a task appear more complete.
+10. Keep parent plans active until their own acceptance criteria are met, even when one increment succeeds.
 
 ## PL-0003 example
 
-For the architecture evaluation fixture:
+- **Brainstorm:** Consider architecture options and evaluation needs.
+- **Plan:** PL-0003 defines the architecture task and acceptance criteria.
+- **Document:** The decision matrix and `ARCHITECTURE_EVALUATION_FIXTURE.md` describe the method.
+- **Execute:** WL-0012 and WL-0013 record the documentation work.
+- **Review:** Pending in `REVIEW_LOG.md` until required reviewers inspect the fixture and evidence.
+- **Accept:** Pending in `ACCEPTANCE_LOG.md` until review, dataset creation, measured evaluations, and architecture criteria are complete.
 
-1. **Planned:** PL-0003 defines the fixture increment and its exit criteria.
-2. **Documented:** `docs/architecture/ARCHITECTURE_EVALUATION_FIXTURE.md` defines the model, workloads, evidence, and review checklist.
-3. **Executed:** WL-0013 records creation of that fixture brief and its commit.
-4. **Pending execution:** The actual dataset and measured evaluations do not yet exist.
-5. **Pending review:** Product, technical, BIM/domain, security, and QA decisions are not recorded.
-6. **Not accepted:** PL-0003 remains Active / Partial execution because architecture acceptance requires review and evidence from the dataset and evaluations.
-
-This is correct progress, not a contradiction. The fixture-definition increment can be complete while the parent architecture plan remains incomplete.
+The fixture-definition task may be accepted separately from the parent architecture plan. This preserves accurate progress.
 
 ## Record relationship
 
 ```text
+BRAINSTORM_LOG.md
+  → candidate idea
 PLAN_LOG.md
-  → defines intended scope and acceptance
+  → selected, scoped, documented task
 CODING_WORKLOG.md
-  → records actual bounded work
-Repository evidence
-  → commits, files, tests, fixtures, measurements, and review records
-Status
-  → communicates the current lifecycle state honestly
+  → executed task
+REVIEW_LOG.md
+  → inspected result
+ACCEPTANCE_LOG.md
+  → success, correction, rejection, block, or deferral
 ```
 
-When records disagree, preserve the more cautious status and record the missing evidence or correction rather than silently upgrading the work.
+When records disagree, use the most cautious status and record the missing evidence or correction.
