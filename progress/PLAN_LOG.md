@@ -12,7 +12,7 @@
 | ID | Plan item | Status | Priority | Next outcome |
 |---|---|---|---|---|
 | PL-0005 | Add incremental execution sequences for large tasks | Active | High | Define and apply a repeatable sequence for breaking large plan items into accepted increments |
-| PL-0003 | Define technology and architecture decisions | Active / Partial execution | Critical | Frame and design the remaining architecture decisions before implementation commitments |
+| PL-0003 | Define technology and architecture decisions | Active / Partial execution | Critical | Obtain stakeholder review and measured evidence for the architecture decision matrix before authorising implementation |
 | PL-0001 | Establish the implementation and data-foundation roadmap | Active | Critical | Approve architecture decisions, domain boundaries, data contracts, and Group 1 scope before implementation |
 
 ## Status definitions
@@ -20,7 +20,7 @@
 - **Proposed** — identified but not started.
 - **Active** — currently planned or being prepared.
 - **Active / Partial execution** — approved work has produced partial outputs, but acceptance criteria are not yet complete.
-- **Blocked** — waiting on a dependency, decision, resource, or source.
+- **Blocked** — waiting on a decision, resource, or source.
 - **Deferred** — intentionally postponed.
 - **Completed** — acceptance criteria met and linked to execution history.
 
@@ -102,25 +102,33 @@ Define and document the initial technical architecture for Toolboxed before crea
 - Selected managed OIDC/OAuth2-capable identity as the provisional authentication direction while keeping domain authorisation in Toolboxed.
 - Selected polling or server-sent events for the first vertical slice, with WebSockets deferred pending measured collaboration requirements.
 - Defined layered validation and observability as first-class requirements.
+- Added `docs/architecture/ARCHITECTURE_DECISION_MATRIX.md` with alternatives, provisional recommendations, acceptance evidence, risks, and review responsibilities.
 
 ### Current increment — Frame and design the remaining architecture decisions
 
-**Status:** Active  
+**Status:** Partial — design documented; stakeholder review and measured evidence pending  
 **Owner:** Product and engineering planning group  
 **Purpose:** Resolve or explicitly bound the remaining provisional architecture choices before production implementation commitments are made.
 
-#### Scope
+#### Completed in this increment
 
-- Compare frontend framework and rendering-library options against the product, accessibility, BIM-viewer, team, and deployment needs.
-- Compare backend language and framework options against typed contracts, domain boundaries, background jobs, validation, observability, and hiring or delivery constraints.
-- Define the evaluation path for the spatial extension, geometry kernel, BIM exchange format, and model granularity.
-- Compare identity, hosting, queue, and object-storage provider options while preserving adapter boundaries and avoiding premature vendor lock-in.
-- Establish the initial building typology, regulatory jurisdiction, expected project and model scale, and measurable performance budgets.
-- Define the stakeholder review group, decision owners, evidence required, and acceptance checklist.
+- Reviewed the existing architecture, product, BIM, reference-document, and governance records.
+- Created the architecture decision matrix with alternatives and rationale.
+- Defined provisional recommendations for frontend, rendering, backend, database/spatial, geometry, BIM exchange, model granularity, identity, hosting, jobs, object storage, fixture, scale, and performance.
+- Defined acceptance evidence and the required product, technical, BIM/domain, security, and QA review responsibilities.
+
+#### Remaining exit work
+
+- Confirm the initial building typology, jurisdiction, professional assumptions, and project fixture.
+- Run representative spatial, geometry, exchange, storage, rendering, and job-recovery evaluations.
+- Record stakeholder decisions or named owners and unblock conditions for unresolved choices.
+- Update the relevant technology baseline and ADRs with evidence-backed decisions.
+- Complete acceptance review before authorising deep implementation.
 
 #### Dependencies and evidence
 
 - `docs/architecture/TECHNOLOGY_DECISIONS.md`
+- `docs/architecture/ARCHITECTURE_DECISION_MATRIX.md`
 - `docs/architecture/DECISIONS/`
 - `docs/architecture/BIM_ARCHITECTURE_PLAN.md`
 - `docs/product/PRODUCT_PLAN.md`
@@ -149,7 +157,7 @@ This increment may move to **Review** only when the decision matrix, evidence, a
 
 #### Next execution record
 
-The discovery and design work for this increment must be recorded as a new worklog entry with its own increment name, affected paths, evidence, validation, limitations, reviewer status, and commit or pull-request reference.
+The discovery and design work for this increment is recorded in `WL-0012`. The next worklog entry must record fixture construction, evaluation results, stakeholder decisions, and updates to the relevant ADRs.
 
 ### Current provisional decisions
 
@@ -172,8 +180,9 @@ The discovery and design work for this increment must be recorded as a new workl
 | `docs/architecture/DECISIONS/ADR-0001-initial-application-architecture.md` | Created |
 | `docs/architecture/DECISIONS/ADR-0002-data-and-storage-strategy.md` | Created |
 | `docs/architecture/DECISIONS/ADR-0003-authentication-and-access.md` | Created |
-| `docs/architecture/DECISIONS/ADR-0004-background-jobs-and-realtime.md` | Created |
+| `docs/architecture/DECISIONS/ADR-0004-background-jOBS-and-realtime.md` | Created |
 | `docs/architecture/DECISIONS/ADR-0005-testing-and-observability.md` | Created |
+| `docs/architecture/ARCHITECTURE_DECISION_MATRIX.md` | Created as the provisional recommendation and acceptance matrix |
 
 ### Acceptance review still required
 
@@ -189,6 +198,9 @@ PL-0003 remains Active / Partial execution because the following remain open:
 ### Related execution records
 
 - `WL-0008` — provisional architecture baseline and ADRs.
+- `WL-0012` — architecture decision matrix and bounded design increment.
+- [`a502f6d`](https://github.com/tyrax871/Toolboxed-Ai/commit/a502f6d051b711ce937b9d000a0ccf5e79a1ad11) — architecture decision matrix.
+- [`5ab8c6e`](https://github.com/tyrax871/Toolboxed-Ai/commit/5ab8c6ef0add4e88b554da43edaea158f411fdc4) — worklog entry.
 - Technology decision commits: [`413a7ba`](https://github.com/tyrax871/Toolboxed-Ai/commit/413a7ba749aec3a376eeb4027991536595bac10d), [`f3016dd`](https://github.com/tyrax871/Toolboxed-Ai/commit/f3016dde24e48d14f2211b3e80466f1d36ae399a), [`63b734f`](https://github.com/tyrax871/Toolboxed-Ai/commit/63b734f95c61d9d2b5997459c67fb059fa57b7b7), [`4101224`](https://github.com/tyrax871/Toolboxed-Ai/commit/4101224f0f144688bfaeafc0dc4042005970de23), [`6f20c7d`](https://github.com/tyrax871/Toolboxed-Ai/commit/6f20c7dcc7d17d764e7995508909638aa17029d1), [`5ecbf86`](https://github.com/tyrax871/Toolboxed-Ai/commit/5ecbf863c5830a984eb880bb7b40110c6324f535).
 
 </span>
