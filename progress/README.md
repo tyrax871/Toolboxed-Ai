@@ -1,69 +1,115 @@
-# Progress Logs
+# Progress Logs and Repository Guide
 
-This folder contains the Toolboxed planning log and execution worklog.
+This folder contains the planning and execution records for Toolboxed, a collaborative, architecture-first BIM platform whose central building model is the source of truth.
 
-## Files in this folder
+## Where to look first
 
-| File | Purpose |
+| Path | Purpose |
 |---|---|
-| `PLAN_LOG.md` | Records what the project wants to do: priorities, milestones, dependencies, decisions, required people, data needs, deliverables, risks, and acceptance criteria. |
-| `CODING_WORKLOG.md` | Records what the project has done: completed changes, files affected, implementation details, validation, limitations, blockers, status, next steps, and commits or pull requests. |
-| `README.md` | Defines the governance rules for both logs. |
+| `README.md` | Repository purpose and top-level folders |
+| `progress/PLAN_LOG.md` | Intended work: what the project wants to do |
+| `progress/CODING_WORKLOG.md` | Actual work: what changed in the repository |
+| `docs/product/` | Product goals and workflows |
+| `docs/architecture/` | BIM architecture, technology decisions, and ADRs |
+| `design/` | Wireframes and design-system resources |
+| `app/` | Application entry points |
+| `packages/` | Shared packages |
+| `services/` | Backend and background services |
+| `infrastructure/` | Database and deployment configuration |
+| `tests/` | Automated tests |
 
-## Mandatory plan-first execution gate
+## Plan log: what we want to do
 
-<!-- GATE RULE: No repository change may begin until the intended work is recorded or updated in PLAN_LOG.md. -->
-<!-- GATE RULE: The plan item must define scope, objective, dependencies, outputs, risks, and acceptance criteria before execution. -->
-<!-- GATE RULE: User approval is required where the change is consequential, state-changing, or otherwise requires confirmation. -->
-<!-- GATE RULE: Execution must stay within the approved plan scope; scope changes require a plan update before continuing. -->
-<!-- GATE RULE: Every execution entry must identify the authorising PL- identifier. -->
-<!-- GATE RULE: Every completed plan item must link to its WL- entry and resulting commit or pull request. -->
-<!-- GATE RULE: Failed, partial, blocked, cancelled, and reverted work must be recorded honestly and cannot be marked Completed. -->
-<!-- GATE RULE: Emergency work may use an exception path only when the worklog records the reason and the plan is updated retrospectively as soon as practical. -->
+`progress/PLAN_LOG.md` records intended work before execution. Each plan item defines its objective, reason, dependencies, people, data or evidence needed, outputs, risks, open questions, and acceptance criteria.
 
-## Plan log rules
+A plan item provides scope and authorisation; it is not proof that work happened. Plan items use sequential IDs such as `PL-0001`, `PL-0002`, and `PL-0003`.
 
-<!-- PLAN RULE: Update PLAN_LOG.md when intended work, priorities, dependencies, decisions, or scope changes. -->
-<!-- PLAN RULE: Give every plan item a unique sequential ID in the format PL-0001, PL-0002, PL-0003, and so on. -->
-<!-- PLAN RULE: Keep the current plan and active items near the top. -->
-<!-- PLAN RULE: Use the statuses Proposed, Active, Blocked, Deferred, and Completed. -->
-<!-- PLAN RULE: Record objective, reason, priority, dependencies, required people, data needs, deliverables, acceptance criteria, risks, and open questions. -->
-<!-- PLAN RULE: Distinguish confirmed decisions from assumptions and unresolved questions. -->
-<!-- PLAN RULE: Link completed plan items to the relevant CODING_WORKLOG.md entry and commit or pull request. -->
-<!-- PLAN RULE: Update plan status and scope without rewriting execution history in CODING_WORKLOG.md. -->
+Statuses:
 
-## Execution worklog rules
+- **Proposed** — identified but not started.
+- **Active** — currently planned or being prepared.
+- **Active / Partial execution** — approved work produced partial outputs, but acceptance is incomplete.
+- **Blocked** — waiting for a dependency, decision, resource, or source.
+- **Deferred** — intentionally postponed.
+- **Completed** — acceptance criteria are met and execution evidence is linked.
 
-<!-- WORKLOG RULE: Add an entry to CODING_WORKLOG.md whenever code, configuration, tests, documentation, planning, or repository structure changes. -->
-<!-- WORKLOG RULE: Give every entry a unique sequential ID in the format WL-0001, WL-0002, WL-0003, and so on. -->
-<!-- WORKLOG RULE: Include the change date in ISO format: YYYY-MM-DD. -->
-<!-- WORKLOG RULE: Put the newest entry first and mark it green. -->
-<!-- WORKLOG RULE: Do not delete or rewrite previous entries. Mark older entries grey so the project history remains visible. -->
-<!-- WORKLOG RULE: Record what actually changed, not only what was intended. -->
-<!-- WORKLOG RULE: Include the authorising Plan item: PL- identifier. -->
-<!-- WORKLOG RULE: Record objective, context, detailed work completed, decisions, files and folders affected, implementation details, validation, limitations, blockers, status, next steps, and commit or pull request. -->
-<!-- WORKLOG RULE: Use repository-relative paths and identify created, updated, deleted, or unchanged files where relevant. -->
-<!-- WORKLOG RULE: Record failed checks, partial results, assumptions, and unperformed validation honestly. -->
-<!-- WORKLOG RULE: Do not claim a test, review, validation, deployment, or approval that was not actually performed. -->
+## Worklog: what we have done
 
-## How the logs work together
+`progress/CODING_WORKLOG.md` records actual repository changes, including documentation, code, configuration, tests, planning updates, and repository-structure changes.
+
+Each entry records what actually happened: objective, context, decisions, affected paths, implementation details, validation, limitations, blockers, status, next steps, and commit or pull-request evidence. Entries use sequential IDs such as `WL-0001`, `WL-0007`, and `WL-0008`. The newest entry is first; previous entries remain to preserve history.
+
+## Mandatory plan-first workflow
 
 1. Identify the requested repository work.
-2. Add or update the intended work in `PLAN_LOG.md`.
-3. Review scope, dependencies, people, data, outputs, risks, and acceptance criteria.
-4. Obtain required approval before executing consequential work.
-5. Execute only the approved plan item.
-6. Record actual repository or product changes in `CODING_WORKLOG.md`.
-7. Add the `PL-` identifier to the worklog entry and add the `WL-` identifier to the plan item.
-8. Link the resulting commit or pull request in both records.
-9. Update the plan status only when the acceptance criteria and evidence justify the transition.
-10. Keep plan changes and execution history separate: the plan may change as priorities evolve, while the worklog remains an immutable chronological record.
+2. Add or update its scope in `PLAN_LOG.md`.
+3. Record dependencies, people, data, outputs, risks, and acceptance criteria.
+4. Obtain required approval for consequential work.
+5. Execute only the approved scope.
+6. Record actual changes in `CODING_WORKLOG.md`.
+7. Add the authorising `PL-` ID to the worklog entry.
+8. Link the `WL-` ID and commit or pull request to the plan item.
+9. Change plan status only when acceptance criteria and evidence justify it.
 
-## Required plan-item format
+If work expands beyond the approved scope, update the plan before continuing. Failed, partial, blocked, cancelled, and reverted work must be recorded honestly and cannot be marked Completed.
+
+## How records connect
+
+```text
+PL-0003 — approved intended scope
+    ↓
+WL-0008 — actual repository work
+    ↓
+Commit(s) — exact GitHub evidence
+```
+
+- The plan log answers: **What did we intend to do, and why?**
+- The worklog answers: **What did we actually change?**
+- The commit or pull request answers: **Where is the exact evidence?**
+- The status answers: **Is the work fully accepted?**
+
+A plan item cannot be marked Completed merely because files were created.
+
+## Authorising plan items
+
+Every worklog entry must identify the exact plan item that authorised it:
+
+```text
+**Plan item:** `PL-0003 — Define technology and architecture decisions`
+```
+
+Use the exact ID and one primary authorising plan item. Do not invent IDs or use informal names. If work crosses scope boundaries, update the plan or create a new plan item first. Account and access implementation should use its own Group 1 plan item rather than only `PL-0003`.
+
+## Current PL-0003 state
+
+`PL-0003 — Define technology and architecture decisions` is **Active / Partial execution**. The provisional architecture baseline and ADRs exist and are recorded in `WL-0008`, but frontend/backend framework choices, spatial and BIM strategy, providers, scale and performance targets, and stakeholder review remain unresolved.
+
+The documents may guide review and further planning, but they are not final production architecture. Do not mark PL-0003 Completed until the open choices are resolved and acceptance evidence is recorded.
+
+## How to review a change
+
+1. Read the relevant plan item.
+2. Read its authorising worklog entry.
+3. Open the linked commit or pull request.
+4. Inspect changed files and validation evidence.
+5. Check current status, risks, and remaining work.
+
+## History rules
+
+- Do not present intended work as completed work.
+- Do not claim tests, reviews, deployments, or approvals that did not happen.
+- Do not delete older worklog entries.
+- Do not mark partial work Completed.
+- Preserve the original authorising plan item.
+- Record failed checks and unperformed validation.
+- Link plan items, worklog entries, commits, and pull requests whenever available.
+
+## Templates
+
+### Plan item
 
 ```text
 PL-0001 — Plan item title
-
 Status:
 Priority:
 Owner:
@@ -78,12 +124,11 @@ Risks and open questions:
 Related execution records:
 ```
 
-## Required worklog-entry format
+### Worklog entry
 
 ```text
 WL-0001 — YYYY-MM-DD
-
-Plan item: PL-0001
+Plan item: PL-0001 — Plan item title
 Change type:
 Objective:
 Context:
@@ -100,9 +145,7 @@ Commit or pull request:
 
 ## Colour convention
 
-- **Green** — newest, current execution entry in `CODING_WORKLOG.md`.
-- **Grey** — previous execution entries retained for history.
+- **Green** — newest current worklog entry.
+- **Grey** — previous retained entries.
 - **Yellow** — blocked or awaiting a decision.
-- **Red** — failed validation or a known issue requiring attention.
-
-Colour formatting is implemented in `CODING_WORKLOG.md` with HTML spans where supported by the Markdown renderer. Plan status is represented by explicit status text in `PLAN_LOG.md`.
+- **Red** — failed validation or known issue.
