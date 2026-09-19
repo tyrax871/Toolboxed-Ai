@@ -1,0 +1,129 @@
+{
+  "dataset": {
+    "id": "architecture-evaluation-design-alternatives",
+    "version": "1.0.0",
+    "status": "evaluation-only",
+    "referenceContext": {
+      "publicReference": "https://architechtures.com/en",
+      "referenceType": "public product workflow reference",
+      "accessed": "2026-09-19",
+      "note": "This dataset models a general AI-assisted design workflow from public product positioning. It does not reproduce private schemas, algorithms, or proprietary data."
+    },
+    "provenance": {
+      "sourceType": "synthetic companion dataset",
+      "generator": "Toolboxed planning fixture generator",
+      "generatorVersion": "1.0.0",
+      "license": "Internal evaluation fixture",
+      "jurisdiction": "neutral-assumption-pending-product-owner-confirmation",
+      "standardsProfile": "project-defined-neutral-profile",
+      "checksum": "to-be-computed-after-final-content-review"
+    }
+  },
+  "baseFixture": {
+    "id": "architecture-evaluation-fixture",
+    "version": "1.0.0",
+    "path": "docs/architecture/architecture-evaluation-fixture-v1.json",
+    "relationship": "design alternatives reference the base BIM fixture but do not replace it"
+  },
+  "designProblem": {
+    "id": "design-problem-eval-001",
+    "siteId": "site-eval-001",
+    "brief": {
+      "buildingType": "low-rise residential",
+      "use": "multi-unit residential evaluation",
+      "targetLevels": 2,
+      "targetUnits": 6,
+      "targetGrossFloorAreaSquareMetres": { "min": 500, "target": 600, "max": 720 },
+      "targetNetResidentialAreaSquareMetres": { "min": 390, "target": 480, "max": 560 },
+      "requiredPrograms": ["living", "kitchen", "bedroom", "bathroom", "circulation", "shared-entry"],
+      "accessibilityAssumption": "to-be-confirmed-by-product-owner-and-jurisdiction"
+    },
+    "constraints": [
+      { "id": "constraint-site-boundary", "type": "site-boundary", "severity": "hard", "status": "known", "rule": "footprint must remain within site boundary" },
+      { "id": "constraint-front-setback", "type": "setback", "severity": "hard", "status": "assumption", "rule": "minimum front setback is 3000 millimetres" },
+      { "id": "constraint-max-levels", "type": "height", "severity": "hard", "status": "assumption", "rule": "maximum two occupied levels for this fixture" },
+      { "id": "constraint-target-area", "type": "floor-area", "severity": "soft", "status": "known", "rule": "prefer target gross floor area of 600 square metres" },
+      { "id": "constraint-daylight", "type": "daylight", "severity": "soft", "status": "unknown", "rule": "provide an orientation and opening record for later daylight evaluation" },
+      { "id": "constraint-parking", "type": "parking", "severity": "soft", "status": "unknown", "rule": "parking requirement is not specified in the neutral profile" }
+    ],
+    "objectives": [
+      { "id": "objective-area", "name": "usable residential area", "direction": "maximise", "weight": 0.35 },
+      { "id": "objective-efficiency", "name": "net-to-gross efficiency", "direction": "maximise", "weight": 0.25 },
+      { "id": "objective-unit-count", "name": "target unit count", "direction": "match", "weight": 0.2 },
+      { "id": "objective-compliance", "name": "known constraint satisfaction", "direction": "maximise", "weight": 0.2 }
+    ],
+    "generationParameters": {
+      "strategy": "synthetic-alternative-generation",
+      "seed": 4101,
+      "alternativeCountRequested": 2,
+      "searchVariables": ["footprint-width", "footprint-depth", "core-position", "unit-mix", "orientation"],
+      "algorithm": "not-specified-for-architecture-evaluation"
+    }
+  },
+  "alternatives": [
+    {
+      "id": "alternative-a",
+      "name": "Courtyard-efficient scheme",
+      "status": "candidate",
+      "baseFixtureRelationship": { "mode": "mapped-summary", "linkedLevelIds": ["level-00", "level-01"], "linkedElementIds": ["floor-ground", "floor-first", "roof-main"] },
+      "geometrySummary": { "footprintSquareMetres": 285, "grossFloorAreaSquareMetres": 570, "netResidentialAreaSquareMetres": 456, "levels": 2, "orientationDegrees": 0 },
+      "programSummary": { "units": 6, "bedrooms": 6, "sharedEntry": true, "circulationSquareMetres": 72 },
+      "metrics": { "netToGrossEfficiency": 0.8, "targetAreaDeviationSquareMetres": -30, "constraintScore": 0.92, "objectiveScore": 0.86 },
+      "constraintResults": [
+        { "constraintId": "constraint-site-boundary", "result": "pass", "evidence": "footprint polygon is inside site boundary" },
+        { "constraintId": "constraint-front-setback", "result": "pass", "evidence": "front edge is 3000 millimetres from boundary" },
+        { "constraintId": "constraint-max-levels", "result": "pass", "evidence": "two occupied levels" },
+        { "constraintId": "constraint-target-area", "result": "pass", "evidence": "gross area is within permitted range" },
+        { "constraintId": "constraint-daylight", "result": "unknown", "evidence": "no daylight simulation executed" },
+        { "constraintId": "constraint-parking", "result": "unknown", "evidence": "neutral profile does not define parking" }
+      ],
+      "selection": { "status": "preferred-candidate", "reason": "higher efficiency and balanced objective score" }
+    },
+    {
+      "id": "alternative-b",
+      "name": "Larger-area scheme",
+      "status": "candidate",
+      "baseFixtureRelationship": { "mode": "mapped-summary", "linkedLevelIds": ["level-00", "level-01"], "linkedElementIds": ["floor-ground", "floor-first", "roof-main"] },
+      "geometrySummary": { "footprintSquareMetres": 330, "grossFloorAreaSquareMetres": 660, "netResidentialAreaSquareMetres": 475, "levels": 2, "orientationDegrees": 90 },
+      "programSummary": { "units": 6, "bedrooms": 7, "sharedEntry": true, "circulationSquareMetres": 96 },
+      "metrics": { "netToGrossEfficiency": 0.72, "targetAreaDeviationSquareMetres": 60, "constraintScore": 0.83, "objectiveScore": 0.79 },
+      "constraintResults": [
+        { "constraintId": "constraint-site-boundary", "result": "pass", "evidence": "footprint polygon is inside site boundary" },
+        { "constraintId": "constraint-front-setback", "result": "pass", "evidence": "front edge is 3000 millimetres from boundary" },
+        { "constraintId": "constraint-max-levels", "result": "pass", "evidence": "two occupied levels" },
+        { "constraintId": "constraint-target-area", "result": "pass", "evidence": "gross area is within permitted range" },
+        { "constraintId": "constraint-daylight", "result": "unknown", "evidence": "no daylight simulation executed" },
+        { "constraintId": "constraint-parking", "result": "unknown", "evidence": "neutral profile does not define parking" }
+      ],
+      "selection": { "status": "not-selected", "reason": "lower efficiency and lower composite objective score" }
+    }
+  ],
+  "comparison": {
+    "id": "comparison-eval-001",
+    "alternativeIds": ["alternative-a", "alternative-b"],
+    "criteria": ["objectiveScore", "netToGrossEfficiency", "constraintScore", "targetAreaDeviationSquareMetres"],
+    "result": { "preferredAlternativeId": "alternative-a", "decisionStatus": "synthetic-evaluation-preference", "professionalApproval": "not-evaluated" }
+  },
+  "selectedDesign": {
+    "alternativeId": "alternative-a",
+    "status": "candidate-selection-only",
+    "decision": "Use Alternative A as the preferred synthetic candidate for later BIM mapping and measured evaluation.",
+    "notApproval": "This is not regulatory, planning, financial, or professional design approval."
+  },
+  "evaluationManifest": {
+    "requiredChecks": [
+      "design-problem-to-alternative-traceability",
+      "alternative-comparison",
+      "constraint-result-statuses",
+      "objective-weighting",
+      "base-bim-fixture-link",
+      "provenance-and-integrity"
+    ],
+    "knownLimitations": [
+      "The alternatives are synthetic and are not generated by the referenced application.",
+      "The public reference does not reveal private schemas, algorithms, or internal data.",
+      "Jurisdiction, standards, daylight, parking, accessibility, and professional review remain unresolved.",
+      "The checksum must be computed after final content review."
+    ]
+  }
+}
