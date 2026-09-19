@@ -11,6 +11,63 @@
 
 <span style="color:green">
 
+## WL-0014 — 2026-09-19
+
+**Plan item:** `PL-0005 — Add incremental execution sequences for large tasks`  
+**Change type:** Progress-folder governance and development lifecycle documentation  
+**Increment:** Define planned, documented, executed, reviewed, and accepted application-development states  
+**Objective:** Make the progress folder explain what Toolboxed intends to build, how it will get there, what has actually happened, what evidence exists, and why documented or partial work must not be mistaken for accepted application development.
+
+### Context
+
+The progress folder already separated intended work in `PLAN_LOG.md` from actual repository changes in `CODING_WORKLOG.md`, and PL-0003 demonstrated a further distinction: a fixture brief can be complete while the dataset, measurements, stakeholder review, and architecture acceptance remain pending. The progress guidance needed to make these lifecycle states explicit for readers and AI.
+
+### Detailed work completed
+
+- Created `progress/DEVELOPMENT_LIFECYCLE.md`.
+- Added the lifecycle `Planned → Documented → Executed → Reviewed → Accepted`.
+- Defined the meaning and required evidence for each lifecycle state.
+- Explained the difference between a fixture brief, an executable dataset, measurements, review decisions, and acceptance.
+- Added rules preventing plans, design documents, recommendations, and documentation-only commits from being treated as implementation or validation evidence.
+- Updated `progress/README.md` with the lifecycle, evidence progression, PL-0003 example, and links to the lifecycle guide.
+- Updated `progress/PLAN_LOG.md` rules and PL-0003 state to distinguish documented fixture work from pending dataset creation, measured evaluation, review, and architecture acceptance.
+
+### Decisions and rationale
+
+The progress folder is the authoritative development narrative, but it must preserve the distinction between intent, description, execution, review, and acceptance. Each state has different evidence requirements. Parent plans remain active until their own acceptance criteria are met, even when individual increments are completed.
+
+### Files and folders affected
+
+| Path | Change |
+|---|---|
+| `progress/DEVELOPMENT_LIFECYCLE.md` | Created |
+| `progress/README.md` | Updated with lifecycle guidance and evidence rules |
+| `progress/PLAN_LOG.md` | Updated lifecycle rules and PL-0003 state |
+| `progress/CODING_WORKLOG.md` | Updated with this execution record |
+| Application, package, service, infrastructure, and test files | Unchanged |
+
+### Validation performed
+
+- Read the existing progress README, plan log, and worklog before editing.
+- Confirmed the lifecycle preserves the plan-first workflow and historical records.
+- Confirmed PL-0003 is described as documented and partially executed, not reviewed or accepted.
+- Confirmed the guidance distinguishes documentation evidence from dataset, measurement, review, and acceptance evidence.
+- No application code, migrations, automated tests, benchmarks, deployment checks, or stakeholder approvals were performed.
+
+### Limitations or blockers
+
+- The lifecycle is documented guidance and is not yet enforced automatically by CI or repository tooling.
+- Existing historical worklog entries remain unchanged in substance and may not use all new lifecycle vocabulary.
+- PL-0003 still requires fixture review, dataset creation, measured evaluations, evidence-backed ADR updates, and architecture acceptance.
+
+**Status:** Completed — progress-folder lifecycle guidance updated; enforcement and application validation remain outside this increment  
+**Next steps:** Apply the lifecycle to the next PL-0003 dataset and measured-evaluation increment.  
+**Commit:** Pending individual file commit links
+
+</span>
+
+<span style="color:grey">
+
 ## WL-0013 — 2026-09-19
 
 **Plan item:** `PL-0003 — Define technology and architecture decisions`  
