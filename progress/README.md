@@ -2,13 +2,16 @@
 
 This folder contains the planning and execution records for Toolboxed, a collaborative, architecture-first BIM platform whose central building model is the source of truth.
 
+The `progress/` folder explains what we want to build, how we will get there, what has actually happened, what evidence exists, and what remains to be reviewed or accepted. It is the authoritative development narrative for readers and AI.
+
 ## Where to look first
 
 | Path | Purpose |
 |---|---|
-| `README.md` | Repository purpose and top-level folders |
-| `progress/PLAN_LOG.md` | Intended work: what the project wants to do |
+| `README.md` | Repository purpose, lifecycle, and progress-folder rules |
+| `progress/PLAN_LOG.md` | Intended work: what the project wants to do and how it will be built |
 | `progress/CODING_WORKLOG.md` | Actual work: what changed in the repository |
+| `progress/DEVELOPMENT_LIFECYCLE.md` | Planned, documented, executed, reviewed, and accepted states |
 | `docs/product/` | Product goals and workflows |
 | `docs/architecture/` | BIM architecture, technology decisions, and ADRs |
 | `design/` | Wireframes and design-system resources |
@@ -17,6 +20,41 @@ This folder contains the planning and execution records for Toolboxed, a collabo
 | `services/` | Backend and background services |
 | `infrastructure/` | Database and deployment configuration |
 | `tests/` | Automated tests |
+
+## Application development lifecycle
+
+Application work progresses through distinct evidence states:
+
+```text
+Planned → Documented → Executed → Reviewed → Accepted
+              ↑            ↓          ↓
+              └──── corrected, blocked, deferred, or continued
+```
+
+| State | Meaning | Primary evidence |
+|---|---|---|
+| **Planned** | The intended scope, outcome, dependencies, risks, and acceptance criteria are recorded | `PLAN_LOG.md` |
+| **Documented** | The design, contracts, assumptions, fixture, or evaluation method is written down | ADRs, design documents, contracts, fixture briefs, checklists |
+| **Executed** | The approved bounded increment was actually performed | `CODING_WORKLOG.md`, changed files, commits, tests, measurements |
+| **Reviewed** | Required reviewers inspected the relevant evidence and recorded decisions or amendments | Named review record, date, inspected evidence, decisions, owners |
+| **Accepted** | The scope-specific acceptance criteria are met and evidence is linked | Plan status, worklog, validation evidence, and review approval |
+
+These states must not be conflated. A detailed plan is not implementation. A design document is not a working application. A commit that creates documentation is not proof that the documented design works. A review is not acceptance unless the stated acceptance criteria are satisfied.
+
+### Evidence progression
+
+A fixture brief documents what to evaluate. A dataset makes the workload executable. Measurements provide technical evidence. Review records decisions. Acceptance authorises the next scope.
+
+For example, architecture work may be:
+
+1. **Planned** in PL-0003.
+2. **Documented** in an architecture matrix and fixture brief.
+3. **Executed** as the creation of those documents, recorded in the worklog.
+4. **Pending execution** for dataset creation and measured evaluations.
+5. **Pending review** until required stakeholders inspect the evidence.
+6. **Not accepted** until the architecture acceptance criteria are met.
+
+This is valid partial progress. Completing one increment does not complete its parent plan.
 
 ## Plan log: what we want to do
 
@@ -146,7 +184,7 @@ Use the exact ID and one primary authorising plan item. If work crosses scope bo
 
 ## Current PL-0003 state
 
-`PL-0003 — Define technology and architecture decisions` is **Active / Partial execution**. The provisional architecture baseline and ADRs exist and are recorded in `WL-0008`, but framework choices, spatial and BIM strategy, providers, scale and performance targets, and stakeholder review remain unresolved.
+`PL-0003 — Define technology and architecture decisions` is **Active / Partial execution**. The provisional architecture baseline, decision matrix, and fixture definition exist. The dataset, measured evaluations, stakeholder review, evidence-backed ADR updates, and final architecture acceptance remain pending.
 
 The documents may guide review and further planning, but they are not final production architecture. Do not mark PL-0003 Completed until the open choices are resolved and acceptance evidence is recorded.
 
@@ -214,3 +252,5 @@ Commit or pull request:
 - **Grey** — previous retained entries.
 - **Yellow** — blocked or awaiting a decision.
 - **Red** — failed validation or known issue.
+
+For the full lifecycle rules and evidence examples, see `progress/DEVELOPMENT_LIFECYCLE.md`.
