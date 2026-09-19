@@ -12,7 +12,7 @@
 | ID | Plan item | Status | Priority | Next outcome |
 |---|---|---|---|---|
 | PL-0005 | Add incremental execution sequences for large tasks | Active | High | Define and apply a repeatable sequence for breaking large plan items into accepted increments |
-| PL-0003 | Define technology and architecture decisions | Active / Partial execution | Critical | Review provisional architecture baseline and resolve open technology choices |
+| PL-0003 | Define technology and architecture decisions | Active / Partial execution | Critical | Frame and design the remaining architecture decisions before implementation commitments |
 | PL-0001 | Establish the implementation and data-foundation roadmap | Active | Critical | Approve architecture decisions, domain boundaries, data contracts, and Group 1 scope before implementation |
 
 ## Status definitions
@@ -102,6 +102,54 @@ Define and document the initial technical architecture for Toolboxed before crea
 - Selected managed OIDC/OAuth2-capable identity as the provisional authentication direction while keeping domain authorisation in Toolboxed.
 - Selected polling or server-sent events for the first vertical slice, with WebSockets deferred pending measured collaboration requirements.
 - Defined layered validation and observability as first-class requirements.
+
+### Current increment — Frame and design the remaining architecture decisions
+
+**Status:** Active  
+**Owner:** Product and engineering planning group  
+**Purpose:** Resolve or explicitly bound the remaining provisional architecture choices before production implementation commitments are made.
+
+#### Scope
+
+- Compare frontend framework and rendering-library options against the product, accessibility, BIM-viewer, team, and deployment needs.
+- Compare backend language and framework options against typed contracts, domain boundaries, background jobs, validation, observability, and hiring or delivery constraints.
+- Define the evaluation path for the spatial extension, geometry kernel, BIM exchange format, and model granularity.
+- Compare identity, hosting, queue, and object-storage provider options while preserving adapter boundaries and avoiding premature vendor lock-in.
+- Establish the initial building typology, regulatory jurisdiction, expected project and model scale, and measurable performance budgets.
+- Define the stakeholder review group, decision owners, evidence required, and acceptance checklist.
+
+#### Dependencies and evidence
+
+- `docs/architecture/TECHNOLOGY_DECISIONS.md`
+- `docs/architecture/DECISIONS/`
+- `docs/architecture/BIM_ARCHITECTURE_PLAN.md`
+- `docs/product/PRODUCT_PLAN.md`
+- `docs/product/REFERENCE_DOCUMENT_REQUIREMENTS.md`
+- Confirmed product-owner, technical-lead, BIM/domain-architect, security, and QA input where decisions affect their responsibilities.
+
+#### Expected outputs
+
+- Architecture decision matrix with explicit criteria, alternatives, trade-offs, and provisional or confirmed outcomes.
+- Updated technology baseline and ADRs where a decision is sufficiently supported by evidence.
+- Defined domain, contract, integration, performance, and operational acceptance checks for the first implementation slice.
+- Recorded assumptions and unresolved questions that require stakeholder decisions rather than silent defaults.
+- Review checklist identifying required reviewers, evidence, approval state, and follow-up actions.
+
+#### Risks and open questions
+
+- Prematurely selecting a framework, geometry kernel, or provider could create avoidable coupling.
+- BIM and geometry requirements may exceed the assumptions of a conventional CRUD application.
+- Building typology, jurisdiction, scale, and performance targets are not yet confirmed.
+- Provider and identity choices may depend on deployment, compliance, budget, and operational ownership constraints.
+- Architecture review may reveal additional scope; any new implementation scope must be planned before execution.
+
+#### Exit condition and acceptance criteria
+
+This increment may move to **Review** only when the decision matrix, evidence, assumptions, acceptance checks, and open questions are documented. It may move to **Accept or continue** when the required stakeholders have reviewed the decisions, unresolved items have named owners and unblock conditions, and the resulting architecture baseline is sufficient to authorise the next bounded implementation increment. PL-0003 must remain **Active / Partial execution** until its complete acceptance review is recorded.
+
+#### Next execution record
+
+The discovery and design work for this increment must be recorded as a new worklog entry with its own increment name, affected paths, evidence, validation, limitations, reviewer status, and commit or pull-request reference.
 
 ### Current provisional decisions
 
